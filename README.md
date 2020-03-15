@@ -1,3 +1,4 @@
 # chores-app
-nadjsfjadsfjasdlkjfklasdf
+
+## This is my updated readme
 jfaldsjfklasdjfajsklfjasl
