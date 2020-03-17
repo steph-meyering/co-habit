@@ -4,6 +4,7 @@ const app = express();
 const db = require('./config/keys').mongoURI;
 const passport = require('passport');
 const users = require("./routes/api/users");
+const bills = require("./routes/api/bills");
 const bodyParser = require('body-parser')
 
 mongoose
@@ -23,3 +24,4 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 app.use("/api/users", users);
+app.use("/api/bills", bills);
