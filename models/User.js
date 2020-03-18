@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    handle: {
+    name: {
         type: String,
         required: true
     },
@@ -13,6 +13,10 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    household: {
+        type: Schema.Types.ObjectId,
+        ref: 'Household'
     },
     date: {
         type: Date,

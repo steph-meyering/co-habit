@@ -5,10 +5,13 @@ class SignupForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            name: '',
             email: '',
-            handle: '',
             password: '',
             password2: '',
+            createHousehold: false,
+            housename: '',
+
             errors: {}
         };
 
@@ -34,12 +37,13 @@ class SignupForm extends React.Component {
         e.preventDefault();
         let user = {
             email: this.state.email,
-            handle: this.state.handle,
+            name: this.state.name,
             password: this.state.password,
-            password2: this.state.password2
+            password2: this.state.password2,
+            housename: this.state.housename
         };
-
-        this.props.signup(user, this.props.history);
+        this.props.signup(user);
+        // this.props.signup(user, this.props.history);
     }
 
     renderErrors() {
@@ -67,9 +71,9 @@ class SignupForm extends React.Component {
                         />
                         <br />
                         <input type="text"
-                            value={this.state.handle}
-                            onChange={this.update('handle')}
-                            placeholder="Handle"
+                            value={this.state.name}
+                            onChange={this.update('name')}
+                            placeholder="Name"
                         />
                         <br />
                         <input type="password"
@@ -84,6 +88,13 @@ class SignupForm extends React.Component {
                             placeholder="Confirm Password"
                         />
                         <br />
+                        <input type="text"
+                            value={this.state.housename}
+                            onChange={this.update('housename')}
+                            placeholder="Household Name"
+                        />
+                        <br />
+
                         <input type="submit" value="Submit" />
                         {this.renderErrors()}
                     </div>

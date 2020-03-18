@@ -2,53 +2,99 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
+const Household = require('../../models/Household');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const passport = require('passport');
 
 const validateRegisterInput = require('../../validation/register');
+const validateHouseholdInput = require('../../validation/household');
 const validateLoginInput = require('../../validation/login');
 
-router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
+// router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
 
-router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-    res.json({
-        id: req.user.id,
-        handle: req.user.handle,
-        email: req.user.email
-    });
-})
+// router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+//     res.json({
+//         id: req.user.id,
+//         handle: req.user.handle,
+//         email: req.user.email
+//     });
+// })
 
 router.post('/register', (req, res) => {
     const { errors, isValid } = validateRegisterInput(req.body);
-
+    const { herrors, hisValid } = validateHouseholdInput(req.body);
+    console.log(isValid);
+    console.log(hisValid);
     if (!isValid) {
         return res.status(400).json(errors);
     }
 
+    if (!hisValid) {
+        return res.status(400).json(herrors);
+    }
+    
     // Check to make sure nobody has already registered with a duplicate email
     User.findOne({ email: req.body.email })
         .then(user => {
+            
             if (user) {
                 // Throw a 400 error if the email address already exists
                 return res.status(400).json({ email: "A user has already registered with this address" })
             } else {
-                // Otherwise create a new user
-                const newUser = new User({
-                    handle: req.body.handle,
-                    email: req.body.email,
-                    password: req.body.password
-                })
-
-                bcrypt.genSalt(10, (err, salt) => {
-                    bcrypt.hash(newUser.password, salt, (err, hash) => {
-                        if (err) throw err;
-                        newUser.password = hash;
-                        newUser.save()
-                            .then(user => res.json(user))
-                            .catch(err => console.log(err));
+                let newUser;
+                let newHousehold;
+                Household.findOne({ name: req.body.housename })
+                    .then(household => {
+                        debugger
+                        if (household) {
+                            newUser = new User({
+                                name: req.body.name,
+                                email: req.body.email,
+                                password: req.body.password,
+                                household: household.id,
+                                //need approval by household owner to be accepted
+                                //conditionally render based on this variable
+                                acceptedIntoHousehold: false 
+                            })
+                            
+                        } else {
+                            // debugger
+                            newHousehold = new Household({
+                                name: req.body.housename,
+                                // owner: ObjectId("5e711b58535b2144985b4696")
+                            })
+                            // debugger
+                            newHousehold.save().then(household => {
+                                console.log("hi")
+                                debugger
+                                newUser = new User({
+                                    name: req.body.name,
+                                    email: req.body.email,
+                                    password: req.body.password,
+                                    household: household.id,
+                                    //the person who created the house is automatically accepted into the house
+                                    acceptedIntoHousehold: true
+                                })
+                                debugger
+                            })
+                            // debugger
+                        
+                        }
+                        bcrypt.genSalt(10, (err, salt) => {
+                            bcrypt.hash(newUser.password, salt, (err, hash) => {
+                                if (err) throw err;
+                                newUser.password = hash;
+                                newUser.save()
+                                    .then(user => {
+                                        return res.json(user)
+                                    })
+                                    .catch(err => console.log(err));
+                            })
+                        })
                     })
-                })
+
+                
             }
         })
 })
