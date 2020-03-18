@@ -6,6 +6,7 @@ const passport = require('passport');
 const users = require("./routes/api/users");
 const households = require("./routes/api/households");
 const chores = require("./routes/api/chores");
+const bills = require("./routes/api/bills");
 const bodyParser = require('body-parser')
 
 mongoose
@@ -28,3 +29,4 @@ app.use("/api/users", users);
 app.use("/api/households", households);
 
 app.use("/api/chores", chores);
+app.use("/api/bills", bills);
