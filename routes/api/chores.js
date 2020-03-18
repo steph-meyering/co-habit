@@ -1,30 +1,37 @@
 const express = require("express");
+const Chore = require("../../models/Chore");
 const router = express.Router();
 
-router.get("/chores", (req, res, next) => {
+router.get("/test", (req, res) =>
+  res.json({ msg: "This is the chores route" })
+);
 
-  Chore.find({}, "action")
-    .then(data => res.json(data))
-    .catch(next);
-});
+// need to nest chores collection inside households
 
-router.post("/chores", (req, res, next) => {
-  if (req.body.action) {
-    Chore.create(req.body)
+// router.get(
+//   "/chores",
+  // passport.authenticate("jwt", { session: false }),
+  // (req, res) => {
+  //   res.json({
+  //     id: req.user.id,
+  //     handle: req.user.handle,
+  //     email: req.user.email
+  //   });
+  // }
+// );
+
+router.post("/add", (req, res) => {
+  let newChore = new Chore(req.body)
+  Chore.save(req.body)
       .then(data => res.json(data))
-      .catch(next);
-  } else {
-    res.json({
-      error: "The input field is empty"
-    });
-  }
+      .catch(err => res.status(400).json("Error: " + err));
 });
 
-router.delete("/chores/:id", (req, res, next) => {
-  Chore.findOneAndDelete({ _id: req.params.id })
+router.delete("/chores/:choreId", (req, res, next) => {
+  let householdId = req.householdId;
+  Chore.findOneAndDelete({ _id: req.params.choreId })
     .then(data => res.json(data))
     .catch(next);
 });
-
 
 module.exports = router;

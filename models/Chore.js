@@ -6,7 +6,7 @@ const ChoreSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "households"
   },
-  user: {
+  assignedUser: {
     type: Schema.Types.ObjectId,
     ref: "users"
   },
