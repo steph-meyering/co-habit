@@ -7,13 +7,17 @@ const BillSchema = new Schema({
         required: true
     },
     amount: {
-        type: Integer,
+        type: Number,
         required: true
     },
-    payer: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: 'users'
     },
+    date: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 module.exports = Bill = mongoose.model("Bill", BillSchema);

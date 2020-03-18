@@ -13,7 +13,7 @@ module.exports = function validateBillInput(data) {
 
     if (Validator.isEmpty(data.amount)) {
         errors.amount = "Amount must be specified";
-    }
+    } 
 
     return {
         errors,
