@@ -17,8 +17,8 @@ class LoginForm extends React.Component {
 
     // Once the user has been authenticated, redirect
     componentWillReceiveProps(nextProps) {
-        if (nextProps.currentUser === true) {
-            this.props.history.push('/');
+        if (nextProps.currentUser) {
+            this.props.history.push(`/dashboard`);
         }
 
         // Set or clear errors
@@ -40,7 +40,6 @@ class LoginForm extends React.Component {
             email: this.state.email,
             password: this.state.password
         };
-
         this.props.login(user);
     }
 
