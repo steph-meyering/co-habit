@@ -2,10 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ChoreSchema = new Schema({
-  household: {
-    type: Schema.Types.ObjectId,
-    ref: "households"
-  },
+  // household: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "households",
+  //   required: true
+  // },
   assignedUser: {
     type: Schema.Types.ObjectId,
     ref: "users"
