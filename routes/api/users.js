@@ -55,7 +55,8 @@ router.post('/register', (req, res) => {
                                 household: household.id,
                                 //need approval by household owner to be accepted
                                 //conditionally render based on this variable
-                                acceptedIntoHousehold: false 
+                                acceptedIntoHousehold: false,
+                                adminPriveleges: false 
                             })
                             
                         } else {
@@ -66,7 +67,6 @@ router.post('/register', (req, res) => {
                             })
                             // debugger
                             newHousehold.save().then(household => {
-                                console.log("hi")
                                 debugger
                                 newUser = new User({
                                     name: req.body.name,
@@ -74,24 +74,40 @@ router.post('/register', (req, res) => {
                                     password: req.body.password,
                                     household: household.id,
                                     //the person who created the house is automatically accepted into the house
-                                    acceptedIntoHousehold: true
+                                    acceptedIntoHousehold: true,
+                                    adminPriveleges: true
                                 })
                                 debugger
+                                bcrypt.genSalt(10, (err, salt) => {
+                                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                                        if (err) throw err;
+                                        newUser.password = hash;
+                                        newUser.save()
+                                            .then(user => {
+                                                //sign in user
+                                                // const payload = { id: user.id, name: user.name };
+
+                                                // jwt.sign(
+                                                //     payload,
+                                                //     keys.secretOrKey,
+                                                //     // Tell the key to expire in one day
+                                                //     { expiresIn: 86400 },
+                                                //     (err, token) => {
+                                                //         res.json({
+                                                //             success: true,
+                                                //             token: 'Bearer ' + token
+                                                //         });
+                                                //     });
+                                                return res.json(user)
+                                            })
+                                            .catch(err => console.log(err));
+                                    })
+                                })
                             })
                             // debugger
                         
                         }
-                        bcrypt.genSalt(10, (err, salt) => {
-                            bcrypt.hash(newUser.password, salt, (err, hash) => {
-                                if (err) throw err;
-                                newUser.password = hash;
-                                newUser.save()
-                                    .then(user => {
-                                        return res.json(user)
-                                    })
-                                    .catch(err => console.log(err));
-                            })
-                        })
+                        
                     })
 
                 
@@ -121,13 +137,13 @@ router.post('/login', (req, res) => {
             bcrypt.compare(password, user.password)
                 .then(isMatch => {
                     if (isMatch) {
-                        const payload = { id: user.id, name: user.name };
+                        const payload = { id: user.id, name: user.name, household: user.household };
 
                         jwt.sign(
                             payload,
                             keys.secretOrKey,
-                            // Tell the key to expire in one hour
-                            { expiresIn: 3600 },
+                            // Tell the key to expire in one day
+                            { expiresIn: 86400 },
                             (err, token) => {
                                 res.json({
                                     success: true,

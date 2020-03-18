@@ -2,7 +2,7 @@ import React from 'react';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import { Route, Switch } from 'react-router-dom';
 import SplashPage from './splash/splash_page';
-import Household from './household/household';
+import HouseholdContainer from './household/household_container';
 import "../styles/application.scss";
 
 const App = () => (
@@ -13,7 +13,7 @@ const App = () => (
             <AuthRoute exact path="/signup" component={SignupFormContainer} />
         </Switch> */}
         <Route exact path="/" component={SplashPage} />
-        <Route exact path="/:householdId" component={Household} />
+        <ProtectedRoute exact path="/:householdId" component={HouseholdContainer} />
     </div>
 );
 

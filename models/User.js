@@ -18,6 +18,10 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Household'
     },
+    adminPrivileges: {
+        type: Boolean,
+        default: false
+    },
     date: {
         type: Date,
         default: Date.now
