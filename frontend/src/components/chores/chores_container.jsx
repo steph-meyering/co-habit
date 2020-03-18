@@ -12,28 +12,28 @@ import ChoreItem from "./chore_item";
 class Chores extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true }
+    this.state = { loading: true };
   }
 
   componentDidMount() {
     this.props.fetchChores().then(res => {
-      console.log(res)
-      this.setState({loading: false})  
-    })
+      console.log(res);
+      this.setState({ loading: false });
+    });
   }
 
   render() {
     if (this.props.loading) {
-      return <div>loading...</div>
+      return <div>loading...</div>;
     }
 
     if (this.props.chores.length === 0) {
-      return <div>No Chores Yet</div>
+      return <div>No Chores Yet</div>;
     }
-    
+
     let allChoreItems = this.props.chores.map(chore => {
-      return <div key={chore._id}>{chore.title}</div>
-    })
+      return <div key={chore._id}>{chore.title}</div>;
+    });
 
     return (
       <div>
