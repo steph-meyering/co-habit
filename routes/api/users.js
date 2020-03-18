@@ -15,7 +15,8 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
     res.json({
         id: req.user.id,
         handle: req.user.handle,
-        email: req.user.email
+        email: req.user.email,
+        household: req.user.household
     });
 })
 
@@ -75,7 +76,7 @@ router.post('/login', (req, res) => {
             bcrypt.compare(password, user.password)
                 .then(isMatch => {
                     if (isMatch) {
-                        const payload = { id: user.id, name: user.name };
+                        const payload = { id: user.id, household: user.household };
 
                         jwt.sign(
                             payload,
