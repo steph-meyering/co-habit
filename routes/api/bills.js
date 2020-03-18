@@ -32,6 +32,14 @@ router.post(
   }
 );
 
-// res.json({ msg: "you can create bills here" }));
+
+router.get('/', (req, res) => {
+  Bill.find()
+    .then(bills => res.json(bills))
+    .catch(err => res.status(404).json({ nobillsfound: "No bills found" }));
+
+}
+)
+
 
 module.exports = router;
