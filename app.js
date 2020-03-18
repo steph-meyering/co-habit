@@ -5,6 +5,7 @@ const db = require('./config/keys').mongoURI;
 const passport = require('passport');
 const users = require("./routes/api/users");
 const households = require("./routes/api/households");
+const chores = require("./routes/api/chores");
 const bodyParser = require('body-parser')
 
 mongoose
@@ -25,3 +26,5 @@ require('./config/passport')(passport);
 
 app.use("/api/users", users);
 app.use("/api/households", households);
+
+app.use("/api/chores", chores);
