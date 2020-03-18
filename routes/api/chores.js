@@ -9,7 +9,7 @@ router.get("/test", (req, res) =>
   res.json({ msg: "This is the chores route" })
 );
 
- // all chores for household
+// all chores for household
 router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
@@ -39,17 +39,13 @@ router.get(
   }
 );
 
-
-router.get(
-  "/user/:userId",
-  (req, res) => {
-    Chore.find({ assignedUser: req.params.userId })        
-      .then(chores => res.json(chores))
-      .catch(err =>
-          res.status(404).json({ nochoresfound: 'No chores assigned to that user' }
-      ))
-  }
-);
+router.get("/user/:userId", (req, res) => {
+  Chore.find({ assignedUser: req.params.userId })
+    .then(chores => res.json(chores))
+    .catch(err =>
+      res.status(404).json({ nochoresfound: "No chores assigned to that user" })
+    );
+});
 
 router.post(
   "/",
@@ -73,10 +69,36 @@ router.post(
   }
 );
 
-router.delete("/:choreId", (req, res, next) => {
+router.patch(
+  "/:choreId",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    // const { errors, isValid } = validateChore({...req.body,
+    //   author: req.user._id,
+    //   household: req.user.household});
+
+    // if (!isValid) {
+    //   return res.status(400).json(errors);
+    // }
+
+    Chore.findById(req.param.choreId)
+      .then(chore => {
+        chore.complete = req.body.complete;
+        chore.assignedUser = req.body.assignedUser;
+        chore.title = req.body.title;
+        chore.description = req.body.description;
+        chore.save();
+      })
+      .catch(err => res.status(400).json("Error: " + err));
+  }
+);
+
+router.delete("/:choreId", (req, res) => {
   Chore.findOneAndDelete({ _id: req.params.choreId })
     .then(data => res.json(data))
-    .catch(next);
+    .catch(err =>
+      res.status(404).json({ nochoresfound: "No chores found with that id" })
+    );
 });
 
 module.exports = router;
