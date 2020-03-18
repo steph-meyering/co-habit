@@ -31,15 +31,15 @@ class Chores extends React.Component {
       return <div>No Chores Yet</div>
     }
     
-    let choreItems = this.props.chores.map(chore => {
+    let allChoreItems = this.props.chores.map(chore => {
       return <div key={chore._id}>{chore.title}</div>
     })
 
     return (
       <div>
         <h2>All Household Chores</h2>
+        <div>{allChoreItems}</div>
         <h2>Your Assigned Chores</h2>
-        <div>{choreItems}</div>
       </div>
     );
   }
@@ -47,7 +47,7 @@ class Chores extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    chores: Object.values(state.chores),
+    chores: Object.values(state.entities.chores),
     currentUser: state.session.user
   };
 };
