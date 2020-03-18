@@ -7,21 +7,39 @@ import {
   createNewChore,
   updateChore
 } from "../../actions/chore_actions";
+import ChoreItem from "./chore_item";
 
 class Chores extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { loading: true }
   }
 
   componentDidMount() {
-    fetchChoresForUser(this.props.currentUser);
+    this.props.fetchChores().then(res => {
+      console.log(res)
+      this.setState({loading: false})  
+    })
   }
 
   render() {
+    if (this.props.loading) {
+      return <div>loading...</div>
+    }
+
+    if (this.props.chores.length === 0) {
+      return <div>No Chores Yet</div>
+    }
+    
+    let choreItems = this.props.chores.map(chore => {
+      return <div key={chore._id}>{chore.title}</div>
+    })
+
     return (
       <div>
         <h2>All Household Chores</h2>
         <h2>Your Assigned Chores</h2>
+        <div>{choreItems}</div>
       </div>
     );
   }
@@ -29,7 +47,7 @@ class Chores extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    chores: state.chores,
+    chores: Object.values(state.chores),
     currentUser: state.session.user
   };
 };
