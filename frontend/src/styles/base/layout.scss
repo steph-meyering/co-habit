@@ -6,6 +6,13 @@ html, body {
     background: linear-gradient(0deg, rgba(92,222,242,1) 0%, rgba(28,254,193,1) 77%);
 }
 
+body {
+    height: 100%;
+    // background: rgb(92,222,242);
+    // background: green;
+    background: linear-gradient(0deg, rgba(134, 196, 206, 0.699) 0%, rgba(110, 168, 255, 0.808) 77%);
+}
+
 .app {
     // background: rgb(34,195,176);
     // background: linear-gradient(0deg, rgba(34,195,176,1) 0%, rgba(253,193,45,1) 100%);
