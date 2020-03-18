@@ -24,8 +24,7 @@ const validateLoginInput = require('../../validation/login');
 router.post('/register', (req, res) => {
     const { errors, isValid } = validateRegisterInput(req.body);
     const { herrors, hisValid } = validateHouseholdInput(req.body);
-    console.log(isValid);
-    console.log(hisValid);
+
     if (!isValid) {
         return res.status(400).json(errors);
     }
@@ -46,7 +45,7 @@ router.post('/register', (req, res) => {
                 let newHousehold;
                 Household.findOne({ name: req.body.housename })
                     .then(household => {
-                        debugger
+                        // debugger
                         if (household) {
                             newUser = new User({
                                 name: req.body.name,
@@ -58,7 +57,30 @@ router.post('/register', (req, res) => {
                                 acceptedIntoHousehold: false,
                                 adminPriveleges: false 
                             })
-                            
+                            bcrypt.genSalt(10, (err, salt) => {
+                                bcrypt.hash(newUser.password, salt, (err, hash) => {
+                                    if (err) throw err;
+                                    newUser.password = hash;
+                                    newUser.save()
+                                        .then(user => {
+                                            // sign in user
+                                            const payload = { id: user.id, name: user.name, household: user.household };
+                                            jwt.sign(
+                                                payload,
+                                                keys.secretOrKey,
+                                                // Tell the key to expire in one day
+                                                { expiresIn: 86400 },
+                                                (err, token) => {
+                                                    res.json({
+                                                        success: true,
+                                                        token: 'Bearer ' + token
+                                                    });
+                                                });
+                                            // return res.json(user)
+                                        })
+                                        .catch(err => console.log(err));
+                                })
+                            })
                         } else {
                             // debugger
                             newHousehold = new Household({
@@ -67,7 +89,7 @@ router.post('/register', (req, res) => {
                             })
                             // debugger
                             newHousehold.save().then(household => {
-                                debugger
+                                // debugger
                                 newUser = new User({
                                     name: req.body.name,
                                     email: req.body.email,
@@ -77,28 +99,27 @@ router.post('/register', (req, res) => {
                                     acceptedIntoHousehold: true,
                                     adminPriveleges: true
                                 })
-                                debugger
+                                // debugger
                                 bcrypt.genSalt(10, (err, salt) => {
                                     bcrypt.hash(newUser.password, salt, (err, hash) => {
                                         if (err) throw err;
                                         newUser.password = hash;
                                         newUser.save()
                                             .then(user => {
-                                                //sign in user
-                                                // const payload = { id: user.id, name: user.name };
-
-                                                // jwt.sign(
-                                                //     payload,
-                                                //     keys.secretOrKey,
-                                                //     // Tell the key to expire in one day
-                                                //     { expiresIn: 86400 },
-                                                //     (err, token) => {
-                                                //         res.json({
-                                                //             success: true,
-                                                //             token: 'Bearer ' + token
-                                                //         });
-                                                //     });
-                                                return res.json(user)
+                                                // sign in user
+                                                const payload = { id: user.id, name: user.name, household: user.household };
+                                                jwt.sign(
+                                                    payload,
+                                                    keys.secretOrKey,
+                                                    // Tell the key to expire in one day
+                                                    { expiresIn: 86400 },
+                                                    (err, token) => {
+                                                        res.json({
+                                                            success: true,
+                                                            token: 'Bearer ' + token
+                                                        });
+                                                    });
+                                                // return res.json(user)
                                             })
                                             .catch(err => console.log(err));
                                     })
@@ -118,8 +139,6 @@ router.post('/register', (req, res) => {
 
 router.post('/login', (req, res) => {
     const { errors, isValid } = validateLoginInput(req.body);
-
-    console.log(errors);
 
     if (!isValid) {
         return res.status(400).json(errors);

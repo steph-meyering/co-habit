@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Household extends React.Component {
+class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
@@ -20,4 +20,4 @@ class Household extends React.Component {
   }
 }
 
-export default Household;
+export default Dashboard;
