@@ -6,9 +6,11 @@ import DashboardContainer from './dashboard/dashboard_container';
 import "../styles/application.scss";
 import BillsIndexContainer from "./bills/bills_index_container";
 import ChoresContainer from "./chores/chores_container"
+import NavBar from "./nav/nav"
 
 const App = () => (
     <div className="app">
+        <Route path="/" component={NavBar} />
         <AuthRoute exact path="/" component={SplashPage} />
         <ProtectedRoute exact path="/dashboard" component={DashboardContainer} />
         <ProtectedRoute exact path="/chores" component={ChoresContainer} />
