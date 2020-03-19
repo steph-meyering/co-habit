@@ -12,7 +12,7 @@ import NavBar from "./nav/nav";
 const App = () => (
   <div className="app">
     <div className="main-container">
-      <Route path="/" component={NavBar} />
+      <NavBar />
       <Switch>
         <AuthRoute exact path="/" component={SplashPage} />
         <ProtectedRoute
