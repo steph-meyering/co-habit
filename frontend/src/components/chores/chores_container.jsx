@@ -4,11 +4,10 @@ import { connect } from "react-redux";
 import {
   fetchChores,
   fetchChoresForUser,
-  createNewChore,
   updateChore
 } from "../../actions/chore_actions";
 import ChoreItem from "./chore_item";
-import CreateChoreForm from "./create_chore_form"
+import CreateChoreForm from "./create_chore_form";
 
 class Chores extends React.Component {
   constructor(props) {
@@ -29,10 +28,21 @@ class Chores extends React.Component {
     }
 
     if (this.props.chores.length === 0) {
-      return <div>No Chores Yet</div>;
+      return (
+        <div>
+          <div>No Chores Yet</div>
+          <CreateChoreForm />
+        </div>
+      );
     }
     let allChoreItems = this.props.chores.map(chore => {
-      return <ChoreItem key={chore._id} chore={chore} updateChore={this.props.updateChore} />;
+      return (
+        <ChoreItem
+          key={chore._id}
+          chore={chore}
+          updateChore={this.props.updateChore}
+        />
+      );
     });
 
     return (
@@ -41,7 +51,7 @@ class Chores extends React.Component {
         <div>{allChoreItems}</div>
         <h2>Your Assigned Chores</h2>
         <div>
-          <CreateChoreForm author={this.props.currentUser} />
+          <CreateChoreForm />
         </div>
       </div>
     );
@@ -59,7 +69,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchChores: () => dispatch(fetchChores()),
     fetchChoresForUser: user => dispatch(fetchChoresForUser(user)),
-    createNewChore: chore => dispatch(createNewChore(chore))
+    updateChore: chore => dispatch(updateChore(chore))
   };
 };
 
