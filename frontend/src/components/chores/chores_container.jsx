@@ -12,7 +12,7 @@ import ChoreItem from "./chore_item";
 class Chores extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true };
+    this.state = { loading: true, showCreateChoreForm: false };
   }
 
   componentDidMount() {
@@ -31,7 +31,7 @@ class Chores extends React.Component {
       return <div>No Chores Yet</div>;
     }
     let allChoreItems = this.props.chores.map(chore => {
-      return <div key={chore._id}>{chore.title}</div>;
+      return <ChoreItem key={chore._id} chore={chore} updateChore={this.props.updateChore} />;
     });
 
     return (
@@ -54,7 +54,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchChores: () => dispatch(fetchChores()),
-    fetchChoresForUser: user => dispatch(fetchChoresForUser(user))
+    fetchChoresForUser: user => dispatch(fetchChoresForUser(user)),
+    createNewChore: chore => dispatch(createNewChore(chore))
   };
 };
 

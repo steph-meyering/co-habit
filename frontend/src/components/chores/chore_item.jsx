@@ -7,11 +7,7 @@ class ChoreItem extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        Chore Item
-      </div>
-    );
+    return <div>{this.props.chore.title}</div>;
   }
 }
 
