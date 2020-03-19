@@ -4,6 +4,18 @@ import { connect } from "react-redux";
 import { logout } from "../../actions/session_actions";
 
 class NavBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { loggedIn: !!this.props.currentUser };
+    this.handleLogout = this.handleLogout.bind(this);
+
+  }
+
+  handleLogout() {
+    this.props.logout()
+    this.setState({loggedIn: false})
+  }
+
   render() {
     let navLinks = null;
     if (this.props.currentUser) {
@@ -36,9 +48,7 @@ class NavBar extends React.Component {
               Bills
             </NavLink>
           </div>
-          <div
-            className="nav-item"
-          >
+          <div className="nav-item">
             <NavLink
               to="/settings"
               activeClassName="active-navlink"
@@ -48,7 +58,7 @@ class NavBar extends React.Component {
             </NavLink>
           </div>
           <div>
-            <button onClick={this.props.logout}>Log Out</button>
+            <button onClick={this.handleLogout}>Log Out</button>
           </div>
         </div>
       );
