@@ -10,15 +10,21 @@ import NavBar from "./nav/nav";
 
 const App = () => (
   <div className="app">
-    <Route path="/" component={NavBar} />
-    <Switch>
-      <AuthRoute exact path="/" component={SplashPage} />
-      <ProtectedRoute exact path="/dashboard" component={DashboardContainer} />
-      <ProtectedRoute exact path="/chores" component={ChoresContainer} />
-      <ProtectedRoute exact path="/bills" component={BillsIndexContainer} />
-      {/* Default redirect given bad path */}
-      <Redirect path="*" to="/dashboard" />
-    </Switch>
+    <div className="main-container">
+      <Route path="/" component={NavBar} />
+      <Switch>
+        <AuthRoute exact path="/" component={SplashPage} />
+        <ProtectedRoute
+          exact
+          path="/dashboard"
+          component={DashboardContainer}
+        />
+        <ProtectedRoute exact path="/chores" component={ChoresContainer} />
+        <ProtectedRoute exact path="/bills" component={BillsIndexContainer} />
+        {/* Default redirect given bad path */}
+        <Redirect path="*" to="/dashboard" />
+      </Switch>
+    </div>
   </div>
 );
 

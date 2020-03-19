@@ -50,7 +50,7 @@ class NavBar extends React.Component {
       <div>
         <div className="logo-container">
           <Link to="/dashboard">
-            <img src="/logo.png" height="50px" />
+            <img src="/logo.png" />
           </Link>
         </div>
         {navLinks}
