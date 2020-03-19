@@ -18,6 +18,10 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Household"
   },
+  acceptedIntoHousehold: {
+    type: Boolean,
+    default: false
+  },
   adminPrivileges: {
     type: Boolean,
     default: false
