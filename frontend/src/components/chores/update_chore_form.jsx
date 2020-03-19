@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { updateChore } from "../../actions/chore_actions";
+import { updateChore, deleteChore } from "../../actions/chore_actions";
 
 class CreateChoreForm extends React.Component {
   constructor(props) {
@@ -123,7 +123,9 @@ class CreateChoreForm extends React.Component {
           />
           <button type="submit">Update Chore</button>
         </form>
-        <button>Delete</button>
+        <button onClick={() => this.props.deleteChore(this.props.chore._id)}>
+          Delete
+        </button>
       </div>
     );
   }
@@ -138,7 +140,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  updateChore: chore => dispatch(updateChore(chore))
+  updateChore: chore => dispatch(updateChore(chore)),
+  deleteChore: choreId => dispatch(deleteChore(choreId))
 });
 
 export default withRouter(

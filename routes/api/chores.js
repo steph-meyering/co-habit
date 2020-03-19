@@ -96,10 +96,12 @@ router.patch(
 );
 
 router.delete("/:choreId", (req, res) => {
-  Chore.findOneAndDelete({ _id: req.params.choreId })
-    .then(data => res.json(data))
-    .catch(err =>
-      res.status(404).json({ nochoresfound: "No chores found with that id" })
+  Chore.findByIdAndRemove(req.params.choreId, 
+    (err, chore) => {
+      if (err) return  res.status(404).json({ nochoresfound: "No chores found with that id" })
+      return res.json(chore._id);
+    } 
+     
     );
 });
 

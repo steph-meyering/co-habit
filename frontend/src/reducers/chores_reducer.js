@@ -1,4 +1,8 @@
-import { RECEIVE_CHORES, RECEIVE_NEW_CHORE } from "../actions/chore_actions";
+import {
+  RECEIVE_CHORES,
+  RECEIVE_NEW_CHORE,
+  DELETE_CHORE
+} from "../actions/chore_actions";
 
 const ChoresReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -9,6 +13,9 @@ const ChoresReducer = (state = {}, action) => {
       return nextState;
     case RECEIVE_NEW_CHORE:
       nextState[action.chore.data._id] = action.chore.data;
+      return nextState;
+    case DELETE_CHORE:
+      delete nextState[action.choreId.data];
       return nextState;
     default:
       return state;
