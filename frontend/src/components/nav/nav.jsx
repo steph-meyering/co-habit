@@ -5,6 +5,46 @@ import { logout } from "../../actions/session_actions";
 
 class NavBar extends React.Component {
   render() {
+    let navLinks = null;
+    if (this.props.currentUser) {
+      return (
+        <div>
+          <div className="nav-item">
+            <NavLink
+              to="/"
+              activeClassName="active-navlink"
+              className="navlink"
+            >
+              Home
+            </NavLink>
+          </div>
+          <div
+            className="nav-item"
+            activeClassName="active-navlink"
+            className="navlink"
+          >
+            <NavLink to="/chores">Chores</NavLink>
+          </div>
+          <div
+            className="nav-item"
+            activeClassName="active-navlink"
+            className="navlink"
+          >
+            <NavLink to="/bills">Bills</NavLink>
+          </div>
+          <div
+            className="nav-item"
+            activeClassName="active-navlink"
+            className="navlink"
+          >
+            <NavLink to="/settings">Settings</NavLink>
+          </div>
+          <div>
+            <button onClick={this.props.logout}>Log Out</button>
+          </div>
+        </div>
+      );
+    }
     return (
       <div>
         <div className="logo-container">
@@ -12,35 +52,7 @@ class NavBar extends React.Component {
             <img src="/logo.png" height="50px" />
           </Link>
         </div>
-        <div className="nav-item">
-          <NavLink to="/" activeClassName="active-navlink" className="navlink">
-            Home
-          </NavLink>
-        </div>
-        <div
-          className="nav-item"
-          activeClassName="active-navlink"
-          className="navlink"
-        >
-          <NavLink to="/chores">Chores</NavLink>
-        </div>
-        <div
-          className="nav-item"
-          activeClassName="active-navlink"
-          className="navlink"
-        >
-          <NavLink to="/bills">Bills</NavLink>
-        </div>
-        <div
-          className="nav-item"
-          activeClassName="active-navlink"
-          className="navlink"
-        >
-          <NavLink to="/settings">Settings</NavLink>
-        </div>
-        <div>
-          <button onClick={this.props.logout}>Log Out</button>
-        </div>
+        {navLinks}
       </div>
     );
   }
