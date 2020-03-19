@@ -4,7 +4,7 @@ import BillsIndex from "./bills_index";
 
 const mSTP = state => {
     return({
-        bills: Object.values(state.bills)
+        bills: Object.values(state.entities.bills)
     })
 }
 

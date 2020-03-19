@@ -8,12 +8,16 @@ class BillsIndex extends React.Component {
     }
 
     render(){
-        if (this.props.bills.length === 0) return null;
-        debugger
-        let billItems = this.props.bills.map((bill) => <BillItem 
+        if (this.props.bills.length === 0) {
+            return <div>No Bills Yet</div>;
+        }
+
+        let billItems = this.props.bills.map(bill => <BillItem 
             bill = {bill}
-        />)
-        debugger;
+            key = {bill._id}
+        />
+        )
+
         return(
             <div>
                 <ul>

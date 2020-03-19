@@ -30,7 +30,6 @@ class Chores extends React.Component {
     if (this.props.chores.length === 0) {
       return <div>No Chores Yet</div>;
     }
-
     let allChoreItems = this.props.chores.map(chore => {
       return <div key={chore._id}>{chore.title}</div>;
     });

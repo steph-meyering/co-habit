@@ -36,7 +36,9 @@ router.post(
 router.get('/', (req, res) => {
   Bill.find()
     .then(bills => res.json(bills))
-    .catch(err => res.status(404).json({ nobillsfound: "No bills found" }));
+    .catch(err => 
+      res.status(404)
+        .json({ nobillsfound: "No bills found" }));
 
 }
 )

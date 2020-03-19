@@ -2,12 +2,12 @@ import React from "react";
 
 class BillItem extends React.Component {
     render(){
-        debugger
-        return(
-            <div>
-                <li>{this.props.bill.title}</li>
-            </div>
-        )
+        return (
+          <div>
+            <li>{this.props.bill.title}</li>
+            <li>{this.props.bill.amount}</li>
+          </div>
+        );
     }
 }
 
