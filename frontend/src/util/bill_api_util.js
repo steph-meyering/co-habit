@@ -1,5 +1,11 @@
 import axios from "axios";
 
-export const createBill = bill => axios.post('api/bills', bill);
+export const createBill = bill => {
+    debugger
+    return axios.post('/api/bills/', bill);
+}    
 
-export const getBills = () => axios.get("api/bills");
+export const getBills = () => {
+    debugger
+    return axios.get("/api/bills");
+}
