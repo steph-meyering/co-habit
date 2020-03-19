@@ -31,15 +31,16 @@ router.post(
   }
 );
 
-router.get('/', (req, res) => {
-  Bill.find()
-    .then(bills => res.json(bills))
-    .catch(err => 
-      res.status(404)
-        .json({ nobillsfound: "No bills found" }));
-
-}
-)
+// all bills for household
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Bill.find({ household: req.user.household })
+      .then(bills => res.json(bills))
+      .catch(err => res.status(404).json({ nobillsfound: "No bills found" }));
+  }
+);
 
 
 module.exports = router;
