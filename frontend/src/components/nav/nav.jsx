@@ -7,7 +7,7 @@ class NavBar extends React.Component {
   render() {
     let navLinks = null;
     if (this.props.currentUser) {
-      return (
+      navLinks = (
         <div>
           <div className="nav-item">
             <NavLink
@@ -45,6 +45,7 @@ class NavBar extends React.Component {
         </div>
       );
     }
+
     return (
       <div>
         <div className="logo-container">
