@@ -4,16 +4,21 @@ class BillForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
+    this.state = this.defaultState()
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.defaultState = this.defaultState.bind(this);
+
+  }
+
+  defaultState(){
+    return {
       title: "",
       amount: "",
       errors: {}
     };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-
   }
-
+  
   handleSubmit(e) {
     e.preventDefault();
 
@@ -21,7 +26,8 @@ class BillForm extends React.Component {
         title: this.state.title,
         amount: this.state.amount
     };
-    this.props.createBill(bill);
+    this.props.createBill(bill).then(
+      this.setState(this.defaultState()))
   }
 
   update(field) {

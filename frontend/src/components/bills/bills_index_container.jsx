@@ -4,7 +4,8 @@ import BillsIndex from "./bills_index";
 
 const mSTP = state => {
     return({
-        bills: Object.values(state.entities.bills)
+        bills: Object.values(state.entities.bills),
+        currentUser: state.session.user
     })
 }
 

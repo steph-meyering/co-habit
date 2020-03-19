@@ -7,6 +7,10 @@ class BillsIndex extends React.Component {
         this.props.fetchBills()
     }
 
+    isMyBill(bill){
+        if (this.props.currentUser.id === bill.user) return bill
+    }
+
     render(){
 
         if (this.props.bills.length === 0) {
@@ -21,16 +25,20 @@ class BillsIndex extends React.Component {
         let billItems = this.props.bills.map(bill => <BillItem 
             bill = {bill}
             key = {bill._id}
-        />
-        )
+        />)
 
-        return(
-            <div>
-                <ul>
-                    {billItems}
-                </ul>
-            </div>
-        )
+        let myBillItems = this.props.bills.filter((bill) => this.isMyBill(bill))
+            .map(bill => <BillItem bill = {bill} />)
+
+        return (
+          <>
+            <h3>All household bills: </h3>
+            <ul>{billItems}</ul>
+            <br/>
+            <h3>My bills: </h3>
+            <ul>{myBillItems}</ul>
+          </>
+        );
     }
 }
 
