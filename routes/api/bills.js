@@ -23,7 +23,6 @@ router.post(
       user: req.user.id,
       household: req.user.household
     });
-    console.log(newBill);
     newBill
       .save()
       .then(bill => res.json(bill))
@@ -41,6 +40,11 @@ router.get(
       .catch(err => res.status(404).json({ nobillsfound: "No bills found" }));
   }
 );
+
+router.delete(
+  "/",
+
+)
 
 
 module.exports = router;

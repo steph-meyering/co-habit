@@ -6,6 +6,7 @@ class BillItem extends React.Component {
           <div>
             <li>{this.props.bill.title}</li>
             <li>${this.props.bill.amount}</li>
+            <li>{this.props.isMine ? 'mine' : 'not mine'}</li>
             <br />
           </div>
         );
