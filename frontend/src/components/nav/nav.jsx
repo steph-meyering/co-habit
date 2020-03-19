@@ -8,36 +8,44 @@ class NavBar extends React.Component {
     let navLinks = null;
     if (this.props.currentUser) {
       navLinks = (
-        <div>
+        <div className="nav-items">
           <div className="nav-item">
             <NavLink
-              to="/"
+              to="/dashboard"
               activeClassName="active-navlink"
               className="navlink"
             >
               Home
             </NavLink>
           </div>
-          <div
-            className="nav-item"
-            activeClassName="active-navlink"
-            className="navlink"
-          >
-            <NavLink to="/chores">Chores</NavLink>
+          <div className="nav-item">
+            <NavLink
+              to="/chores"
+              activeClassName="active-navlink"
+              className="navlink"
+            >
+              Chores
+            </NavLink>
+          </div>
+          <div className="nav-item">
+            <NavLink
+              activeClassName="active-navlink"
+              className="navlink"
+              to="/bills"
+            >
+              Bills
+            </NavLink>
           </div>
           <div
             className="nav-item"
-            activeClassName="active-navlink"
-            className="navlink"
           >
-            <NavLink to="/bills">Bills</NavLink>
-          </div>
-          <div
-            className="nav-item"
-            activeClassName="active-navlink"
-            className="navlink"
-          >
-            <NavLink to="/settings">Settings</NavLink>
+            <NavLink
+              to="/settings"
+              activeClassName="active-navlink"
+              className="navlink"
+            >
+              Settings
+            </NavLink>
           </div>
           <div>
             <button onClick={this.props.logout}>Log Out</button>
@@ -47,10 +55,10 @@ class NavBar extends React.Component {
     }
 
     return (
-      <div>
+      <div className="navbar">
         <div className="logo-container">
           <Link to="/dashboard">
-            <img src="/logo.png" />
+            <img src="/logo.png" id="logo-img" />
           </Link>
         </div>
         {navLinks}
