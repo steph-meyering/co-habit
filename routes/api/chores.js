@@ -4,6 +4,7 @@ const validateChore = require("../../validation/chores");
 const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
+mongoose.set("useFindAndModify", false);
 
 router.get("/test", (req, res) =>
   res.json({ msg: "This is the chores route" })
@@ -73,23 +74,24 @@ router.patch(
   "/:choreId",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    // const { errors, isValid } = validateChore({...req.body,
-    //   author: req.user._id,
-    //   household: req.user.household});
+    const { errors, isValid } = validateChore({
+      ...req.body,
+      household: req.user.household
+    });
 
-    // if (!isValid) {
-    //   return res.status(400).json(errors);
-    // }
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
 
-    Chore.findById(req.param.choreId)
-      .then(chore => {
-        chore.complete = req.body.complete;
-        chore.assignedUser = req.body.assignedUser;
-        chore.title = req.body.title;
-        chore.description = req.body.description;
-        chore.save();
-      })
-      .catch(err => res.status(400).json("Error: " + err));
+    Chore.findByIdAndUpdate(
+      req.params.choreId,
+      req.body,
+      { new: true },
+      (err, chore) => {
+        if (chore) return res.json(chore);
+        if (err) return res.status(400).json("Error: " + err);
+      }
+    );
   }
 );
 

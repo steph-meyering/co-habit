@@ -1,18 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { createNewChore } from "../../actions/chore_actions";
+import { updateChore } from "../../actions/chore_actions";
 
 class CreateChoreForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: "",
-      description: "",
-      author: this.props.currentUser.id,
-      household: this.props.currentUser.household,
-      difficulty: 1
+      ...this.props.chore
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,17 +31,13 @@ class CreateChoreForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     let { loading, ...chore } = this.state;
-    console.log(chore);
+
     chore.difficulty = parseInt(chore.difficulty);
-    this.props.createNewChore(chore).then(() =>
-      this.setState({
-        title: "",
-        description: "",
-        author: this.props.currentUser.id,
-        household: this.props.currentUser.household,
-        difficulty: 1
-      })
-    );
+    this.props.updateChore(chore);
+
+    // this.setState({
+    //   loading: true
+    // });
 
     // this.props.submitReview(review).then(
     //   () => {
@@ -104,7 +96,7 @@ class CreateChoreForm extends React.Component {
 
     return (
       <div>
-        <h3>Add New Chore</h3>
+        <h3>Edit Chore</h3>
         {this.props.errors ? this.renderErrors() : null}
         <form onSubmit={this.handleSubmit}>
           <label>Title</label>
@@ -129,22 +121,24 @@ class CreateChoreForm extends React.Component {
             value={this.state.difficulty}
             onChange={this.update("difficulty")}
           />
-          <button type="submit">Add Chore</button>
+          <button type="submit">Update Chore</button>
         </form>
+        <button>Delete</button>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state, { match }) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.session.user,
-    errors: state.errors.chores
+    errors: state.errors.chores,
+    chore: ownProps.chore
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  createNewChore: chore => dispatch(createNewChore(chore))
+  updateChore: chore => dispatch(updateChore(chore))
 });
 
 export default withRouter(

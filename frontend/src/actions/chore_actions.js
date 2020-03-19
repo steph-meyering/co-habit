@@ -23,7 +23,6 @@ export const fetchChores = () => dispatch => {
     .catch(err => console.log(err));
 };
 
-
 export const fetchChoresForUser = user => dispatch => {
   return APIUtil.getChoresForUser(user)
     .then(chores => dispatch(receiveChores(chores)))
@@ -37,8 +36,9 @@ export const createNewChore = chore => dispatch => {
 };
 
 export const updateChore = chore => dispatch => {
-  console.log(chore._id);
   return APIUtil.updateChore(chore)
-    .then(chore => dispatch(receiveNewChore(chore)))
+    .then(chore => {
+      dispatch(receiveNewChore(chore));
+    })
     .catch(err => console.log(err));
 };
