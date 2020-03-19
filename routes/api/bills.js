@@ -23,7 +23,8 @@ router.post(
       title: req.body.title,
       amount: req.body.amount,
       title: req.body.title,
-      user: req.user.id
+      user: req.user.id,
+      household: req.user.household
     });
     newBill
       .save()
