@@ -5,6 +5,7 @@ import SplashPage from "./splash/splash_page";
 import DashboardContainer from "./dashboard/dashboard_container";
 import "../styles/application.scss";
 import BillsIndexContainer from "./bills/bills_index_container";
+import BillFormContainer from "./bills/bill_form_container";
 import ChoresContainer from "./chores/chores_container";
 import NavBar from "./nav/nav";
 
@@ -21,6 +22,7 @@ const App = () => (
         />
         <ProtectedRoute exact path="/chores" component={ChoresContainer} />
         <ProtectedRoute exact path="/bills" component={BillsIndexContainer} />
+        <ProtectedRoute exact path="/bills/new" component={BillFormContainer} />
         {/* Default redirect given bad path */}
         <Redirect path="*" to="/dashboard" />
       </Switch>

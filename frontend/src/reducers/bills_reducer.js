@@ -1,5 +1,4 @@
 import { RECEIVE_BILL, RECEIVE_BILLS } from "../actions/bill_actions";
-import ChoresReducer from "./chores_reducer";
 
 const BillsReducer = (state = {}, action) => {
     Object.freeze(state);
