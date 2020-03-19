@@ -8,6 +8,7 @@ import {
   updateChore
 } from "../../actions/chore_actions";
 import ChoreItem from "./chore_item";
+import CreateChoreForm from "./create_chore_form"
 
 class Chores extends React.Component {
   constructor(props) {
@@ -39,6 +40,9 @@ class Chores extends React.Component {
         <h2>All Household Chores</h2>
         <div>{allChoreItems}</div>
         <h2>Your Assigned Chores</h2>
+        <div>
+          <CreateChoreForm author={this.props.currentUser} />
+        </div>
       </div>
     );
   }
