@@ -22,11 +22,14 @@ class BillsIndex extends React.Component {
             return <div>loading...</div>;
         }
         
-        let billItems = this.props.bills.map(bill => <BillItem 
-            bill = {bill}
-            key = {bill._id}
-            isMine = {this.isMyBill(bill) ? true : false }
-        />)
+        let billItems = this.props.bills.map(bill => (
+          <BillItem
+            bill={bill}
+            key={bill._id}
+            isMine={this.isMyBill(bill) ? true : false}
+            deleteBill={this.props.deleteBill}
+          />
+        ));
 
         // let myBillItems = this.props.bills.filter((bill) => this.isMyBill(bill))
         //     .map(bill => <BillItem bill = {bill} />)

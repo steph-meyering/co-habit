@@ -42,9 +42,16 @@ router.get(
 );
 
 router.delete(
-  "/",
+  "/:billId",
+  (req, res) => {
+    Bill.findByIdAndRemove(req.params.billId )
+      .then(bills => res.json(bills))
+      .catch(err =>
+        res.status(404).json({ nobillsfound: "Couldn't delete that bill" })
+      );
+  }
+);
 
-)
 
 
 module.exports = router;

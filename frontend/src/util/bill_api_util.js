@@ -7,3 +7,7 @@ export const createBill = bill => {
 export const getBills = () => {
     return axios.get("/api/bills");
 }
+
+export const deleteBill = (bill) => {
+    return axios.delete(`/api/bills/${bill._id}`)
+}

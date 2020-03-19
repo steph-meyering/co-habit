@@ -6,7 +6,10 @@ class BillItem extends React.Component {
           <div>
             <li>{this.props.bill.title}</li>
             <li>${this.props.bill.amount}</li>
-            <li>{this.props.isMine ? 'mine' : 'not mine'}</li>
+            <li>{this.props.isMine ? 
+              <button onClick={() => this.props.deleteBill(this.props.bill)}>DELETE</button> 
+              : 'not mine'}
+            </li>
             <br />
           </div>
         );
