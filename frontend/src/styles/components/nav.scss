@@ -1,0 +1,19 @@
+img#logo-img {
+  max-width: 190px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.active-navlink {
+  text-decoration: underline;
+}
