@@ -48,11 +48,9 @@ class Chores extends React.Component {
     return (
       <div>
         <h2>All Household Chores</h2>
-        <div>{allChoreItems}</div>
-        <h2>Your Assigned Chores</h2>
-        <div>
+        <ol>{allChoreItems}</ol>
+        {/* <h2>Your Assigned Chores</h2> */}
           <CreateChoreForm />
-        </div>
       </div>
     );
   }

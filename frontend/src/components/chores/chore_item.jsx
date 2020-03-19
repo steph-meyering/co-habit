@@ -7,9 +7,16 @@ class ChoreItem extends React.Component {
   }
 
   render() {
-    return <div>{this.props.chore.title}</div>;
+    return (
+      <li>
+        <div>{this.props.chore.title}</div>
+        <div>{this.props.chore.description}</div>
+        <div>{this.props.chore.difficulty}</div>
+        <div>{this.props.chore.assignedUser ? this.props.chore.assignedUser.name : "unassigned" }</div>
+        <div>{this.props.chore.complete ? "Done!" : "" }</div>
+      </li>
+    );
   }
 }
-
 
 export default ChoreItem;
