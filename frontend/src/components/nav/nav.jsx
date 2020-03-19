@@ -6,7 +6,6 @@ import { logout } from "../../actions/session_actions";
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props.currentUser.id)
     this.state = {
       loggedIn: (!!this.props.currentUser.id )
     };
