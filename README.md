@@ -1,5 +1,8 @@
-# chores-app
+# CO-HABIT
 
-## This is my updated readme
-Pawsta
+[Live Site!]()
 
+## Features
+
+## Technologies
+ 
