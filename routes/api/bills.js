@@ -13,8 +13,6 @@ router.post(
   (req, res) => {
     const { errors, isValid } = validateBillInput(req.body);
     console.log(errors);
-    debugger
-    console.log("house: " + req.user.household.id)
     if (!isValid) {
       return res.status(400).json(errors);
     }

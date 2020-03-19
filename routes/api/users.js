@@ -22,6 +22,30 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
     });
 })
 
+router.patch('/:id', (req, res) => {
+    User.findById(req.params.id)
+        .then(user => {
+            // user.name = req.body.name;
+            // user.email = req.body.email;
+            // user.password = req.body.password;
+            // user.household = req.body.household;
+            // user.adminPrivileges = req.body.adminPrivileges;
+            user.acceptedIntoHousehold = req.body.acceptedIntoHousehold;
+            user.save().then(user => res.json(user))
+        })
+        .catch(err =>
+            res.status(404).json({ nouserfound: 'No user found with that ID' })
+        );
+});
+
+router.delete('/:id', (req, res) => {
+    User.findOneAndDelete({ _id: req.params.id })
+        .then(user => res.json(user))
+        .catch(err =>
+            res.status(404).json({ nousersfound: "No users found with that id" })
+        );
+});
+
 router.post('/register', (req, res) => {
     const { errors, isValid } = validateRegisterInput(req.body);
     const { herrors, hisValid } = validateHouseholdInput(req.body);
@@ -56,7 +80,7 @@ router.post('/register', (req, res) => {
                                 //need approval by household owner to be accepted
                                 //conditionally render based on this variable
                                 acceptedIntoHousehold: false,
-                                adminPriveleges: false 
+                                adminPrivileges: false 
                             })
                             bcrypt.genSalt(10, (err, salt) => {
                                 bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -65,7 +89,13 @@ router.post('/register', (req, res) => {
                                     newUser.save()
                                         .then(user => {
                                             // sign in user
-                                            const payload = { id: user.id, name: user.name, household: user.household };
+                                            const payload = { 
+                                                id: user.id,
+                                                name: user.name, 
+                                                household: user.household, 
+                                                acceptedIntoHousehold: user.acceptedIntoHousehold,
+                                                adminPrivileges: user.adminPrivileges
+                                              };
                                             jwt.sign(
                                                 payload,
                                                 keys.secretOrKey,
@@ -98,7 +128,7 @@ router.post('/register', (req, res) => {
                                     household: household.id,
                                     //the person who created the house is automatically accepted into the house
                                     acceptedIntoHousehold: true,
-                                    adminPriveleges: true
+                                    adminPrivileges: true
                                 })
                                 // debugger
                                 bcrypt.genSalt(10, (err, salt) => {
@@ -108,7 +138,13 @@ router.post('/register', (req, res) => {
                                         newUser.save()
                                             .then(user => {
                                                 // sign in user
-                                                const payload = { id: user.id, name: user.name, household: user.household };
+                                                const payload = { 
+                                                    id: user.id,
+                                                    name: user.name, 
+                                                    household: user.household, 
+                                                    acceptedIntoHousehold: user.acceptedIntoHousehold,
+                                                    adminPrivileges: user.adminPrivileges
+                                                  };
                                                 jwt.sign(
                                                     payload,
                                                     keys.secretOrKey,
@@ -157,7 +193,13 @@ router.post('/login', (req, res) => {
             bcrypt.compare(password, user.password)
                 .then(isMatch => {
                     if (isMatch) {
-                        const payload = { id: user.id, name: user.name, household: user.household };
+                        const payload = { 
+                            id: user.id,
+                            name: user.name, 
+                            household: user.household, 
+                            acceptedIntoHousehold: user.acceptedIntoHousehold,
+                            adminPrivileges: user.adminPrivileges
+                          };
 
                         jwt.sign(
                             payload,
