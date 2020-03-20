@@ -9,20 +9,6 @@ router.get("/test", (req, res) =>
   res.json({ msg: "This is the events route" })
 );
 
-// all events for household
-router.get(
-  "/:householdId/events",
-  (req, res) => {
-    Event.find({ household: req.params.householdId })
-      .then(events => res.json(events))
-      .catch(err =>
-        res
-          .status(404)
-          .json({ noeventsfound: "No events found for that household" })
-      );
-  }
-);
-
 router.post(
   "/",
   (req, res) => {
@@ -33,13 +19,17 @@ router.post(
     }
 
     let newEvent = new Event({
-      ...req.body,
-      author: req.user._id,
-      household: req.user.household
+      title: req.body.title,
+      description: req.body.description,
+      allDay: req.body.allDay,
+      start: req.body.start,
+      end: req.body.end,
+      author: req.body.author,
+      household: req.body.household
     });
     newEvent
       .save()
-      .then(data => res.json(data))
+      .then(event => res.json(event))
       .catch(err => res.status(400).json("Error: " + err));
   }
 );

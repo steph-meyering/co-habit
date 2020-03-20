@@ -6,10 +6,25 @@ const EventsReducer = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_EVENTS:
       newState = {}
-      action.events.data.forEach(event => (newState[event._id] = event));
+      action.events.data.forEach(event => {
+        event.start = new Date(event.start);
+        event.end = new Date(event.end);
+        newState[event._id] = event;
+      });
       return newState;
     case RECEIVE_EVENT:
-      newState[action.event.data._id] = action.event.data;
+      let newEvent = {};
+      newEvent.allDay = action.event.data.allDay;
+      newEvent._id = action.event.data._id;
+      newEvent.title = action.event.data.title;
+      newEvent.description = action.event.data.description;
+      newEvent.start = new Date(action.event.data.start);
+      newEvent.end = new Date(action.event.data.end);
+      newEvent.author = action.event.data.author;
+      newEvent.household = action.event.data.household;
+      newEvent.date = action.event.data.date;
+
+      newState[action.event.data._id] = newEvent;
       return newState;
     case REMOVE_EVENT:
       delete newState[action.eventId];

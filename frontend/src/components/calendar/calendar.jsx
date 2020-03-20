@@ -2,7 +2,6 @@ import React from 'react'
 import { Calendar, Views, momentLocalizer } from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import moment from "moment";
-// import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
@@ -33,7 +32,7 @@ class HouseholdCalendar extends React.Component {
 
   componentDidMount() {
     this.props.getEvents(this.props.currentUser.household)
-      .then(() => this.setState([{events: this.props.events}]));
+      .then(() => this.setState({events: this.props.events}));
   }
 
   moveEvent({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
@@ -84,19 +83,23 @@ class HouseholdCalendar extends React.Component {
     let idList = this.state.events.map(a => a.id)
     let newId = Math.max(...idList) + 1
     let hour = {
-      id: newId,
+      // id: newId,
       title: this.state.title,
       description: this.state.description,
       allDay: this.state.slotsLength === 1,
       start: this.state.start,
       end: this.state.end.getHours() === 0 && this.state.end.getMinutes() === 0 ? dayWrapper.toDate() : this.state.end,
+      author: this.props.currentUser.id,
+      household: this.props.currentUser.household
     }
-    this.setState({
-      events: this.state.events.concat([hour]),
-      formModalCls: "event-modal",
-      title: "",
-      description: "",
-    })
+    this.props.createEvent(hour).then(() => {
+      this.setState({
+        events: this.props.events,
+        formModalCls: "event-modal",
+        title: "",
+        description: "",
+      });
+    });
   }
 
   showEventInfo(event) {
@@ -155,7 +158,6 @@ class HouseholdCalendar extends React.Component {
   }
 
   render() {
-    
     return (
       <>
         <DragAndDropCalendar

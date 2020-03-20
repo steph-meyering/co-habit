@@ -10,6 +10,10 @@ const EventSchema = new Schema({
     type: String,
     required: false
   },
+  allDay: {
+    type: Boolean,
+    default: false
+  },
   start: {
     type: Date,
     required: true
