@@ -11,7 +11,7 @@ h1 {
 .main-container {
   width: 70%;
   min-height: 100vh;
-  padding: 10px;
+  padding: 20px;
   background-color: white;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4),
     -2px 0 8px rgba(0, 0, 0, 0.4);
@@ -22,4 +22,28 @@ a {
   margin: 10px 5px;
   padding: 5px 10px;
   border-radius: 2rem;
+  text-transform: uppercase;
+}
+
+button {
+  border: 1px solid #e3eeff;
+}
+
+button:hover {
+  background-color: #e3eeff;
+}
+
+input[type="text"] {
+  background-color: #e3eeffb2;
+}
+
+input {
+  padding: 5px;
+  margin: 5px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+}
+
+input:focus {
+  border: 1px solid #055c58;
 }
