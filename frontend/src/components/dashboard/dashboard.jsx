@@ -46,42 +46,54 @@ class Dashboard extends React.Component {
 
     return (
       <div>
-        {this.props.currentUser.acceptedIntoHousehold ?
-        <>
-          <h1>Welcome {this.props.currentUser.name}! Your house, {this.props.household.name}, is waiting for you.</h1>
-          <button onClick={this.handleLogout}>Log Out</button>
-          <div className="accepted-housemates">
-            <h3>Housemates:</h3>
+        {this.props.currentUser.acceptedIntoHousehold ? (
+          <>
+            <h1>
+              Welcome {this.props.currentUser.name}! Your house,{" "}
+              {this.props.household.name}, is waiting for you.
+            </h1>
+            <button onClick={this.handleLogout}>Log Out</button>
+            <div className="accepted-housemates">
+              <h3>Housemates:</h3>
               {acceptedHousemates.map(user => (
-                <div>
+                <div key={user._id}>
                   <span>{user.name}</span>
                 </div>
               ))}
-          </div>
-          <div className="pending-housemates">
-            {this.props.currentUser.adminPrivileges && pendingHousemates.length > 0 ?
-            <>
-              <h4>Pending Approval:</h4>
-              <div>
-                {pendingHousemates.map(user => (
+            </div>
+            <div className="pending-housemates">
+              {this.props.currentUser.adminPrivileges &&
+              pendingHousemates.length > 0 ? (
+                <>
+                  <h4>Pending Approval:</h4>
                   <div>
-                    <span>{user.name}</span>
-                    <button onClick={this.acceptHousemate(user).bind(this)}>Accept</button>
-                    <button onClick={this.denyHousemate(user).bind(this)}>Deny</button>
+                    {pendingHousemates.map(user => (
+                      <div key={user._id}>
+                        <span>{user.name}</span>
+                        <button onClick={this.acceptHousemate(user).bind(this)}>
+                          Accept
+                        </button>
+                        <button onClick={this.denyHousemate(user).bind(this)}>
+                          Deny
+                        </button>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </>
-            : ""
-            }
-          </div>
-        </>
-          :
-          <>
-          <h1>Welcome {this.props.currentUser.name}! Your request to join {this.props.household.name} is pending.</h1>
-          <button onClick={this.handleLogout}>Log Out</button>
+                </>
+              ) : (
+                ""
+              )}
+            </div>
           </>
-        }
+        ) : (
+          <>
+            <h1>
+              Welcome {this.props.currentUser.name}! Your request to join{" "}
+              {this.props.household.name} is pending.
+            </h1>
+            <button onClick={this.handleLogout}>Log Out</button>
+          </>
+        )}
       </div>
     );
   }

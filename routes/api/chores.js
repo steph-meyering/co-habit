@@ -4,6 +4,7 @@ const validateChore = require("../../validation/chores");
 const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
+const moment = require("moment");
 mongoose.set("useFindAndModify", false);
 
 router.get("/test", (req, res) =>
@@ -57,12 +58,29 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors);
     }
-
     let newChore = new Chore({
       ...req.body,
       author: req.user._id,
       household: req.user.household
     });
+    // add second due date if chore is recurring
+    if (req.body.recurring !== "never") {
+      let nextDate;
+      // space due dates based on recurring input
+      switch (req.body.recurring) {
+        case "daily":
+          nextDate = moment(req.body.dueDate).add(1, "day");
+        case "weekly":
+          nextDate = moment(req.body.dueDate).add(7, "days");
+        case "biweekly":
+          nextDate = moment(req.body.dueDate).add(14, "days");
+        default:
+          nextDate = moment(req.body.dueDate).add(7, "days");
+          break;
+      }
+      newChore.dueDate.push(nextDate._d);
+    }
+
     newChore
       .save()
       .then(data => res.json(data))
@@ -96,13 +114,13 @@ router.patch(
 );
 
 router.delete("/:choreId", (req, res) => {
-  Chore.findByIdAndRemove(req.params.choreId, 
-    (err, chore) => {
-      if (err) return  res.status(404).json({ nochoresfound: "No chores found with that id" })
-      return res.json(chore._id);
-    } 
-     
-    );
+  Chore.findByIdAndRemove(req.params.choreId, (err, chore) => {
+    if (err)
+      return res
+        .status(404)
+        .json({ nochoresfound: "No chores found with that id" });
+    return res.json(chore._id);
+  });
 });
 
 module.exports = router;
