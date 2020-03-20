@@ -46,6 +46,3 @@ class ChoreItem extends React.Component {
 }
 
 export default ChoreItem;
-{
-  /* [this.props.chore.assignedUser].name */
-}
