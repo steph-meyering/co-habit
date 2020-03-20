@@ -39,6 +39,35 @@ class ChoreItem extends React.Component {
       dueDate,
       complete
     } = this.props.chore;
+    let now = moment();
+    let firstDuedate = moment(dueDate[0]);
+
+    if (recurring !== "never" && firstDuedate.isBefore(now) && complete) {
+      let updatedChore = this.props.chore;
+      let nextDate;
+      // space due dates based on recurring input
+      switch (recurring) {
+        case "daily":
+          nextDate = moment(dueDate[1]).add(1, "day");
+        case "weekly":
+          nextDate = moment(dueDate[1]).add(7, "days");
+        case "biweekly":
+          nextDate = moment(dueDate[1]).add(14, "days");
+        default:
+          nextDate = moment(dueDate[1]).add(7, "days");
+          break;
+      }
+      // add second due date if chore is recurring
+      updatedChore.dueDate.push(nextDate._d.toISOString().substr(0, 10));
+      // delete old due date if complete
+      updatedChore.dueDate.shift();
+      updatedChore.complete = false;
+      console.log(updatedChore);
+      this.props.updateChore(updatedChore);
+      this.setState({
+        checked: false
+      });
+    }
 
     return (
       <li>
@@ -52,20 +81,23 @@ class ChoreItem extends React.Component {
           </div>
           <div>{difficulty}</div>
           <div>{recurring}</div>
-          <div>Due {moment(dueDate[0]).fromNow()}</div>
+          <div>Due {firstDuedate.fromNow()}</div>
+          <div>{firstDuedate.isBefore(now) ? "OVERDUE" : ""}</div>
           <div>
             <input
               type="checkbox"
               value={this.state.checked}
+              checked={this.state.checked}
               // defaultChecked={complete}
               onChange={e => {
+                e.preventDefault();
                 let updatedChore = this.props.chore;
                 updatedChore.complete = !this.state.checked;
                 this.props.updateChore(updatedChore);
                 this.setState({ checked: !this.state.checked });
               }}
             />
-            <div>{complete ? "Done!" : "Incomplete"}</div>
+            <div>{this.state.checked ? "Done!" : "Incomplete"}</div>
           </div>
         </div>
         <div>
