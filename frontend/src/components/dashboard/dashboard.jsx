@@ -53,7 +53,7 @@ class Dashboard extends React.Component {
           <div className="accepted-housemates">
             <h3>Housemates:</h3>
               {acceptedHousemates.map(user => (
-                <div>
+                <div key={user._id}>
                   <span>{user.name}</span>
                 </div>
               ))}
