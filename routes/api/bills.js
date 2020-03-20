@@ -12,7 +12,6 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateBillInput(req.body);
-    console.log(errors);
     if (!isValid) {
       return res.status(400).json(errors);
     }
@@ -23,7 +22,6 @@ router.post(
       user: req.user.id,
       household: req.user.household
     });
-    console.log(newBill);
     newBill
       .save()
       .then(bill => res.json(bill))
@@ -42,5 +40,31 @@ router.get(
   }
 );
 
+router.delete(
+  "/:billId",
+  (req, res) => {
+    Bill.findByIdAndRemove(req.params.billId )
+      .then(bills => res.json(bills))
+      .catch(err =>
+        res.status(404).json({ nobillsfound: "Couldn't delete that bill" })
+      );
+  }
+);
+
+router.patch(
+  "/:billId",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Bill.findByIdAndUpdate(
+      req.params.billId,
+      req.body,
+      { new: true },
+      (err, data) => {
+        if (data) return res.json(data);
+        if (err) return res.status(400).json("Error: " + err);
+      }
+    );
+  }
+);
 
 module.exports = router;
