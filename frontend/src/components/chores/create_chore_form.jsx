@@ -12,7 +12,8 @@ class CreateChoreForm extends React.Component {
       description: "",
       author: this.props.currentUser.id,
       household: this.props.currentUser.household,
-      difficulty: 1
+      difficulty: 1,
+      recurring: "weekly"
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,29 +44,10 @@ class CreateChoreForm extends React.Component {
         description: "",
         author: this.props.currentUser.id,
         household: this.props.currentUser.household,
-        difficulty: 1
+        difficulty: 1,
+        recurring: "weekly"
       })
     );
-
-    // this.props.submitReview(review).then(
-    //   () => {
-    //     this.props.fetchBook(this.props.bookId);
-    //     setTimeout(() => {
-    //       this.setState({
-    //         review_text: "",
-    //         rating: undefined,
-    //         book_id: this.props.book.id,
-    //         user_id: this.props.user_id,
-    //         loading: false
-    //       });
-    //     }, 1500);
-    //   },
-    //   err => {
-    //     this.setState({
-    //       loading: false
-    //     });
-    //   }
-    // );
   }
 
   renderErrors() {
@@ -129,6 +111,46 @@ class CreateChoreForm extends React.Component {
             value={this.state.difficulty}
             onChange={this.update("difficulty")}
           />
+          <br />
+          <label>Recurring? </label>
+          <div className="radio">
+            <label>
+              <input
+                type="radio"
+                value="daily"
+                checked={this.state.recurring === "daily"}
+                onChange={this.update("recurring")}
+              />
+              Daily
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="weekly"
+                checked={this.state.recurring === "weekly"}
+                onChange={this.update("recurring")}
+              />
+              Every week
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="biweekly"
+                checked={this.state.recurring === "biweekly"}
+                onChange={this.update("recurring")}
+              />
+              Every 2 weeks
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="never"
+                checked={this.state.recurring === "never"}
+                onChange={this.update("recurring")}
+              />
+              Never
+            </label>
+          </div>
           <button type="submit">Add Chore</button>
         </form>
       </div>

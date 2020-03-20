@@ -58,6 +58,19 @@ router.post(
       return res.status(400).json(errors);
     }
 
+    // add second due date if chore is recurring 
+    if (req.body.reccuring !== "never") {
+      let interval;
+      // space due dates based on recurring input
+      switch (req.body.reccuring) {
+        case "daily":
+          
+        default:
+          
+          break;
+      }
+    }
+
     let newChore = new Chore({
       ...req.body,
       author: req.user._id,
@@ -96,13 +109,13 @@ router.patch(
 );
 
 router.delete("/:choreId", (req, res) => {
-  Chore.findByIdAndRemove(req.params.choreId, 
-    (err, chore) => {
-      if (err) return  res.status(404).json({ nochoresfound: "No chores found with that id" })
-      return res.json(chore._id);
-    } 
-     
-    );
+  Chore.findByIdAndRemove(req.params.choreId, (err, chore) => {
+    if (err)
+      return res
+        .status(404)
+        .json({ nochoresfound: "No chores found with that id" });
+    return res.json(chore._id);
+  });
 });
 
 module.exports = router;
