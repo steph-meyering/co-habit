@@ -16,6 +16,18 @@ router.get('/:id/users', (req, res) => {
     );
 });
 
+router.get('/:id/acceptedUsers', (req, res) => {
+  User.find({ household: req.params.id, acceptedIntoHousehold: true })
+    .then(users => {
+      res.json(users);
+    })
+    .catch(err =>
+      res
+        .status(404)
+        .json({ nousersfound: "No accepted users were found for this household" })
+    );
+});
+
 router.get('/:id', (req, res) => {
   Household.findById(req.params.id)
     .then(household => {

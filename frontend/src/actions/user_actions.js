@@ -36,6 +36,16 @@ export const getUsers = householdId => dispatch => {
   // })
 };
 
+export const getAcceptedUsers = householdId => dispatch => {
+  return HouseholdAPIUtil.getAcceptedUsers(householdId)
+    .then(users => {
+      dispatch(receiveUsers(users))
+    })
+  // .catch(err => {
+  //   dispatch(receiveErrors(err.response.data));
+  // })
+};
+
 export const updateUser = user => dispatch => {
   return UserAPIUtil.updateUser(user)
     .then(user => {

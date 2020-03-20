@@ -15,3 +15,7 @@ export const updateChore = chore => {
   return axios.patch(`/api/chores/${chore._id}`, chore);
 };
 
+export const deleteChore = choreId => {
+  return axios.delete(`/api/chores/${choreId}`);
+};
+
