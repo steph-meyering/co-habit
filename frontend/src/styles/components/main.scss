@@ -1,21 +1,24 @@
 h1 {
-  //     background: rgb(34,195,176);
-  // background: linear-gradient(0deg, rgba(34,195,176,1) 0%, rgba(253,193,45,1) 100%);
-  font-size: 40px;
+  font-size: 30px;
 }
+
 .app {
+  height: 100%;
   display: flex;
   justify-content: center;
 }
 
 .main-container {
-    width: 70%;
-    min-height: 100vh;
-    padding: 10px;
-    background-color: white;
+  width: 70%;
+  min-height: 100vh;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4),
+    -2px 0 8px rgba(0, 0, 0, 0.4);
 }
 
-button, a {
+button,
+a {
   margin: 10px 5px;
   padding: 5px 10px;
   border-radius: 2rem;
