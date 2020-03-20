@@ -49,10 +49,13 @@ class ChoreItem extends React.Component {
       switch (recurring) {
         case "daily":
           nextDate = moment(dueDate[1]).add(1, "day");
+          break;
         case "weekly":
           nextDate = moment(dueDate[1]).add(7, "days");
+          break;
         case "biweekly":
           nextDate = moment(dueDate[1]).add(14, "days");
+          break;
         default:
           nextDate = moment(dueDate[1]).add(7, "days");
           break;
@@ -62,7 +65,6 @@ class ChoreItem extends React.Component {
       // delete old due date if complete
       updatedChore.dueDate.shift();
       updatedChore.complete = false;
-      console.log(updatedChore);
       this.props.updateChore(updatedChore);
       this.setState({
         checked: false
@@ -88,7 +90,6 @@ class ChoreItem extends React.Component {
               type="checkbox"
               value={this.state.checked}
               checked={this.state.checked}
-              // defaultChecked={complete}
               onChange={e => {
                 e.preventDefault();
                 let updatedChore = this.props.chore;

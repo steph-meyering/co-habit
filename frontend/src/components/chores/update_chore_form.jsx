@@ -2,25 +2,21 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { updateChore, deleteChore } from "../../actions/chore_actions";
-import Loader from "react-spinners/PulseLoader";
-import { css } from "@emotion/core";
-
-class CreateChoreForm extends React.Component {
+import moment from "moment";
+class UpdateChoreForm extends React.Component {
   constructor(props) {
     super(props);
+    let chore = this.props.chore;
+    chore.dueDate = new Date(moment(chore.dueDate[0]))
+      .toISOString()
+      .substr(0, 10);
 
     this.state = {
-      ...this.props.chore
+      ...chore
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  componentDidMount() {}
-
-  // componentWillUnmount() {
-  //   this.props.clearErrors();
-  // }
 
   update(field) {
     return e => {
@@ -32,57 +28,16 @@ class CreateChoreForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let { loading, ...chore } = this.state;
-
-    this.setState({
-      loading: true
-    });
+    let chore  = this.state;
     chore.difficulty = parseInt(chore.difficulty);
     this.props.updateChore(chore);
-    setTimeout(() => {
-      this.setState({
-        loading: false
-      });
-      this.props.closeUpdateForm();
-    }, 0);
+    this.props.closeUpdateForm();
   }
 
-  // renderErrors() {
-  //   return (
-  //     <ul className="errors-list">
-  //       {this.props.errors.slice(0, 3).map((error, i) => (
-  //         <li key={`error-${i}`} className="err">
-  //           {/* <FontAwesomeIcon icon={faExclamationCircle} id="error-icon" /> */}
-  //           {error}
-  //         </li>
-  //       ))}
-  //     </ul>
-  //   );
-  // }
-
   render() {
-    if (this.state.loading) {
-      const override = css`
-        display: block;
-        margin: auto;
-        border-color: white;
-      `;
-      return (
-        <div className="loading submit-loading">
-          <Loader
-            css={override}
-            size={20}
-            color={"#1a7d88"}
-            loading={this.state.loading}
-          />
-        </div>
-      );
-    }
-
     return (
       <div>
         <h3>Edit Chore</h3>
-        {/* {this.props.errors ? this.renderErrors() : null} */}
         <form onSubmit={this.handleSubmit}>
           <label>Title</label>
           <input
@@ -106,6 +61,53 @@ class CreateChoreForm extends React.Component {
             value={this.state.difficulty}
             onChange={this.update("difficulty")}
           />
+          <br />
+          <label>Due Date</label>
+          <input
+            type="date"
+            value={this.state.dueDate}
+            onChange={this.update("dueDate")}
+          />
+          <br />
+          {/* <label>Recurring? </label>
+          <div className="radio">
+            <label>
+              <input
+                type="radio"
+                value="daily"
+                checked={this.state.recurring === "daily"}
+                onChange={this.update("recurring")}
+              />
+              Daily
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="weekly"
+                checked={this.state.recurring === "weekly"}
+                onChange={this.update("recurring")}
+              />
+              Every week
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="biweekly"
+                checked={this.state.recurring === "biweekly"}
+                onChange={this.update("recurring")}
+              />
+              Every 2 weeks
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="never"
+                checked={this.state.recurring === "never"}
+                onChange={this.update("recurring")}
+              />
+              Never
+            </label>
+          </div> */}
           <button type="submit">Update Chore</button>
         </form>
         <button onClick={() => this.props.deleteChore(this.props.chore._id)}>
@@ -130,5 +132,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(CreateChoreForm)
+  connect(mapStateToProps, mapDispatchToProps)(UpdateChoreForm)
 );

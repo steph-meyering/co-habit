@@ -36,7 +36,6 @@ class CreateChoreForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     let { loading, ...chore } = this.state;
-    console.log(chore);
     chore.difficulty = parseInt(chore.difficulty);
     this.props.createNewChore(chore).then(() =>
       this.setState({
