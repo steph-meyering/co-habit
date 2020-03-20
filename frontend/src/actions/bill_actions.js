@@ -2,6 +2,7 @@ import * as APIUtil from '../util/bill_api_util';
 
 export const RECEIVE_BILL = "RECEIVE_BILL";
 export const RECEIVE_BILLS = "RECEIVE_BILLS";
+export const REMOVE_BILL = "REMOVE_BILL";
 
 export const receiveBill = bill => ({
     type: RECEIVE_BILL,
@@ -13,6 +14,10 @@ export const receiveBills = bills => ({
     bills
 });
 
+export const removeBill = bill => ({
+	type: REMOVE_BILL,
+	bill
+});
 
 export const createBill = bill => dispatch => {
     return APIUtil.createBill(bill)
@@ -38,5 +43,14 @@ export const createBill = bill => dispatch => {
 };
 
 export const fetchBills = () => dispatch => APIUtil.getBills()
-    .then(bills => dispatch(receiveBills(bills)))
-    .catch(err => console.log(err)); 
+  .then(bills => dispatch(receiveBills(bills)))
+  .catch(err => console.log(err)); 
+
+export const deleteBill = bill => dispatch => APIUtil.deleteBill(bill)
+	.then(() => dispatch(removeBill(bill)))
+  .catch(err => console.log(err));
+  
+export const updateBill = bill => dispatch => APIUtil.updateBill(bill)
+  .then(bill => dispatch(receiveBill(bill)))
+  .catch(err => console.log(err));
+

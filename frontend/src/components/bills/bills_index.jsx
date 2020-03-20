@@ -5,6 +5,11 @@ class BillsIndex extends React.Component {
     
     componentDidMount(){
         this.props.fetchBills()
+        this.props.getAcceptedUsers(this.props.currentUser.household);
+    }
+
+    isMyBill(bill){
+        if (this.props.currentUser.id === bill.user) return bill
     }
 
     render(){
@@ -14,23 +19,29 @@ class BillsIndex extends React.Component {
         }
 
         if (this.props.loading) {
-            debugger
             return <div>loading...</div>;
         }
-        
-        let billItems = this.props.bills.map(bill => <BillItem 
-            bill = {bill}
-            key = {bill._id}
-        />
-        )
+        let billItems = this.props.bills.map(bill => {
+            return (
+              <BillItem
+                bill={bill}
+                key={bill._id}
+                isMine={this.isMyBill(bill) ? true : false}
+                deleteBill={this.props.deleteBill}
+                updateBill={this.props.updateBill}
+                owner={this.props.housemates[bill.user].name}
+              />
+            );});
 
-        return(
-            <div>
-                <ul>
-                    {billItems}
-                </ul>
-            </div>
-        )
+        // let myBillItems = this.props.bills.filter((bill) => this.isMyBill(bill))
+        //     .map(bill => <BillItem bill = {bill} />)
+
+        return (
+          <>
+            <h3>All household bills: </h3>
+            <ul>{billItems}</ul>
+          </>
+        );
     }
 }
 
