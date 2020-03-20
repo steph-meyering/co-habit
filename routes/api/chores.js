@@ -4,7 +4,7 @@ const validateChore = require("../../validation/chores");
 const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
-import moment from "moment";
+const moment = require("moment");
 mongoose.set("useFindAndModify", false);
 
 router.get("/test", (req, res) =>
