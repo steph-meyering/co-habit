@@ -6,7 +6,7 @@ module.exports = function validateChore(data) {
 
   data.title = validText(data.title) ? data.title : "";
 
-  if (!Validator.isLength(data.title, { min: 5, max: 140 })) {
+  if (!Validator.isLength(data.title, { min: 3, max: 140 })) {
     errors.title = "Title must be between 3 and 30 characters";
   }
 
