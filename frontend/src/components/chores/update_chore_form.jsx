@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { updateChore, deleteChore } from "../../actions/chore_actions";
 import Loader from "react-spinners/PulseLoader";
 import { css } from "@emotion/core";
@@ -68,15 +68,13 @@ class CreateChoreForm extends React.Component {
         border-color: white;
       `;
       return (
-        <div className="main-component-container">
-          <div className="loading submit-loading">
-            <Loader
-              css={override}
-              size={20}
-              color={"#1a7d88"}
-              loading={this.state.loading}
-            />
-          </div>
+        <div className="loading submit-loading">
+          <Loader
+            css={override}
+            size={20}
+            color={"#1a7d88"}
+            loading={this.state.loading}
+          />
         </div>
       );
     }

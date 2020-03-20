@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   fetchChores,
@@ -9,11 +8,13 @@ import {
 import { getAcceptedUsers } from "../../actions/user_actions";
 import ChoreItem from "./chore_item";
 import CreateChoreForm from "./create_chore_form";
+import Loader from "react-spinners/BounceLoader";
+import { css } from "@emotion/core";
 
 class Chores extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true, showCreateChoreForm: false };
+    this.state = { loading: false, showCreateChoreForm: false };
     this.reassignChores = this.reassignChores.bind(this);
   }
 
@@ -26,16 +27,17 @@ class Chores extends React.Component {
   }
 
   reassignChores() {
-    let shuffledHousemates = this.shuffle(Object.values(this.props.housemates));
-    this.props.chores
-      .forEach((chore, i) => {
-        chore.assignedUser =
-          shuffledHousemates[i % shuffledHousemates.length]._id;
-        this.props.updateChore(chore);
-      })
-    
-    this.props.fetchChores();
     this.setState({ loading: true });
+    let shuffledHousemates = this.shuffle(Object.values(this.props.housemates));
+    this.props.chores.forEach((chore, i) => {
+      chore.assignedUser =
+        shuffledHousemates[i % shuffledHousemates.length]._id;
+      this.props.updateChore(chore);
+    });
+
+    this.props.fetchChores().then(() => {
+      setTimeout(() => this.setState({ loading: false }), 1200);
+    });
   }
 
   componentDidMount() {
@@ -45,8 +47,22 @@ class Chores extends React.Component {
   }
 
   render() {
-    if (this.props.loading) {
-      return <div>loading...</div>;
+    if (this.state.loading) {
+      const override = css`
+        display: block;
+        margin: auto;
+        border-color: white;
+      `;
+      return (
+        <div className="loading submit-loading">
+          <Loader
+            css={override}
+            size={20}
+            color={"#1a7d88"}
+            loading={this.state.loading}
+          />
+        </div>
+      );
     }
 
     if (this.props.chores.length === 0) {
