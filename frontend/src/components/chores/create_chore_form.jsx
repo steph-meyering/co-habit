@@ -13,7 +13,7 @@ class CreateChoreForm extends React.Component {
       household: this.props.currentUser.household,
       difficulty: 1,
       recurring: "weekly",
-      dueDate: (new Date(moment().add(7, "days"))).toISOString().substr(0,10)
+      dueDate: new Date(moment().add(7, "days")).toISOString().substr(0, 10)
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);

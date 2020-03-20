@@ -44,7 +44,7 @@ class CreateChoreForm extends React.Component {
         loading: false
       });
       this.props.closeUpdateForm();
-    }, 1200);
+    }, 0);
   }
 
   // renderErrors() {

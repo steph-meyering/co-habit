@@ -58,29 +58,28 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors);
     }
-
-    let newChore = new Chore({
+let newChore = new Chore({
       ...req.body,
       author: req.user._id,
       household: req.user.household
     });
-
     // add second due date if chore is recurring
     if (req.body.reccuring !== "never") {
       let nextDate;
       // space due dates based on recurring input
       switch (req.body.reccuring) {
         case "daily":
-          nextDate = moment(newChore.dueDate).add(1, "day")
+          nextDate = moment(req.body.dueDate).add(1, "day");
         case "weekly":
-          nextDate = moment(newChore.dueDate).add(7, "days")
+          nextDate = moment(req.body.dueDate).add(7, "days");
         case "biweekly":
-          nextDate = moment(newChore.dueDate).add(14, "days")
+          nextDate = moment(req.body.dueDate).add(14, "days");
         default:
+          nextDate = moment(req.body.dueDate).add(7, "days");
           break;
       }
-
-      newChore.dueDate.push(nextDate)
+      newChore.dueDate.push(nextDate._d);
+      
     }
 
     newChore
