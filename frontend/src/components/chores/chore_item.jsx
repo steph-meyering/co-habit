@@ -5,13 +5,19 @@ class ChoreItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showUpdateForm: false
+      showUpdateForm: false,
+      checked: this.props.chore.complete
     };
     this.closeUpdateForm = this.closeUpdateForm.bind(this);
   }
+
   closeUpdateForm() {
-    this.setState({ showUpdateForm: false });
+    this.setState({
+      showUpdateForm: false,
+      checked: this.props.chore.complete
+    });
   }
+
   render() {
     if (this.state.showUpdateForm) {
       return (
@@ -47,7 +53,20 @@ class ChoreItem extends React.Component {
           <div>{difficulty}</div>
           <div>{recurring}</div>
           <div>Due {moment(dueDate[0]).fromNow()}</div>
-          <div>{complete ? "Done!" : "Incomplete"}</div>
+          <div>
+            <input
+              type="checkbox"
+              value={this.state.checked}
+              // defaultChecked={complete}
+              onChange={e => {
+                let updatedChore = this.props.chore;
+                updatedChore.complete = !this.state.checked;
+                this.props.updateChore(updatedChore);
+                this.setState({ checked: !this.state.checked });
+              }}
+            />
+            <div>{complete ? "Done!" : "Incomplete"}</div>
+          </div>
         </div>
         <div>
           <button onClick={() => this.setState({ showUpdateForm: true })}>

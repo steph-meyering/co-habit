@@ -58,7 +58,7 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors);
     }
-let newChore = new Chore({
+    let newChore = new Chore({
       ...req.body,
       author: req.user._id,
       household: req.user.household
@@ -79,7 +79,6 @@ let newChore = new Chore({
           break;
       }
       newChore.dueDate.push(nextDate._d);
-      
     }
 
     newChore

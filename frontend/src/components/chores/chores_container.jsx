@@ -28,6 +28,7 @@ class Chores extends React.Component {
 
   reassignChores() {
     this.setState({ loading: true });
+    // shuffle array of housemates to randomly assign chores
     let shuffledHousemates = this.shuffle(Object.values(this.props.housemates));
     this.props.chores.forEach((chore, i) => {
       chore.assignedUser =
