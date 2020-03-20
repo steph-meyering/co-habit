@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
 const User = require('../../models/User');
+const Event = require('../../models/Event');
 const Household = require('../../models/Household');
 
 //get all users for a household
@@ -13,6 +14,17 @@ router.get('/:id/users', (req, res) => {
     })
     .catch(err =>
       res.status(404).json({ nousersfound: 'No users were found for this household' })
+    );
+});
+
+//get all events for a household
+router.get('/:id/events', (req, res) => {
+  Event.find({ household: req.params.id })
+    .then(events => {
+      res.json(events)
+    })
+    .catch(err =>
+      res.status(404).json({ noeventsfound: 'No events were found for this household' })
     );
 });
 

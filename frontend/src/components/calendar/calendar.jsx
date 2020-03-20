@@ -13,15 +13,7 @@ class HouseholdCalendar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      events: [
-        {
-          id: 0,
-          start: new Date(),
-          end: new Date(moment().add(1, "days")),
-          title: "Some title",
-          description: "this is a test description"
-        }
-      ],
+      events: [],
       infoModalCls: "event-modal",
       infoModalTitle: "",
       infoModalDescription: "",
@@ -37,6 +29,11 @@ class HouseholdCalendar extends React.Component {
 
     this.moveEvent = this.moveEvent.bind(this)
     this.newEvent = this.newEvent.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.getEvents(this.props.currentUser.household)
+      .then(() => this.setState([{events: this.props.events}]));
   }
 
   moveEvent({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
@@ -158,7 +155,7 @@ class HouseholdCalendar extends React.Component {
   }
 
   render() {
-
+    
     return (
       <>
         <DragAndDropCalendar
