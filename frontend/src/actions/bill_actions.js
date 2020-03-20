@@ -43,9 +43,14 @@ export const createBill = bill => dispatch => {
 };
 
 export const fetchBills = () => dispatch => APIUtil.getBills()
-    .then(bills => dispatch(receiveBills(bills)))
-    .catch(err => console.log(err)); 
+  .then(bills => dispatch(receiveBills(bills)))
+  .catch(err => console.log(err)); 
 
 export const deleteBill = bill => dispatch => APIUtil.deleteBill(bill)
 	.then(() => dispatch(removeBill(bill)))
-	.catch(err => console.log(err));
+  .catch(err => console.log(err));
+  
+export const updateBill = bill => dispatch => APIUtil.updateBill(bill)
+  .then(bill => dispatch(receiveBill(bill)))
+  .catch(err => console.log(err));
+

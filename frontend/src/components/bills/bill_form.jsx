@@ -23,8 +23,8 @@ class BillForm extends React.Component {
     e.preventDefault();
 
     let bill = {
-        title: this.state.title,
-        amount: this.state.amount
+      title: this.state.title,
+      amount: parseInt(this.state.amount)
     };
     this.props.createBill(bill).then(
       this.setState(this.defaultState()))

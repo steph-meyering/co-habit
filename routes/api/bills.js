@@ -51,6 +51,20 @@ router.delete(
   }
 );
 
-
+router.patch(
+  "/:billId",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Bill.findByIdAndUpdate(
+      req.params.billId,
+      req.body,
+      { new: true },
+      (err, data) => {
+        if (data) return res.json(data);
+        if (err) return res.status(400).json("Error: " + err);
+      }
+    );
+  }
+);
 
 module.exports = router;

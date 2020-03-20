@@ -11,3 +11,7 @@ export const getBills = () => {
 export const deleteBill = (bill) => {
     return axios.delete(`/api/bills/${bill._id}`)
 }
+
+export const updateBill = bill => {
+  return axios.patch(`/api/bills/${bill._id}`, bill);
+};
