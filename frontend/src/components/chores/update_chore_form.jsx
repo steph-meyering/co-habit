@@ -37,14 +37,14 @@ class CreateChoreForm extends React.Component {
     this.setState({
       loading: true
     });
+    chore.difficulty = parseInt(chore.difficulty);
+    this.props.updateChore(chore);
     setTimeout(() => {
       this.setState({
         loading: false
       });
       this.props.closeUpdateForm();
     }, 1200);
-    chore.difficulty = parseInt(chore.difficulty);
-    this.props.updateChore(chore);
   }
 
   // renderErrors() {
