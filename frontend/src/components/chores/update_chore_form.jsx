@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { updateChore, deleteChore } from "../../actions/chore_actions";
+import Loader from "react-spinners/PulseLoader";
+import { css } from "@emotion/core";
 
 class CreateChoreForm extends React.Component {
   constructor(props) {
@@ -32,63 +34,48 @@ class CreateChoreForm extends React.Component {
     e.preventDefault();
     let { loading, ...chore } = this.state;
 
+    this.setState({
+      loading: true
+    });
+    setTimeout(() => {
+      this.setState({
+        loading: false
+      });
+      this.props.closeUpdateForm();
+    }, 1200);
     chore.difficulty = parseInt(chore.difficulty);
-    this.props.updateChore(chore).then(() => this.props.closeUpdateForm())
-
-    // this.setState({
-    //   loading: true
-    // });
-
-    // this.props.submitReview(review).then(
-    //   () => {
-    //     this.props.fetchBook(this.props.bookId);
-    //     setTimeout(() => {
-    //       this.setState({
-    //         review_text: "",
-    //         rating: undefined,
-    //         book_id: this.props.book.id,
-    //         user_id: this.props.user_id,
-    //         loading: false
-    //       });
-    //     }, 1500);
-    //   },
-    //   err => {
-    //     this.setState({
-    //       loading: false
-    //     });
-    //   }
-    // );
+    this.props.updateChore(chore);
   }
 
-  renderErrors() {
-    return (
-      <ul className="errors-list">
-        {this.props.errors.slice(0, 3).map((error, i) => (
-          <li key={`error-${i}`} className="err">
-            {/* <FontAwesomeIcon icon={faExclamationCircle} id="error-icon" /> */}
-            {error}
-          </li>
-        ))}
-      </ul>
-    );
-  }
+  // renderErrors() {
+  //   return (
+  //     <ul className="errors-list">
+  //       {this.props.errors.slice(0, 3).map((error, i) => (
+  //         <li key={`error-${i}`} className="err">
+  //           {/* <FontAwesomeIcon icon={faExclamationCircle} id="error-icon" /> */}
+  //           {error}
+  //         </li>
+  //       ))}
+  //     </ul>
+  //   );
+  // }
 
   render() {
     if (this.state.loading) {
-      // const override = css`
-      //   display: block;
-      //   margin: auto;
-      //   border-color: white;
-      // `;
+      const override = css`
+        display: block;
+        margin: auto;
+        border-color: white;
+      `;
       return (
         <div className="main-component-container">
           <div className="loading submit-loading">
-            {/* <RotateLoader
+            <Loader
               css={override}
               size={20}
               color={"#1a7d88"}
               loading={this.state.loading}
-            /> */}
+            />
           </div>
         </div>
       );
@@ -97,7 +84,7 @@ class CreateChoreForm extends React.Component {
     return (
       <div>
         <h3>Edit Chore</h3>
-        {this.props.errors ? this.renderErrors() : null}
+        {/* {this.props.errors ? this.renderErrors() : null} */}
         <form onSubmit={this.handleSubmit}>
           <label>Title</label>
           <input
