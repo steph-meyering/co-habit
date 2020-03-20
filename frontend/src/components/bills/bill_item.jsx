@@ -5,7 +5,8 @@ class BillItem extends React.Component {
         return (
           <div>
             <li>{this.props.bill.title}</li>
-            <li>{this.props.bill.amount}</li>
+            <li>${this.props.bill.amount}</li>
+            <br />
           </div>
         );
     }
