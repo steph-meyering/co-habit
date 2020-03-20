@@ -8,13 +8,16 @@ class ChoreItem extends React.Component {
     this.state = {
       showUpdateForm: false
     };
+    this.closeUpdateForm = this.closeUpdateForm.bind(this)
   }
-
+  closeUpdateForm() {
+    this.setState({showUpdateForm: false})
+  }
   render() {
     if (this.state.showUpdateForm) {
       return (
         <li>
-          <UpdateChoreForm chore={this.props.chore} />
+          <UpdateChoreForm chore={this.props.chore} closeUpdateForm={this.closeUpdateForm} />
         </li>
       );
     }
@@ -27,7 +30,7 @@ class ChoreItem extends React.Component {
           <div>{this.props.chore.difficulty}</div>
           <div>
             {this.props.chore.assignedUser
-              ? this.props.chore.assignedUser.name
+              ? this.props.housemates[this.props.chore.assignedUser].name
               : "unassigned"}
           </div>
           <div>{this.props.chore.complete ? "Done!" : ""}</div>
@@ -43,3 +46,6 @@ class ChoreItem extends React.Component {
 }
 
 export default ChoreItem;
+{
+  /* [this.props.chore.assignedUser].name */
+}

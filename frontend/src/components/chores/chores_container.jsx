@@ -6,6 +6,7 @@ import {
   fetchChoresForUser,
   updateChore
 } from "../../actions/chore_actions";
+import { getAcceptedUsers } from "../../actions/user_actions";
 import ChoreItem from "./chore_item";
 import CreateChoreForm from "./create_chore_form";
 
@@ -13,12 +14,33 @@ class Chores extends React.Component {
   constructor(props) {
     super(props);
     this.state = { loading: true, showCreateChoreForm: false };
+    this.reassignChores = this.reassignChores.bind(this);
+  }
+
+  shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  reassignChores() {
+    let shuffledHousemates = this.shuffle(Object.values(this.props.housemates));
+    this.props.chores
+      .forEach((chore, i) => {
+        chore.assignedUser =
+          shuffledHousemates[i % shuffledHousemates.length]._id;
+        this.props.updateChore(chore);
+      })
+    
+    this.props.fetchChores();
+    this.setState({ loading: true });
   }
 
   componentDidMount() {
-    this.props.fetchChores().then(res => {
-      console.log(res);
-      this.setState({ loading: false });
+    this.props.getAcceptedUsers(this.props.currentUser.household).then(() => {
+      this.props.fetchChores().then(() => this.setState({ loading: false }));
     });
   }
 
@@ -40,6 +62,7 @@ class Chores extends React.Component {
         <ChoreItem
           key={chore._id}
           chore={chore}
+          housemates={this.props.housemates}
           updateChore={this.props.updateChore}
         />
       );
@@ -48,9 +71,12 @@ class Chores extends React.Component {
     return (
       <div>
         <h2>All Household Chores</h2>
+        <div>
+          <button onClick={this.reassignChores}>Reassign All Chores</button>
+        </div>
         <ol>{allChoreItems}</ol>
         {/* <h2>Your Assigned Chores</h2> */}
-          <CreateChoreForm />
+        <CreateChoreForm />
       </div>
     );
   }
@@ -59,7 +85,8 @@ class Chores extends React.Component {
 const mapStateToProps = state => {
   return {
     chores: Object.values(state.entities.chores),
-    currentUser: state.session.user
+    currentUser: state.session.user,
+    housemates: state.entities.users
   };
 };
 
@@ -67,7 +94,8 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchChores: () => dispatch(fetchChores()),
     fetchChoresForUser: user => dispatch(fetchChoresForUser(user)),
-    updateChore: chore => dispatch(updateChore(chore))
+    updateChore: chore => dispatch(updateChore(chore)),
+    getAcceptedUsers: householdId => dispatch(getAcceptedUsers(householdId))
   };
 };
 

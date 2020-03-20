@@ -87,8 +87,8 @@ router.patch(
       req.params.choreId,
       req.body,
       { new: true },
-      (err, chore) => {
-        if (chore) return res.json(chore);
+      (err, data) => {
+        if (data) return res.json(data);
         if (err) return res.status(400).json("Error: " + err);
       }
     );
