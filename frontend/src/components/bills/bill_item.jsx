@@ -2,6 +2,7 @@ import React from "react";
 
 class BillItem extends React.Component {
     render(){
+      if (this.props.bill._id === "undefined") return null
         return (
           <div>
             <li>{this.props.bill.title}</li>

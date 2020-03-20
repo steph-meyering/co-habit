@@ -12,7 +12,6 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateBillInput(req.body);
-    console.log(errors);
     if (!isValid) {
       return res.status(400).json(errors);
     }

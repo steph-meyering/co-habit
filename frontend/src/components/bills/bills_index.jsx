@@ -18,18 +18,18 @@ class BillsIndex extends React.Component {
         }
 
         if (this.props.loading) {
-            debugger
             return <div>loading...</div>;
         }
         
-        let billItems = this.props.bills.map(bill => (
+        let billItems = this.props.bills.map(bill => {
+            return(
           <BillItem
             bill={bill}
             key={bill._id}
             isMine={this.isMyBill(bill) ? true : false}
             deleteBill={this.props.deleteBill}
           />
-        ));
+        )});
 
         // let myBillItems = this.props.bills.filter((bill) => this.isMyBill(bill))
         //     .map(bill => <BillItem bill = {bill} />)
