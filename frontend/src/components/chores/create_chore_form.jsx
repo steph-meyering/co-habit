@@ -1,19 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
 import { createNewChore } from "../../actions/chore_actions";
+import moment from "moment";
 
 class CreateChoreForm extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       title: "",
       description: "",
       author: this.props.currentUser.id,
       household: this.props.currentUser.household,
       difficulty: 1,
-      recurring: "weekly"
+      recurring: "weekly",
+      dueDate: (new Date(moment().add(7, "days"))).toISOString().substr(0,10)
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,23 +45,24 @@ class CreateChoreForm extends React.Component {
         author: this.props.currentUser.id,
         household: this.props.currentUser.household,
         difficulty: 1,
-        recurring: "weekly"
+        recurring: "weekly",
+        dueDate: new Date(moment().add(7, "days")).toISOString().substr(0, 10)
       })
     );
   }
 
-  renderErrors() {
-    return (
-      <ul className="errors-list">
-        {this.props.errors.slice(0, 3).map((error, i) => (
-          <li key={`error-${i}`} className="err">
-            {/* <FontAwesomeIcon icon={faExclamationCircle} id="error-icon" /> */}
-            {error}
-          </li>
-        ))}
-      </ul>
-    );
-  }
+  // renderErrors() {
+  //   return (
+  //     <ul className="errors-list">
+  //       {this.props.errors.slice(0, 3).map((error, i) => (
+  //         <li key={`error-${i}`} className="err">
+  //           {/* <FontAwesomeIcon icon={faExclamationCircle} id="error-icon" /> */}
+  //           {error}
+  //         </li>
+  //       ))}
+  //     </ul>
+  //   );
+  // }
 
   render() {
     if (this.state.loading) {
@@ -87,7 +88,7 @@ class CreateChoreForm extends React.Component {
     return (
       <div>
         <h3>Add New Chore</h3>
-        {this.props.errors ? this.renderErrors() : null}
+        {/* {this.props.errors ? this.renderErrors() : null} */}
         <form onSubmit={this.handleSubmit}>
           <label>Title</label>
           <input
@@ -110,6 +111,13 @@ class CreateChoreForm extends React.Component {
             max="3"
             value={this.state.difficulty}
             onChange={this.update("difficulty")}
+          />
+          <br />
+          <label>Due Date</label>
+          <input
+            type="date"
+            value={this.state.dueDate}
+            onChange={this.update("dueDate")}
           />
           <br />
           <label>Recurring? </label>
@@ -158,7 +166,7 @@ class CreateChoreForm extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { match }) => {
+const mapStateToProps = state => {
   return {
     currentUser: state.session.user,
     errors: state.errors.chores
@@ -169,6 +177,4 @@ const mapDispatchToProps = dispatch => ({
   createNewChore: chore => dispatch(createNewChore(chore))
 });
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(CreateChoreForm)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateChoreForm);

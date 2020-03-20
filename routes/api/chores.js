@@ -4,6 +4,7 @@ const validateChore = require("../../validation/chores");
 const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
+import moment from "moment";
 mongoose.set("useFindAndModify", false);
 
 router.get("/test", (req, res) =>
@@ -58,24 +59,30 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    // add second due date if chore is recurring 
-    if (req.body.reccuring !== "never") {
-      let interval;
-      // space due dates based on recurring input
-      switch (req.body.reccuring) {
-        case "daily":
-          
-        default:
-          
-          break;
-      }
-    }
-
     let newChore = new Chore({
       ...req.body,
       author: req.user._id,
       household: req.user.household
     });
+
+    // add second due date if chore is recurring
+    if (req.body.reccuring !== "never") {
+      let nextDate;
+      // space due dates based on recurring input
+      switch (req.body.reccuring) {
+        case "daily":
+          nextDate = moment(newChore.dueDate).add(1, "day")
+        case "weekly":
+          nextDate = moment(newChore.dueDate).add(7, "days")
+        case "biweekly":
+          nextDate = moment(newChore.dueDate).add(14, "days")
+        default:
+          break;
+      }
+
+      newChore.dueDate.push(nextDate)
+    }
+
     newChore
       .save()
       .then(data => res.json(data))
