@@ -6,6 +6,7 @@ import DashboardContainer from "./dashboard/dashboard_container";
 import "../styles/application.scss";
 import BillsIndexContainer from "./bills/bills_index_container";
 import ChoresContainer from "./chores/chores_container";
+import HouseholdCalendar from "./calendar/calendar";
 import NavBar from "./nav/nav";
 
 const App = () => (
@@ -21,6 +22,7 @@ const App = () => (
         />
         <ProtectedRoute exact path="/chores" component={ChoresContainer} />
         <ProtectedRoute exact path="/bills" component={BillsIndexContainer} />
+        <Route exact path="/calendar" component={HouseholdCalendar} />
         {/* Default redirect given bad path */}
         <Redirect path="*" to="/dashboard" />
       </Switch>
