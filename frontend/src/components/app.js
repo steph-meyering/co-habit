@@ -22,7 +22,6 @@ const App = () => (
         />
         <ProtectedRoute exact path="/chores" component={ChoresContainer} />
         <ProtectedRoute exact path="/bills" component={BillsIndexContainer} />
-        <ProtectedRoute exact path="/bills/new" component={BillFormContainer} />
         {/* Default redirect given bad path */}
         <Redirect path="*" to="/dashboard" />
       </Switch>

@@ -1,5 +1,6 @@
 import React from "react";
 import BillItem from './bill_item';
+import BillForm from "./bill_form";
 
 class BillsIndex extends React.Component {
     
@@ -15,7 +16,12 @@ class BillsIndex extends React.Component {
     render(){
 
         if (this.props.bills.length === 0) {
-            return <div>No Bills Yet</div>;
+            return (
+              <div>
+                <div>No Bills Yet</div>
+                <BillForm/>
+              </div>
+            );
         }
 
         if (this.props.loading) {
@@ -40,6 +46,7 @@ class BillsIndex extends React.Component {
           <>
             <h3>All household bills: </h3>
             <ul>{billItems}</ul>
+            <BillForm />
           </>
         );
     }
