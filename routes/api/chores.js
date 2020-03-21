@@ -69,16 +69,16 @@ router.post(
       // space due dates based on recurring input
       switch (req.body.recurring) {
         case "daily":
-          nextDate = moment(req.body.dueDate).add(1, "day");
+          nextDate = moment.utc(req.body.dueDate).add(1, "days");
           break;
         case "weekly":
-          nextDate = moment(req.body.dueDate).add(7, "days");
+          nextDate = moment.utc(req.body.dueDate).add(7, "days");
           break;
         case "biweekly":
-          nextDate = moment(req.body.dueDate).add(14, "days");
+          nextDate = moment.utc(req.body.dueDate).add(14, "days");
           break;
         default:
-          nextDate = moment(req.body.dueDate).add(7, "days");
+          nextDate = moment.utc(req.body.dueDate).add(7, "days");
           break;
       }
       newChore.dueDate.push(nextDate._d);

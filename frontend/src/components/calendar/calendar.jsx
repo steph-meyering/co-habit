@@ -224,6 +224,7 @@ class HouseholdCalendar extends React.Component {
           events={this.state.events}
           onEventDrop={this.moveEvent}
           resizable
+          popup
           onEventResize={this.resizeEvent}
           onSelectSlot={this.showFormInfo.bind(this)}
           onSelectEvent={this.showEventInfo.bind(this)}
