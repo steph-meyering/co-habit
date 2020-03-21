@@ -13,9 +13,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getEvents: (householdId) => dispatch(getEvents(householdId)),
-    createEvent: (user) => dispatch(createEvent(user)),
-    updateEvent: (user) => dispatch(updateEvent(user)),
-    deleteEvent: (userId) => dispatch(deleteEvent(userId))
+    createEvent: (event) => dispatch(createEvent(event)),
+    updateEvent: (event) => dispatch(updateEvent(event)),
+    deleteEvent: (eventId) => dispatch(deleteEvent(eventId))
   }
 }
 

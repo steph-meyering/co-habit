@@ -36,23 +36,22 @@ router.post(
 
 router.patch(
   "/:eventId",
-  passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    // const { errors, isValid } = validateEvent({...req.body,
-    //   author: req.user._id,
-    //   household: req.user.household});
+    const { errors, isValid } = validateEvent(req.body);
 
-    // if (!isValid) {
-    //   return res.status(400).json(errors);
-    // }
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
 
-    Event.findById(req.param.eventId)
+    Event.findById(req.params.eventId)
       .then(event => {
         event.title = req.body.title;
         event.description = req.body.description;
+        event.allDay = req.body.allDay;
         event.start = req.body.start;
         event.end = req.body.end;
-        event.save();
+        event.save().then(event => res.json(event));
+        
       })
       .catch(err => res.status(400).json("Error: " + err));
   }

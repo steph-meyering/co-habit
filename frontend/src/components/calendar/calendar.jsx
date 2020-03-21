@@ -18,6 +18,7 @@ class HouseholdCalendar extends React.Component {
       infoModalDescription: "",
       infoModalStart: "",
       infoModalEnd: "",
+      infoModalId: "",
       formModalCls: "event-modal",
       title: "",
       description: "",
@@ -46,9 +47,38 @@ class HouseholdCalendar extends React.Component {
     } else if (event.allDay && !droppedOnAllDaySlot) {
       allDay = false
     }
-
+    end = end.getHours() === 0 && end.getMinutes() === 0 ?
+      moment(end).add(1, "seconds").toDate() : end;
+    
     const updatedEvent = { ...event, start, end, allDay }
+    //make sure the event doesn't jump before updating the database
+    const nextEvents = [...events]
+    nextEvents.splice(idx, 1, updatedEvent)
 
+    this.setState({
+      events: nextEvents,
+    })
+    //update the event
+    this.props.updateEvent(updatedEvent).then(() => {
+        this.setState({
+          events: this.props.events,
+        });
+      });
+
+  }
+
+  resizeEvent = ({ event, start, end }) => {
+    const { events } = this.state
+    const idx = events.indexOf(event)
+    end = end.getHours() === 0 && end.getMinutes() === 0 && end.getSeconds() === 0? 
+    moment(end).subtract(1, "seconds").toDate() : end;
+    // const nextEvents = events.map(existingEvent => {
+    //   return existingEvent._id === event._id
+    //     ? { ...existingEvent, start, end }
+    //     : existingEvent
+    // })
+    const updatedEvent = { ...event, start, end}
+    //make sure the event doesn't jump before updating the database
     const nextEvents = [...events]
     nextEvents.splice(idx, 1, updatedEvent)
 
@@ -56,22 +86,11 @@ class HouseholdCalendar extends React.Component {
       events: nextEvents,
     })
 
-    // alert(`${event.title} was dropped onto ${updatedEvent.start}`)
-  }
-
-  resizeEvent = ({ event, start, end }) => {
-    const { events } = this.state
-    end = this.state.end.getHours() === 0 && this.state.end.getMinutes() === 0 ? 
-    moment(end).subtract(1, "seconds").toDate() : end;
-    const nextEvents = events.map(existingEvent => {
-      return existingEvent.id === event.id
-        ? { ...existingEvent, start, end }
-        : existingEvent
-    })
-
-    this.setState({
-      events: nextEvents,
-    })
+    this.props.updateEvent(updatedEvent).then(() => {
+      this.setState({
+        events: this.props.events,
+      });
+    });
 
     //alert(`${event.title} was resized to ${start}-${end}`)
   }
@@ -80,8 +99,8 @@ class HouseholdCalendar extends React.Component {
     let dayWrapper = moment(this.state.end);
     dayWrapper = dayWrapper.add(1, "seconds");
     event.preventDefault();
-    let idList = this.state.events.map(a => a.id)
-    let newId = Math.max(...idList) + 1
+    // let idList = this.state.events.map(a => a.id)
+    // let newId = Math.max(...idList) + 1
     let hour = {
       // id: newId,
       title: this.state.title,
@@ -102,6 +121,20 @@ class HouseholdCalendar extends React.Component {
     });
   }
 
+  handleDelete() {
+    this.props.deleteEvent(this.state.infoModalId).then(() => {
+      this.setState({
+        events: this.props.events,
+        infoModalCls: "event-modal",
+        infoModalTitle: "",
+        infoModalDescription: "",
+        infoModalStart: "",
+        infoModalEnd: "",
+        infoModalId: "",
+      });
+    });
+  }
+
   showEventInfo(event) {
     if (this.state.infoModalCls === "event-modal") {
       this.setState({
@@ -110,6 +143,7 @@ class HouseholdCalendar extends React.Component {
         infoModalDescription: event.description,
         infoModalStart: event.start,
         infoModalEnd: event.end,
+        infoModalId: event._id
       });
     }
     
@@ -124,6 +158,7 @@ class HouseholdCalendar extends React.Component {
         infoModalDescription: "",
         infoModalStart: "",
         infoModalEnd: "",
+        infoModalId: "",
     })
     }
   }
@@ -158,6 +193,7 @@ class HouseholdCalendar extends React.Component {
   }
 
   render() {
+
     return (
       <>
         <DragAndDropCalendar
@@ -187,6 +223,7 @@ class HouseholdCalendar extends React.Component {
               this.state.infoModalStart.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' }) !== this.state.infoModalEnd.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' })
               ? <h4>Time: All Day</h4> :
                 <h4>Time: {this.state.infoModalStart.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })} - {this.state.infoModalEnd.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })}</h4>}
+                <button onClick={this.handleDelete.bind(this)}>Delete Event</button>
               </div>
           </div>
         </div>
