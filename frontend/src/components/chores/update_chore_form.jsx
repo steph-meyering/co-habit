@@ -7,7 +7,7 @@ class UpdateChoreForm extends React.Component {
   constructor(props) {
     super(props);
     let chore = this.props.chore;
-    chore.dueDate = new Date(moment(chore.dueDate[0]))
+    chore.dueDate = new Date(moment.utc(chore.dueDate[0]))
       .toISOString()
       .substr(0, 10);
 
@@ -30,6 +30,7 @@ class UpdateChoreForm extends React.Component {
     e.preventDefault();
     let chore  = this.state;
     chore.difficulty = parseInt(chore.difficulty);
+    chore.dueDate = new Date(chore.dueDate).toISOString().substr(0, 10);
     this.props.updateChore(chore);
     this.props.closeUpdateForm();
   }

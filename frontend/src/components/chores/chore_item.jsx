@@ -39,30 +39,38 @@ class ChoreItem extends React.Component {
       dueDate,
       complete
     } = this.props.chore;
-    let now = moment();
-    let firstDuedate = moment(dueDate[0]);
+
+
+    let now = moment.utc();
+    let firstDuedate = moment.utc(dueDate[0]);
 
     if (recurring !== "never" && firstDuedate.isBefore(now) && complete) {
       let updatedChore = this.props.chore;
       let nextDate;
+      let numDueDates = dueDate.length;
       // space due dates based on recurring input
       switch (recurring) {
         case "daily":
-          nextDate = moment(dueDate[1]).add(1, "day");
+          nextDate = moment.utc(dueDate[numDueDates - 1]).add(1, "day");
+
           break;
         case "weekly":
-          nextDate = moment(dueDate[1]).add(7, "days");
+          nextDate = moment.utc(dueDate[numDueDates - 1]).add(7, "days");
           break;
         case "biweekly":
-          nextDate = moment(dueDate[1]).add(14, "days");
+          nextDate = moment.utc(dueDate[numDueDates - 1]).add(14, "days");
           break;
         default:
-          nextDate = moment(dueDate[1]).add(7, "days");
+          nextDate = moment.utc(dueDate[numDueDates - 1]).add(7, "days");
           break;
       }
+
       // add second due date if chore is recurring
+      if (!(updatedChore.dueDate instanceof Array))
+        updatedChore.dueDate = [updatedChore.dueDate];
       updatedChore.dueDate.push(nextDate._d.toISOString().substr(0, 10));
       // delete old due date if complete
+
       updatedChore.dueDate.shift();
       updatedChore.complete = false;
       this.props.updateChore(updatedChore);
@@ -84,21 +92,27 @@ class ChoreItem extends React.Component {
           <div>{difficulty}</div>
           <div>{recurring}</div>
           <div>Due {firstDuedate.fromNow()}</div>
-          <div>{firstDuedate.isBefore(now) ? "OVERDUE" : ""}</div>
-          <div>
+          <div>{firstDuedate.isBefore(now) && !complete ? "OVERDUE" : ""}</div>
+          <div
+            className="checkbox-container"
+            onClick={e => {
+              e.preventDefault();
+              let updatedChore = this.props.chore;
+              updatedChore.complete = !this.state.checked;
+              this.props.updateChore(updatedChore);
+              this.setState({ checked: !this.state.checked });
+            }}
+          >
             <input
               type="checkbox"
               value={this.state.checked}
               checked={this.state.checked}
-              onChange={e => {
-                e.preventDefault();
-                let updatedChore = this.props.chore;
-                updatedChore.complete = !this.state.checked;
-                this.props.updateChore(updatedChore);
-                this.setState({ checked: !this.state.checked });
-              }}
             />
-            <div>{this.state.checked ? "Done!" : "Incomplete"}</div>
+
+            <label className="label-cbx">
+              <span></span>
+              {this.state.checked ? "Done!" : "Incomplete"}
+            </label>
           </div>
         </div>
         <div>
