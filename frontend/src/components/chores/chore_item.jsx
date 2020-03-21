@@ -85,20 +85,24 @@ class ChoreItem extends React.Component {
           <div>{recurring}</div>
           <div>Due {firstDuedate.fromNow()}</div>
           <div>{firstDuedate.isBefore(now) ? "OVERDUE" : ""}</div>
-          <div>
-            <input
-              type="checkbox"
-              value={this.state.checked}
-              checked={this.state.checked}
-              onChange={e => {
+          <div className="checkbox-container" onClick={e => {
                 e.preventDefault();
                 let updatedChore = this.props.chore;
                 updatedChore.complete = !this.state.checked;
                 this.props.updateChore(updatedChore);
                 this.setState({ checked: !this.state.checked });
-              }}
+              }}>
+            <input
+              type="checkbox"
+              value={this.state.checked}
+              checked={this.state.checked}
+              
             />
-            <div>{this.state.checked ? "Done!" : "Incomplete"}</div>
+
+            <label className="label-cbx">
+              <span></span>
+              {this.state.checked ? "Done!" : "Incomplete"}
+            </label>
           </div>
         </div>
         <div>

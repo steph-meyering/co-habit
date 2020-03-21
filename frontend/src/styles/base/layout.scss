@@ -1,11 +1,65 @@
 html,
 body {
     margin: 0;
-
-        // background-image: linear-gradient(135deg, #f5f7fa 0%, hsl(217, 35%, 83%) 100%);
-    background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
+  justify-content: center;
+  align-items: center;
+    // background-image: linear-gradient(135deg, #f5f7fa 0%, hsl(217, 35%, 83%) 100%);
+    // background-image: linear-gradient(to top, $light, $fade-blue, $light-green);
+    // background-color: $fade-black;
 }
 
 body * {
-    font-family: 'Dosis', sans-serif;
+    font-family: $roboto;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+.app {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.main-container {
+    width: 70%;
+    min-height: 100vh;
+    padding: 20px;
+    // background-color: white;
+}
+
+button,
+a {
+    margin: 5px 5px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+}
+
+button {
+    border: 1px solid $light-teal;
+}
+
+button:hover {
+    border-color: $dark-blue;
+}
+
+
+
+input {
+    padding: 5px;
+    margin: 5px;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+}
+input[type="text"] {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-bottom: 1px solid $light-teal;
+}
+input[type="text"]:hover,
+input[type="text"]:focus {
+    border-bottom: 1px solid $dark-blue;
 }
