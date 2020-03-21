@@ -31,9 +31,12 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
     "mongoose": "^5.9.5",
+    "node": "10.13.0",
+    "npm": "6.13.7",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "react-big-calendar": "^0.24.1",
+    "react-minimal-pie-chart": "^6.0.1",
     "react-spinners": "^0.8.1",
     "validator": "^12.2.0"
   },

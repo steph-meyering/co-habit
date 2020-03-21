@@ -22,7 +22,6 @@ class BillForm extends React.Component {
   
   handleSubmit(e) {
     e.preventDefault();
-
     let bill = {
       title: this.state.title,
       amount: parseInt(this.state.amount)
@@ -40,7 +39,7 @@ class BillForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div>Add a new bill
         <form onSubmit={this.handleSubmit}>
           <h2>What is this bill for?</h2>
           <input 

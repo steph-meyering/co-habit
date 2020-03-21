@@ -20,27 +20,38 @@ class SplashPage extends React.Component {
     }
   }
 
-  render() {
-    return (
-      <div className="session-div">
-        {this.state.formType === "login" ? (
-          <>
-            <LoginFormContainer />
-            <button onClick={this.changeFormType}>
-              Not part of a household yet?
-            </button>
-          </>
-        ) : (
-          <>
-            <SignupFormContainer />
-            <button onClick={this.changeFormType}>
-              Already in a household?
-            </button>
-          </>
-        )}
-      </div>
-    );
-  }
+    componentDidMount() {
+        this.props.getHouseholds();
+    }
+
+    changeFormType() {
+        if (this.state.formType === "login") {
+            this.setState({formType: "signup"});
+        } else {
+            this.setState({ formType: "login" });
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Chores App</h1>
+                <div className="session-div">
+                    {this.state.formType === "login" ?
+                        <>
+                            <LoginFormContainer /> 
+                            <button onClick={this.changeFormType}>Not part of a household yet?</button>
+                        </>
+                        : 
+                        <>
+                            <SignupFormContainer />
+                            <button onClick={this.changeFormType}>Already in a household?</button> 
+                        </>
+                    }
+                </div>
+            </div>
+        );
+    }
 }
 
 export default SplashPage;

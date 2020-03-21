@@ -14,3 +14,7 @@ export const getAcceptedUsers = id => {
 export const getHousehold = id => {
   return axios.get(`/api/households/${id}`)
 };
+
+export const getHouseholds = id => {
+  return axios.get(`/api/households`)
+};

@@ -45,9 +45,7 @@ class BillItem extends React.Component {
                     DELETE
                   </button>
                 </div>
-              ) : (
-                "not mine"
-              )}
+              ) : null }
             </li>
             <br />
           </div>

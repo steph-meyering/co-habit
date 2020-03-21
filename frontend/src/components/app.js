@@ -1,7 +1,7 @@
 import React from "react";
 import { AuthRoute, ProtectedRoute, PendingRoute } from "../util/route_util";
 import { Route, Switch, Redirect } from "react-router-dom";
-import SplashPage from "./splash/splash_page";
+import SplashPageContainer from "./splash/splash_page_container";
 import DashboardContainer from "./dashboard/dashboard_container";
 import "../styles/application.scss";
 import BillsIndexContainer from "./bills/bills_index_container";
@@ -16,7 +16,7 @@ const App = () => (
     <div className="main-container">
       <NavBar />
       <Switch>
-        <AuthRoute exact path="/" component={SplashPage} />
+        <AuthRoute exact path="/" component={SplashPageContainer} />
         <PendingRoute
           exact
           path="/dashboard"
@@ -24,7 +24,6 @@ const App = () => (
         />
         <PendingRoute exact path="/chores" component={ChoresContainer} />
         <PendingRoute exact path="/bills" component={BillsIndexContainer} />
-        <PendingRoute exact path="/bills/new" component={BillFormContainer} />
         <PendingRoute exact path="/calendar" component={CalendarContainer} />
         <ProtectedRoute exact path="/pending" component={Pending} />
         {/* Default redirect given bad path */}
