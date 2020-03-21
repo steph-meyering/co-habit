@@ -1,6 +1,6 @@
 import { RECEIVE_USERS, REMOVE_USER, RECEIVE_USER } from '../actions/user_actions';
 
-const HouseholdsReducer = (state = {}, action) => {
+const UsersReducer = (state = {}, action) => {
   Object.freeze(state);
   let newState = Object.assign({}, state);
   switch (action.type) {
@@ -19,4 +19,4 @@ const HouseholdsReducer = (state = {}, action) => {
   }
 };
 
-export default HouseholdsReducer;
+export default UsersReducer;
