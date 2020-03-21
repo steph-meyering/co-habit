@@ -13,6 +13,10 @@ class SplashPage extends React.Component {
         this.changeFormType = this.changeFormType.bind(this);
     }
 
+    componentDidMount() {
+        this.props.getHouseholds();
+    }
+
     changeFormType() {
         if (this.state.formType === "login") {
             this.setState({formType: "signup"});
