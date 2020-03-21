@@ -1,7 +1,7 @@
 label {
   display: inline-block;
-  color: $dark-blue;
-  position: relative; 
+  color: $black;
+  position: relative;
 
   span {
     display: inline-block;
@@ -10,7 +10,7 @@ label {
     width: 15px;
     height: 15px;
     transform-origin: center;
-    border: 1px solid $dark-blue;
+    border: 1px solid $light-teal;
     vertical-align: -6px;
     margin-right: 10px;
     transition: background-color 150ms 200ms, transform 350ms cubic-bezier(.78, -1.22, .17, 1.89);
@@ -21,11 +21,11 @@ label {
       content: "";
       width: 0px;
       height: 2px;
-      background: $dark-blue;
+      background: $black;
       position: absolute;
       transform: rotate(45deg);
-      top: 6px; 
-      left: 3px; 
+      top: 6px;
+      left: 3px;
       transition: width 50ms ease 50ms;
       transform-origin: 0% 0%;
     }
@@ -34,7 +34,7 @@ label {
       content: "";
       width: 0;
       height: 2px;
-      background: $dark-blue;
+      background: $black;
       position: absolute;
       transform: rotate(305deg);
       transition: width 50ms ease;
@@ -66,7 +66,7 @@ label {
 
 input[type="checkbox"] {
   user-select: none;
-  // visibility: hidden; // hide the system checkbox
+  // hide the system checkbox
   display: none;
   position: absolute;
   z-index: 9999;
@@ -78,17 +78,18 @@ input[type="checkbox"] {
   &:checked {
     +label {
       span {
-        background-color: $dark-blue;
+        background-color: transparent;
+        border-color: transparent;
 
         &:after {
           width: 10px;
-          background: $blue;
+          background: $black;
           transition: width 150ms ease 100ms;
         }
 
         &:before {
           width: 5px;
-          background: $blue;
+          background: $black;
           transition: width 150ms ease 100ms;
         }
       }
@@ -97,17 +98,18 @@ input[type="checkbox"] {
         cursor: pointer;
 
         span {
-          background-color: $dark-blue;
+          background-color: transparent;
+          border-color: transparent;
 
           &:after {
             width: 10px;
-            background: $blue;
+            background: $black;
             transition: width 150ms ease 100ms;
           }
 
           &:before {
             width: 5px;
-            background: $blue;
+            background: $black;
             transition: width 150ms ease 100ms;
           }
         }
