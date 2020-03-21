@@ -1,6 +1,6 @@
 import React from "react";
 import BillItem from './bill_item';
-import BillForm from "./bill_form";
+import BillFormContainer from "./bill_form_container";
 import PieChart from "react-minimal-pie-chart";
 
 class BillsIndex extends React.Component {
@@ -19,7 +19,7 @@ class BillsIndex extends React.Component {
             return (
               <div>
                 <div>No Bills Yet</div>
-                <BillForm/>
+                <BillFormContainer/>
               </div>
             );
         }
@@ -42,22 +42,53 @@ class BillsIndex extends React.Component {
         // let myBillItems = this.props.bills.filter((bill) => this.isMyBill(bill))
         //     .map(bill => <BillItem bill = {bill} />)
         // let names = this.props.housemates.keys(person => person.name)
-        let names = []
+
+        // get all the names of housemates:
+        let names = {};
         for (const user in this.props.housemates) {
-          names.push({title: this.props.housemates[user].name});            
+          console.log(user)
+          names[this.props.housemates[user]._id] = this.props.housemates[user].name;          
         }
-        debugger
+
+        let colors = ["#E38627", "#C13C37", "#6A2135"];
+        
+        // sum the amount each housemate has logged
+        let paidEach = {};
+
+        for (const bill of this.props.bills) {
+          if (paidEach[bill.user]){
+            paidEach[bill.user] += bill.amount
+          } else {
+            paidEach[bill.user] = bill.amount;
+          }
+        }
+
+        let pieData = []
+        for (const name in names) {
+          pieData.push(
+            {title: names[name],
+              value: (paidEach[name] || 0), 
+              color: colors.pop()
+            }
+          )
+        }
+        console.log("DATA");
+        console.log(pieData);
+        
         return (
           <>
             <h3>All household bills: </h3>
             <ul>{billItems}</ul>
-            <BillForm />
+            <BillFormContainer />
             <PieChart
-              data={[
-                { title: "One", value: 10, color: "#E38627" },
-                { title: "Two", value: 15, color: "#C13C37" },
-                { title: "Three", value: 20, color: "#6A2135" }
-              ]}
+              data={pieData}
+              lineWidth={15}
+              label
+              labelPosition={75}
+              labelStyle={{
+                fill: "#121212",
+                fontSize: "5px"
+              }}
             />
             ;
           </>
