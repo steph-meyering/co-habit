@@ -33,7 +33,8 @@ class HouseholdCalendar extends React.Component {
 
   componentDidMount() {
     this.props.getEvents(this.props.currentUser.household)
-      .then(() => this.setState({events: this.props.events}));
+      .then(() => this.props.fetchChores()
+      .then(() => this.setState({events: this.props.events})));
   }
 
   moveEvent({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
