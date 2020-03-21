@@ -1,7 +1,6 @@
 import React from "react";
 import UpdateChoreForm from "./update_chore_form";
 import moment from "moment";
-import { isArray } from "util";
 class ChoreItem extends React.Component {
   constructor(props) {
     super(props);
