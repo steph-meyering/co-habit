@@ -1,6 +1,7 @@
 import React from "react";
 import BillItem from './bill_item';
 import BillForm from "./bill_form";
+import PieChart from "react-minimal-pie-chart";
 
 class BillsIndex extends React.Component {
     
@@ -14,7 +15,6 @@ class BillsIndex extends React.Component {
     }
 
     render(){
-
         if (this.props.bills.length === 0) {
             return (
               <div>
@@ -41,12 +41,25 @@ class BillsIndex extends React.Component {
 
         // let myBillItems = this.props.bills.filter((bill) => this.isMyBill(bill))
         //     .map(bill => <BillItem bill = {bill} />)
-
+        // let names = this.props.housemates.keys(person => person.name)
+        let names = []
+        for (const user in this.props.housemates) {
+          names.push({title: this.props.housemates[user].name});            
+        }
+        debugger
         return (
           <>
             <h3>All household bills: </h3>
             <ul>{billItems}</ul>
             <BillForm />
+            <PieChart
+              data={[
+                { title: "One", value: 10, color: "#E38627" },
+                { title: "Two", value: 15, color: "#C13C37" },
+                { title: "Three", value: 20, color: "#6A2135" }
+              ]}
+            />
+            ;
           </>
         );
     }
