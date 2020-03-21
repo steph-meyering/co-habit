@@ -1,8 +1,7 @@
 # CO-HABIT
 
-[Live Site!]()
+[Live Site!](http://cohabit.herokuapp.com/)
 
 ## Features
 
 ## Technologies
- 
