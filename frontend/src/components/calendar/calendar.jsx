@@ -24,7 +24,8 @@ class HouseholdCalendar extends React.Component {
       description: "",
       slotsLength: 0,
       start: "",
-      end: ""
+      end: "",
+      colors: ""
     }
 
     this.moveEvent = this.moveEvent.bind(this)
@@ -32,8 +33,10 @@ class HouseholdCalendar extends React.Component {
   }
 
   componentDidMount() {
+    this.props.getUsers(this.props.currentUser.household);
     this.props.getEvents(this.props.currentUser.household)
-      .then(() => this.setState({events: this.props.events}));
+      .then(() => this.props.fetchChores()
+      .then(() => this.setState({events: this.props.events})));
   }
 
   moveEvent({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
@@ -192,6 +195,22 @@ class HouseholdCalendar extends React.Component {
     });
   }
 
+  eventStyleGetter(event, start, end, isSelected) {
+    console.log(event);
+    var backgroundColor = event.color;
+    var style = {
+      backgroundColor: backgroundColor,
+      borderRadius: '0px',
+      opacity: 0.8,
+      color: 'black',
+      border: '0px',
+      display: 'block'
+    };
+    return {
+      style: style
+    };
+  }
+
   render() {
 
     return (
@@ -208,6 +227,7 @@ class HouseholdCalendar extends React.Component {
           // onDragStart={console.log}
           defaultView={Views.MONTH}
           defaultDate={new Date()}
+          eventPropGetter={(this.eventStyleGetter)}
         />
         {/* view event form */}
         <div onClick={this.hideEventInfo.bind(this)} className={this.state.infoModalCls}>
