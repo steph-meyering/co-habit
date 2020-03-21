@@ -1,6 +1,6 @@
 import React from "react";
 import { AuthRoute, ProtectedRoute } from "../util/route_util";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Switch, Redirect } from "react-router-dom";
 import SplashPage from "./splash/splash_page";
 import DashboardContainer from "./dashboard/dashboard_container";
 import "../styles/application.scss";

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+// const Date = require("date")
 
 const ChoreSchema = new Schema({
   household: {
@@ -32,6 +33,14 @@ const ChoreSchema = new Schema({
   difficulty: {
     type: Number,
     default: 1
+  },
+  recurring: {
+    type: "string",
+    default: "never"
+  },
+  dueDate: {
+    type: [Date],
+    default: [(new Date())]
   }
 });
 

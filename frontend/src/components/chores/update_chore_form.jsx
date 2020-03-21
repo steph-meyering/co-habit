@@ -1,24 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { updateChore, deleteChore } from "../../actions/chore_actions";
-
-class CreateChoreForm extends React.Component {
+import moment from "moment";
+class UpdateChoreForm extends React.Component {
   constructor(props) {
     super(props);
+    let chore = this.props.chore;
+    chore.dueDate = new Date(moment(chore.dueDate[0]))
+      .toISOString()
+      .substr(0, 10);
 
     this.state = {
-      ...this.props.chore
+      ...chore
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  componentDidMount() {}
-
-  // componentWillUnmount() {
-  //   this.props.clearErrors();
-  // }
 
   update(field) {
     return e => {
@@ -30,74 +28,16 @@ class CreateChoreForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let { loading, ...chore } = this.state;
-
+    let chore  = this.state;
     chore.difficulty = parseInt(chore.difficulty);
-    this.props.updateChore(chore).then(() => this.props.closeUpdateForm())
-
-    // this.setState({
-    //   loading: true
-    // });
-
-    // this.props.submitReview(review).then(
-    //   () => {
-    //     this.props.fetchBook(this.props.bookId);
-    //     setTimeout(() => {
-    //       this.setState({
-    //         review_text: "",
-    //         rating: undefined,
-    //         book_id: this.props.book.id,
-    //         user_id: this.props.user_id,
-    //         loading: false
-    //       });
-    //     }, 1500);
-    //   },
-    //   err => {
-    //     this.setState({
-    //       loading: false
-    //     });
-    //   }
-    // );
-  }
-
-  renderErrors() {
-    return (
-      <ul className="errors-list">
-        {this.props.errors.slice(0, 3).map((error, i) => (
-          <li key={`error-${i}`} className="err">
-            {/* <FontAwesomeIcon icon={faExclamationCircle} id="error-icon" /> */}
-            {error}
-          </li>
-        ))}
-      </ul>
-    );
+    this.props.updateChore(chore);
+    this.props.closeUpdateForm();
   }
 
   render() {
-    if (this.state.loading) {
-      // const override = css`
-      //   display: block;
-      //   margin: auto;
-      //   border-color: white;
-      // `;
-      return (
-        <div className="main-component-container">
-          <div className="loading submit-loading">
-            {/* <RotateLoader
-              css={override}
-              size={20}
-              color={"#1a7d88"}
-              loading={this.state.loading}
-            /> */}
-          </div>
-        </div>
-      );
-    }
-
     return (
       <div>
         <h3>Edit Chore</h3>
-        {this.props.errors ? this.renderErrors() : null}
         <form onSubmit={this.handleSubmit}>
           <label>Title</label>
           <input
@@ -121,6 +61,53 @@ class CreateChoreForm extends React.Component {
             value={this.state.difficulty}
             onChange={this.update("difficulty")}
           />
+          <br />
+          <label>Due Date</label>
+          <input
+            type="date"
+            value={this.state.dueDate}
+            onChange={this.update("dueDate")}
+          />
+          <br />
+          {/* <label>Recurring? </label>
+          <div className="radio">
+            <label>
+              <input
+                type="radio"
+                value="daily"
+                checked={this.state.recurring === "daily"}
+                onChange={this.update("recurring")}
+              />
+              Daily
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="weekly"
+                checked={this.state.recurring === "weekly"}
+                onChange={this.update("recurring")}
+              />
+              Every week
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="biweekly"
+                checked={this.state.recurring === "biweekly"}
+                onChange={this.update("recurring")}
+              />
+              Every 2 weeks
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="never"
+                checked={this.state.recurring === "never"}
+                onChange={this.update("recurring")}
+              />
+              Never
+            </label>
+          </div> */}
           <button type="submit">Update Chore</button>
         </form>
         <button onClick={() => this.props.deleteChore(this.props.chore._id)}>
@@ -145,5 +132,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(CreateChoreForm)
+  connect(mapStateToProps, mapDispatchToProps)(UpdateChoreForm)
 );
