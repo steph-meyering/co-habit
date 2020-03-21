@@ -24,7 +24,6 @@ const App = () => (
         />
         <PendingRoute exact path="/chores" component={ChoresContainer} />
         <PendingRoute exact path="/bills" component={BillsIndexContainer} />
-        <PendingRoute exact path="/bills/new" component={BillFormContainer} />
         <PendingRoute exact path="/calendar" component={CalendarContainer} />
         <ProtectedRoute exact path="/pending" component={Pending} />
         {/* Default redirect given bad path */}

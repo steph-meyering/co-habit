@@ -32,7 +32,7 @@ const mapStateToProps = (state) => {
   }
 
   let allEvents = Object.values(state.entities.events).concat(dueDateEvents);
-  const colors = ["#F4976C", "#FBE8A6", "#303C6C", "B4DFE5", "D2FDFF"];
+  const colors = ["#F4976C", "#FBE8A6", "#303C6C", "#B4DFE5", "#D2FDFF"];
   const users = Object.keys(state.entities.users);
   if (users.length > 0) {
     for (let i = 0; i < allEvents.length; i++) {
