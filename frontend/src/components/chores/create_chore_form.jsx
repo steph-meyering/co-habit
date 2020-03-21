@@ -37,6 +37,7 @@ class CreateChoreForm extends React.Component {
     e.preventDefault();
     let { loading, ...chore } = this.state;
     chore.difficulty = parseInt(chore.difficulty);
+    chore.dueDate = new Date(chore.dueDate).toISOString().substr(0, 10);
     this.props.createNewChore(chore).then(() =>
       this.setState({
         title: "",

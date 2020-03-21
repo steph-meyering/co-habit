@@ -1,7 +1,7 @@
 label {
-  display: inline-block; // to make it easier to click
+  display: inline-block;
   color: $dark-blue;
-  position: relative; // important
+  position: relative; 
 
   span {
     display: inline-block;
@@ -13,9 +13,9 @@ label {
     border: 1px solid $dark-blue;
     vertical-align: -6px;
     margin-right: 10px;
-    transition: background-color 150ms 200ms, transform 350ms cubic-bezier(.78, -1.22, .17, 1.89); // custom ease effect for bouncy animation
+    transition: background-color 150ms 200ms, transform 350ms cubic-bezier(.78, -1.22, .17, 1.89);
 
-    // Now we'll create the "tick" using pseudo elements - those will be basically two lines that will be rotated to form the "tick"
+    //create lines of checkmark using pseudo elements
 
     &:before {
       content: "";
@@ -24,8 +24,8 @@ label {
       background: $dark-blue;
       position: absolute;
       transform: rotate(45deg);
-      top: 5px; // you'll need to experiment with placement depending on the dimensions you've chosen
-      left: 3px; // you'll need to experiment with placement depending on the dimensions you've chosen
+      top: 6px; 
+      left: 3px; 
       transition: width 50ms ease 50ms;
       transform-origin: 0% 0%;
     }
@@ -39,12 +39,10 @@ label {
       transform: rotate(305deg);
       transition: width 50ms ease;
       transform-origin: 0% 0%;
-          top: 10px;
-          left: 4px;
+      top: 10px;
+      left: 5px;
     }
   }
-
-  // Time to add some life to it
 
   &:hover {
     span {
@@ -67,53 +65,50 @@ label {
 
 
 input[type="checkbox"] {
-    user-select: none;
+  user-select: none;
   // visibility: hidden; // hide the system checkbox
   display: none;
-position: absolute;
-z-index: 9999;
+  position: absolute;
+  z-index: 9999;
   width: 15px;
   margin: 2px;
   height: 15px;
   transform-origin: center;
-  // Let's add some effects after the checkbox is checked
 
   &:checked {
     +label {
       span {
         background-color: $dark-blue;
-        // transform: scale(1.25); // enlarge the box
 
         &:after {
           width: 10px;
           background: $blue;
-          transition: width 150ms ease 100ms; // enlarge the tick
+          transition: width 150ms ease 100ms;
         }
 
         &:before {
           width: 5px;
           background: $blue;
-          transition: width 150ms ease 100ms; // enlarge the tick
+          transition: width 150ms ease 100ms;
         }
       }
 
       &:hover {
         cursor: pointer;
-        // copy the states for onMouseOver to avoid flickering
+
         span {
           background-color: $dark-blue;
-          // transform: scale(1.25); // enlarge the box
 
           &:after {
             width: 10px;
             background: $blue;
-            transition: width 150ms ease 100ms; // enlarge the tick
+            transition: width 150ms ease 100ms;
           }
 
           &:before {
             width: 5px;
             background: $blue;
-            transition: width 150ms ease 100ms; // enlarge the tick
+            transition: width 150ms ease 100ms;
           }
         }
       }
