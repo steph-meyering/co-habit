@@ -70,10 +70,13 @@ router.post(
       switch (req.body.recurring) {
         case "daily":
           nextDate = moment(req.body.dueDate).add(1, "day");
+          break;
         case "weekly":
           nextDate = moment(req.body.dueDate).add(7, "days");
+          break;
         case "biweekly":
           nextDate = moment(req.body.dueDate).add(14, "days");
+          break;
         default:
           nextDate = moment(req.body.dueDate).add(7, "days");
           break;
