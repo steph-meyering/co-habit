@@ -1,29 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
-import { createNewChore } from "../../actions/chore_actions";
+import { withRouter } from "react-router-dom";
+import { updateChore, deleteChore } from "../../actions/chore_actions";
 import moment from "moment";
-
-class CreateChoreForm extends React.Component {
+class UpdateChoreForm extends React.Component {
   constructor(props) {
     super(props);
+    let chore = this.props.chore;
+    chore.dueDate = new Date(moment(chore.dueDate[0]))
+      .toISOString()
+      .substr(0, 10);
+
     this.state = {
-      title: "",
-      description: "",
-      author: this.props.currentUser.id,
-      household: this.props.currentUser.household,
-      difficulty: 1,
-      recurring: "weekly",
-      dueDate: new Date(moment().add(7, "days")).toISOString().substr(0, 10)
+      ...chore
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  componentDidMount() {}
-
-  // componentWillUnmount() {
-  //   this.props.clearErrors();
-  // }
 
   update(field) {
     return e => {
@@ -35,59 +28,16 @@ class CreateChoreForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let { loading, ...chore } = this.state;
+    let chore  = this.state;
     chore.difficulty = parseInt(chore.difficulty);
-    this.props.createNewChore(chore).then(() =>
-      this.setState({
-        title: "",
-        description: "",
-        author: this.props.currentUser.id,
-        household: this.props.currentUser.household,
-        difficulty: 1,
-        recurring: "weekly",
-        dueDate: new Date(moment().add(7, "days")).toISOString().substr(0, 10)
-      })
-    );
+    this.props.updateChore(chore);
+    this.props.closeUpdateForm();
   }
 
-  // renderErrors() {
-  //   return (
-  //     <ul className="errors-list">
-  //       {this.props.errors.slice(0, 3).map((error, i) => (
-  //         <li key={`error-${i}`} className="err">
-  //           {/* <FontAwesomeIcon icon={faExclamationCircle} id="error-icon" /> */}
-  //           {error}
-  //         </li>
-  //       ))}
-  //     </ul>
-  //   );
-  // }
-
   render() {
-    if (this.state.loading) {
-      // const override = css`
-      //   display: block;
-      //   margin: auto;
-      //   border-color: white;
-      // `;
-      return (
-        <div className="main-component-container">
-          <div className="loading submit-loading">
-            {/* <RotateLoader
-              css={override}
-              size={20}
-              color={"#1a7d88"}
-              loading={this.state.loading}
-            /> */}
-          </div>
-        </div>
-      );
-    }
-
     return (
       <div>
-        <h3>Add New Chore</h3>
-        {/* {this.props.errors ? this.renderErrors() : null} */}
+        <h3>Edit Chore</h3>
         <form onSubmit={this.handleSubmit}>
           <label>Title</label>
           <input
@@ -119,7 +69,7 @@ class CreateChoreForm extends React.Component {
             onChange={this.update("dueDate")}
           />
           <br />
-          <label>Recurring? </label>
+          {/* <label>Recurring? </label>
           <div className="radio">
             <label>
               <input
@@ -157,23 +107,30 @@ class CreateChoreForm extends React.Component {
               />
               Never
             </label>
-          </div>
-          <button type="submit">Add Chore</button>
+          </div> */}
+          <button type="submit">Update Chore</button>
         </form>
+        <button onClick={() => this.props.deleteChore(this.props.chore._id)}>
+          Delete
+        </button>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.session.user,
-    errors: state.errors.chores
+    errors: state.errors.chores,
+    chore: ownProps.chore
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  createNewChore: chore => dispatch(createNewChore(chore))
+  updateChore: chore => dispatch(updateChore(chore)),
+  deleteChore: choreId => dispatch(deleteChore(choreId))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateChoreForm);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UpdateChoreForm)
+);

@@ -12,17 +12,13 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateBillInput(req.body);
-
-    console.log(errors);
-
     if (!isValid) {
       return res.status(400).json(errors);
     }
-
+    
     const newBill = new Bill({
       title: req.body.title,
       amount: req.body.amount,
-      title: req.body.title,
       user: req.user.id,
       household: req.user.household
     });
@@ -33,16 +29,42 @@ router.post(
   }
 );
 
+// all bills for household
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Bill.find({ household: req.user.household })
+      .then(bills => res.json(bills))
+      .catch(err => res.status(404).json({ nobillsfound: "No bills found" }));
+  }
+);
 
-router.get('/', (req, res) => {
-  Bill.find()
-    .then(bills => res.json(bills))
-    .catch(err => 
-      res.status(404)
-        .json({ nobillsfound: "No bills found" }));
+router.delete(
+  "/:billId",
+  (req, res) => {
+    Bill.findByIdAndRemove(req.params.billId )
+      .then(bills => res.json(bills))
+      .catch(err =>
+        res.status(404).json({ nobillsfound: "Couldn't delete that bill" })
+      );
+  }
+);
 
-}
-)
-
+router.patch(
+  "/:billId",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Bill.findByIdAndUpdate(
+      req.params.billId,
+      req.body,
+      { new: true },
+      (err, data) => {
+        if (data) return res.json(data);
+        if (err) return res.status(400).json("Error: " + err);
+      }
+    );
+  }
+);
 
 module.exports = router;

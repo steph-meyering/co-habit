@@ -1,11 +1,18 @@
 img#logo-img {
-  max-width: 190px;
+  max-height: 50px;
+  min-height: 50px;
+  width: auto;
+}
+
+a#logo-link {
+  margin: 0;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  height: 60px;
 }
 
 .nav-items {

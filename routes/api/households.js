@@ -25,6 +25,18 @@ router.get('/:id/events', (req, res) => {
     })
     .catch(err =>
       res.status(404).json({ noeventsfound: 'No events were found for this household' })
+  );
+});
+
+router.get('/:id/acceptedUsers', (req, res) => {
+  User.find({ household: req.params.id, acceptedIntoHousehold: true })
+    .then(users => {
+      res.json(users);
+    })
+    .catch(err =>
+      res
+        .status(404)
+        .json({ nousersfound: "No accepted users were found for this household" })
     );
 });
 

@@ -1,14 +1,17 @@
-import { RECEIVE_BILL, RECEIVE_BILLS } from "../actions/bill_actions";
-import ChoresReducer from "./chores_reducer";
+import { RECEIVE_BILL, RECEIVE_BILLS, REMOVE_BILL } from "../actions/bill_actions";
 
 const BillsReducer = (state = {}, action) => {
     Object.freeze(state);
     let nextState = Object.assign({}, state);
     switch (action.type) {
         case RECEIVE_BILL:
-            return Object.assign({}, state, { [action.bill.id]: action.bill });
+            nextState[action.bill.data._id] = action.bill.data
+            return nextState;
         case RECEIVE_BILLS:
             action.bills.data.forEach( bill => (nextState[bill._id] = bill));
+            return nextState;
+        case REMOVE_BILL:
+            delete nextState[action.bill._id]
             return nextState;
         default:
             return state;

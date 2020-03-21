@@ -5,6 +5,7 @@ import SplashPage from "./splash/splash_page";
 import DashboardContainer from "./dashboard/dashboard_container";
 import "../styles/application.scss";
 import BillsIndexContainer from "./bills/bills_index_container";
+import BillFormContainer from "./bills/bill_form_container";
 import ChoresContainer from "./chores/chores_container";
 import CalendarContainer from "./calendar/calendar_container";
 import Pending from "./pending/pending";
@@ -13,7 +14,7 @@ import NavBar from "./nav/nav";
 const App = () => (
   <div className="app">
     <div className="main-container">
-      <Route path="/" component={NavBar} />
+      <NavBar />
       <Switch>
         <AuthRoute exact path="/" component={SplashPage} />
         <PendingRoute
@@ -23,6 +24,7 @@ const App = () => (
         />
         <PendingRoute exact path="/chores" component={ChoresContainer} />
         <PendingRoute exact path="/bills" component={BillsIndexContainer} />
+        <PendingRoute exact path="/bills/new" component={BillFormContainer} />
         <PendingRoute exact path="/calendar" component={CalendarContainer} />
         <ProtectedRoute exact path="/pending" component={Pending} />
         {/* Default redirect given bad path */}
