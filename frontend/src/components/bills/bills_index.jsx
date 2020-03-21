@@ -49,7 +49,7 @@ class BillsIndex extends React.Component {
           names[this.props.housemates[user]._id] = this.props.housemates[user].name;          
         }
 
-        let colors = ["#E38627", "#C13C37", "#6A2135"];
+        let colors = ["#F4976C", "#FBE8A6", "#303C6C", "#B4DFE5", "#D2FDFF"];
         
         // sum the amount each housemate has logged
         let paidEach = {};
@@ -62,13 +62,13 @@ class BillsIndex extends React.Component {
           }
         }
 
-        // shape pieData into PieChart format
+        // shape pieData into PieChart format and add color
         let pieData = []
         for (const name in names) {
           pieData.push(
             {title: names[name],
               value: (paidEach[name] || 0), 
-              color: colors.pop()
+              color: colors.shift()
             }
           )
         }
@@ -77,6 +77,7 @@ class BillsIndex extends React.Component {
             <h3>All household bills: </h3>
             <PieChart
               data={pieData}
+
               onMouseOver={(e, propsData, dataIndex) => {
                 const data = 
                 (console.log(this))
