@@ -46,7 +46,6 @@ class BillsIndex extends React.Component {
         // get all the names of housemates:
         let names = {};
         for (const user in this.props.housemates) {
-          console.log(user)
           names[this.props.housemates[user]._id] = this.props.housemates[user].name;          
         }
 
@@ -63,6 +62,7 @@ class BillsIndex extends React.Component {
           }
         }
 
+        // shape pieData into PieChart format
         let pieData = []
         for (const name in names) {
           pieData.push(
@@ -72,25 +72,38 @@ class BillsIndex extends React.Component {
             }
           )
         }
-        console.log("DATA");
-        console.log(pieData);
-        
         return (
           <>
             <h3>All household bills: </h3>
-            <ul>{billItems}</ul>
-            <BillFormContainer />
             <PieChart
               data={pieData}
+              onMouseOver={(e, propsData, dataIndex) => {
+                const data = 
+                (console.log(this))
+              }
+              }
+              animate
+              animationDuration={500}
+              startAngle={0}
+              animationEasing="ease-out"
               lineWidth={15}
-              label
+              label={props => {
+                return `${props.data[props.dataIndex].title} ${
+                  props.data[props.dataIndex].value
+                }$`;
+              }}
+              // label={(h)=> {
+              //   return h
+              // } }
+              paddingAngle={5}
               labelPosition={75}
               labelStyle={{
                 fill: "#121212",
                 fontSize: "5px"
               }}
             />
-            ;
+            <ul>{billItems}</ul>
+            <BillFormContainer />
           </>
         );
     }
