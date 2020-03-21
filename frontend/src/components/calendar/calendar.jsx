@@ -19,6 +19,7 @@ class HouseholdCalendar extends React.Component {
       infoModalStart: "",
       infoModalEnd: "",
       infoModalId: "",
+      infoModalColor: "",
       formModalCls: "event-modal",
       title: "",
       description: "",
@@ -134,6 +135,7 @@ class HouseholdCalendar extends React.Component {
         infoModalStart: "",
         infoModalEnd: "",
         infoModalId: "",
+        infoModalColor: "",
       });
     });
   }
@@ -146,7 +148,8 @@ class HouseholdCalendar extends React.Component {
         infoModalDescription: event.description,
         infoModalStart: event.start,
         infoModalEnd: event.end,
-        infoModalId: event._id
+        infoModalId: event._id,
+        infoModalColor: event.color
       });
     }
     
@@ -162,6 +165,7 @@ class HouseholdCalendar extends React.Component {
         infoModalStart: "",
         infoModalEnd: "",
         infoModalId: "",
+        infoModalColor: "",
     })
     }
   }
@@ -196,8 +200,7 @@ class HouseholdCalendar extends React.Component {
   }
 
   eventStyleGetter(event, start, end, isSelected) {
-    console.log(event);
-    var backgroundColor = event.color;
+    var backgroundColor = event.color ? event.color : "#D2FDFF";
     var style = {
       backgroundColor: backgroundColor,
       borderRadius: '0px',
@@ -212,9 +215,9 @@ class HouseholdCalendar extends React.Component {
   }
 
   render() {
-
+    
     return (
-      <>
+      <div className="calendar">
         <DragAndDropCalendar
           selectable
           localizer={localizer}
@@ -243,7 +246,7 @@ class HouseholdCalendar extends React.Component {
               this.state.infoModalStart.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' }) !== this.state.infoModalEnd.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' })
               ? <h4>Time: All Day</h4> :
                 <h4>Time: {this.state.infoModalStart.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })} - {this.state.infoModalEnd.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })}</h4>}
-                <button onClick={this.handleDelete.bind(this)}>Delete Event</button>
+              {this.state.infoModalColor === undefined ? "" : <button onClick={this.handleDelete.bind(this)}>Delete Event</button> }
               </div>
           </div>
         </div>
@@ -269,7 +272,7 @@ class HouseholdCalendar extends React.Component {
             </form>
           </div>
         </div>
-      </>
+      </div>
 
     )
   }
