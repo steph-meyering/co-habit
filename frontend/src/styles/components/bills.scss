@@ -31,8 +31,21 @@
     padding: 10px;
     margin: 5px;
     border: 1px solid;
+    animation: slide-up 0.4s ease;
 }
 
 .bill-title {
     font-size: 18px;
+}
+
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(-60px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
