@@ -16,14 +16,14 @@ class LoginForm extends React.Component {
     }
 
     // Once the user has been authenticated, redirect
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.currentUser) {
-            this.props.history.push(`/dashboard`);
-        }
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.currentUser) {
+    //         this.props.history.push(`/dashboard`);
+    //     }
 
-        // Set or clear errors
-        this.setState({ errors: nextProps.errors })
-    }
+    //     // Set or clear errors
+    //     this.setState({ errors: nextProps.errors })
+    // }
 
     // Handle field updates (called in the render method)
     update(field) {
@@ -58,26 +58,21 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <div>
                 <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <input type="text"
-                            value={this.state.email}
-                            onChange={this.update('email')}
-                            placeholder="Email"
-                        />
-                        <br />
-                        <input type="password"
-                            value={this.state.password}
-                            onChange={this.update('password')}
-                            placeholder="Password"
-                        />
-                        <br />
-                        <input type="submit" value="Submit" />
-                        {this.renderErrors()}
-                    </div>
+                    <h1>Sign In</h1>
+                    <input type="text"
+                        value={this.state.email}
+                        onChange={this.update('email')}
+                        placeholder="Email"
+                    />
+                    <input type="password"
+                        value={this.state.password}
+                        onChange={this.update('password')}
+                        placeholder="Password"
+                    />
+                    <button>Sign In</button>
+                    {this.renderErrors()}
                 </form>
-            </div>
         );
     }
 }

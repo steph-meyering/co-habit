@@ -19,13 +19,13 @@ class SignupForm extends React.Component {
         this.clearedErrors = false;
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.currentUser) {
-            this.props.history.push('/dashboard');
-        }
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.currentUser) {
+    //         this.props.history.push('/dashboard');
+    //     }
 
-        this.setState({ errors: nextProps.errors })
-    }
+    //     this.setState({ errors: nextProps.errors })
+    // }
 
     update(field) {
         return e => this.setState({
@@ -61,47 +61,38 @@ class SignupForm extends React.Component {
     render() {
         const existingHousehold = this.props.householdNames.has(this.state.housename);
         return (
-            <div className="signup-form-container">
                 <form onSubmit={this.handleSubmit}>
-                    <div className="signup-form">
-                        <br />
-                        <input type="text"
-                            value={this.state.email}
-                            onChange={this.update('email')}
-                            placeholder="Email"
-                        />
-                        <br />
-                        <input type="text"
-                            value={this.state.name}
-                            onChange={this.update('name')}
-                            placeholder="Name"
-                        />
-                        <br />
-                        <input type="password"
-                            value={this.state.password}
-                            onChange={this.update('password')}
-                            placeholder="Password"
-                        />
-                        <br />
-                        <input type="password"
-                            value={this.state.password2}
-                            onChange={this.update('password2')}
-                            placeholder="Confirm Password"
-                        />
-                        <br />
-                        <input type="text"
-                            value={this.state.housename}
-                            onChange={this.update('housename')}
-                            placeholder="Household Name"
-                        />
-                        <span>{this.state.housename.length < 2 ? "" : existingHousehold ? "Join" : "Create"}</span>
-                        <br />
+                    <h1>Sign Up</h1>
+                    <input type="text"
+                        value={this.state.email}
+                        onChange={this.update('email')}
+                        placeholder="Email"
+                    />
+                    <input type="text"
+                        value={this.state.name}
+                        onChange={this.update('name')}
+                        placeholder="Name"
+                    />
+                    <input type="password"
+                        value={this.state.password}
+                        onChange={this.update('password')}
+                        placeholder="Password"
+                    />
+                    <input type="password"
+                        value={this.state.password2}
+                        onChange={this.update('password2')}
+                        placeholder="Confirm Password"
+                    />
+                    <input type="text"
+                        value={this.state.housename}
+                        onChange={this.update('housename')}
+                        placeholder="Household Name"
+                    />
+                    <span>{this.state.housename.length < 2 ? "" : existingHousehold ? "Join" : "Create"}</span>
 
-                        <input type="submit" value="Submit" />
-                        {this.renderErrors()}
-                    </div>
+                    <button>Sign Up</button>
+                    {this.renderErrors()}
                 </form>
-            </div>
         );
     }
 }
