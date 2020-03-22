@@ -36,7 +36,6 @@ class ChoreItem extends React.Component {
       switch (recurring) {
         case "daily":
           nextDate = moment.utc(dueDate[numDueDates - 1]).add(1, "day");
-
           break;
         case "weekly":
           nextDate = moment.utc(dueDate[numDueDates - 1]).add(7, "days");
@@ -88,7 +87,7 @@ class ChoreItem extends React.Component {
       complete
     } = this.props.chore;
 
-    let now = moment.utc().add(1, "days");
+    let now = moment.utc().subtract(1, "days");
     let firstDuedate = moment.utc(dueDate[0]);
 
     if (recurring !== "never" && firstDuedate.isBefore(now) && complete) {
@@ -101,6 +100,7 @@ class ChoreItem extends React.Component {
         : "transparent";
 
     return (
+      
       <li className={`chores-list-item ${bgdColor}`}>
         <div className="chore-row">
           <div
@@ -132,15 +132,12 @@ class ChoreItem extends React.Component {
           <div className="red">
             {firstDuedate.isBefore(now) && !complete ? " OVERDUE " : ""}
           </div>
-          <div>Due {firstDuedate.fromNow()}</div>
+          <div>Due {firstDuedate.from(now)}</div>
           <div className="toggle-btns">
             <div>
               {this.state.showUpdateForm ? (
                 <>
-                  <button
-                    onClick={() => this.setState({ showUpdateForm: false })}
-                    className="edit-chore light"
-                  >
+                  <button onClick={this.toggleShowForm} className="edit-chore light">
                     X
                   </button>
                 </>
@@ -157,7 +154,7 @@ class ChoreItem extends React.Component {
                     <button
                       onClick={this.toggleDetails}
                       className="details-chore light"
-                    >   
+                    >
                       Show Details
                     </button>
                   )}
