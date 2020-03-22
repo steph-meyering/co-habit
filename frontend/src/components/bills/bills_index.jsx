@@ -54,13 +54,33 @@ class BillsIndex extends React.Component {
       this.setState({pieData: pieData})
     }
 
+
+    
     pieChart(){
       if (this.props.pieChart instanceof Array) {
         return (
           <PieChart
             data={this.props.pieChart}
             onMouseOver={(e, propsData, dataIndex) => {
-              const data = console.log(this);
+              const data = propsData.map((entry, i) => {
+                if (i === dataIndex) {
+                  return { ...entry, ogColor: entry.color, color: "#000000" };
+                } else {
+                  return entry;
+                }
+              });
+              this.props.updatePieChart(data);
+              debugger
+            }}
+            onMouseOut={(e, propsData, dataIndex) => {
+              const data = propsData.map((entry, i) => {
+                if (i === dataIndex) {
+                  return { ...entry, color: entry.ogColor };
+                } else {
+                  return entry;
+                }
+              });
+              this.props.updatePieChart(data);
             }}
             animate
             animationDuration={500}
