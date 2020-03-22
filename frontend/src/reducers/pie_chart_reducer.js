@@ -16,7 +16,6 @@ const PieChartReducer = (state = [], action) => {
             return nextState;
         case REMOVE_BILL:
             nextState.forEach(obj => {
-                debugger
             if (obj.userId === action.bill.user) {
                 obj.value -= action.bill.amount;
             }

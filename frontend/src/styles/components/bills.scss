@@ -3,6 +3,8 @@
 }
 
 .bills-index {
+    padding: 20px 0px 20px 10px;
+    // border: 1px solid;
     width: 30%;
 }
 
@@ -11,13 +13,26 @@
     flex-direction: column;
     width: 70%;
     align-items: center;
+    // border: 1px solid;
 }
 
 .pie-chart {
     justify-self: center;
     width: 100%;
+    max-width: 500px;
 }
 
-.bill-form{ 
-    padding-top: 30px;
+// .bill-form{ 
+//     padding-top: 30px;
+//     border: 1px solid;
+// }
+
+.bill, .bill-form {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid;
+}
+
+.bill-title {
+    font-size: 18px;
 }

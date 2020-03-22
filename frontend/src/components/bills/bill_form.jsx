@@ -39,7 +39,7 @@ class BillForm extends React.Component {
 
   render() {
     return (
-      <div>Add a new bill
+      <div className='bill-form'>Add a new bill
         <form onSubmit={this.handleSubmit}>
           <h2>What is this bill for?</h2>
           <input 
