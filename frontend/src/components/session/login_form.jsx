@@ -40,16 +40,18 @@ class LoginForm extends React.Component {
             email: this.state.email,
             password: this.state.password
         };
-        this.props.login(user);
+        this.props.login(user)
     }
 
     // Render the session errors if there are any
     renderErrors() {
+        
         return (
-            <ul>
-                {Object.keys(this.state.errors).map((error, i) => (
-                    <li key={`error-${i}`}>
-                        {this.state.errors[error]}
+            <ul className="session-errors">
+                {Object.keys(this.props.errors).map((error, i) => (
+                    <li key={`error-${i}`} className="red">
+                        {this.props.errors[error]}
+
                     </li>
                 ))}
             </ul>

@@ -161,3 +161,16 @@
 // button:focus {
 //   outline: none;
 // }
+
+.session-errors {
+  position: absolute;
+  bottom: 20px;
+  li {
+    font-size: 12px;
+  }
+  
+}
+
+#signup {
+  margin-bottom: 45px;
+}
