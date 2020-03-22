@@ -1,4 +1,6 @@
 import React from 'react';
+import moment from 'moment';
+import { Link } from "react-router-dom";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -9,6 +11,9 @@ class Dashboard extends React.Component {
   componentDidMount() {
     this.props.getHousehold(this.props.currentUser.household);
     this.props.getUsers(this.props.currentUser.household);
+    this.props.fetchChoresForUser(this.props.currentUser);
+    this.props.fetchBills();
+    this.props.getEvents(this.props.currentUser.household);
   }
 
   handleLogout() {
@@ -44,15 +49,18 @@ class Dashboard extends React.Component {
       }
     }
 
+    
+
     return (
-      <div>
-        {this.props.currentUser.acceptedIntoHousehold ? (
-          <>
-            <h1>
-              Welcome {this.props.currentUser.name}! Your house,{" "}
-              {this.props.household.name}, is waiting for you.
-            </h1>
-            <button onClick={this.handleLogout}>Log Out</button>
+      <div className="dashboard">
+        <div className="dashboard-welcome">
+          <h1>
+            Welcome {this.props.currentUser.name}! Your house,{" "}
+            {this.props.household.name}, is waiting for you.
+          </h1>
+        </div>
+        <div className="dashboard-mid">
+          <div className="housemates">
             <div className="accepted-housemates">
               <h3>Housemates:</h3>
               {acceptedHousemates.map(user => (
@@ -61,6 +69,7 @@ class Dashboard extends React.Component {
                 </div>
               ))}
             </div>
+          
             <div className="pending-housemates">
               {this.props.currentUser.adminPrivileges &&
               pendingHousemates.length > 0 ? (
@@ -84,16 +93,43 @@ class Dashboard extends React.Component {
                 ""
               )}
             </div>
-          </>
-        ) : (
-          <>
-            <h1>
-              Welcome {this.props.currentUser.name}! Your request to join{" "}
-              {this.props.household.name} is pending.
-            </h1>
-            <button onClick={this.handleLogout}>Log Out</button>
-          </>
-        )}
+          </div>
+          <Link to="/calendar" className="upcoming-events">
+            <h1>Events Today</h1>
+            <ul>
+              {this.props.events.map(event => (
+                <li>
+                  <span>{event.title}</span>
+                  {/* <span> Due: {moment((new Date(event.dueDate[0]))).format('MMMM Do, YYYY')}</span> */}
+                </li>
+              ))}
+            </ul>
+          </Link>
+        </div>
+        <div className="dashboard-bottom">
+          <Link to="/chores" className="dashboard-chores">
+            <h1>Your Chores</h1>
+            <ul>
+              {this.props.chores.map(chore => (
+                <li>
+                  <span>{chore.title}</span>
+                  <span> Due: {moment((new Date(chore.dueDate[0]))).format('MMMM Do, YYYY')}</span>
+                </li>
+              ))}
+            </ul>
+          </Link>
+          <Link to="/bills" className="dashboard-bills">
+            <h1>Your Bills</h1>
+            <ul>
+              {this.props.bills.map(bill => (
+                <li>
+                  <span>{bill.title}</span>
+                  <span>{bill.amount}</span>
+                </li>
+              ))}
+            </ul>
+          </Link>
+        </div>
       </div>
     );
   }

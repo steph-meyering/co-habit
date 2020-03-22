@@ -9,6 +9,7 @@ const ChoresReducer = (state = {}, action) => {
   let nextState = Object.assign({}, state);
   switch (action.type) {
     case RECEIVE_CHORES:
+      nextState = {};
       action.chores.data.forEach(chore => (nextState[chore._id] = chore));
       return nextState;
     case RECEIVE_NEW_CHORE:

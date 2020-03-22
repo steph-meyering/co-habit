@@ -1,0 +1,55 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  color: $black;
+}
+
+.dashboard-welcome, .housemates, .upcoming-events, .dashboard-chores, .dashboard-bills{
+  background-color: $light-teal;
+  margin: 5px;
+  box-shadow: 0px 0px 5px 2px $muted-blue;
+  padding: 10px;
+}
+
+.dashboard-welcome {
+  margin-bottom: 20px;
+}
+
+.dashboard-mid, .dashboard-bottom {
+  display: flex;
+}
+
+.housemates {
+  display: flex;
+  flex-direction: row;
+  flex: 0.3;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  background-color: $bright-blue;
+}
+
+.accepted-housemates {
+  display: flex;
+  flex-direction: row;
+}
+
+.housemates span {
+  padding: 10px;
+  background-color: red;
+}
+
+.upcoming-events {
+  flex: 0.7;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 5px 2px $grey-blue;
+  background-color: $grey-blue;
+}
+
+.dashboard-chores {
+  flex: 0.5;
+  margin-right: 20px;
+}
+
+.dashboard-bills {
+  flex: 0.5;
+}
