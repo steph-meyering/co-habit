@@ -52,7 +52,7 @@ class Dashboard extends React.Component {
               Welcome {this.props.currentUser.name}! Your house,{" "}
               {this.props.household.name}, is waiting for you.
             </h1>
-            <button onClick={this.handleLogout}>Log Out</button>
+            {/* <button onClick={this.handleLogout}>Log Out</button> */}
             <div className="accepted-housemates">
               <h3>Housemates:</h3>
               {acceptedHousemates.map(user => (
@@ -70,10 +70,16 @@ class Dashboard extends React.Component {
                     {pendingHousemates.map(user => (
                       <div key={user._id}>
                         <span>{user.name}</span>
-                        <button onClick={this.acceptHousemate(user).bind(this)}>
+                        <button
+                          id="accept-btn"
+                          onClick={this.acceptHousemate(user).bind(this)}
+                        >
                           Accept
                         </button>
-                        <button onClick={this.denyHousemate(user).bind(this)}>
+                        <button
+                          id="deny-btn"
+                          onClick={this.denyHousemate(user).bind(this)}
+                        >
                           Deny
                         </button>
                       </div>

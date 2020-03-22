@@ -9,7 +9,7 @@ class ChoreItem extends React.Component {
       showDetails: false,
       checked: this.props.chore.complete
     };
-    this.closeUpdateForm = this.closeUpdateForm.bind(this);
+    this.toggleShowForm = this.toggleShowForm.bind(this);
     this.updateRecurring = this.updateRecurring.bind(this);
     this.toggleDetails = this.toggleDetails.bind(this);
   }
@@ -64,9 +64,10 @@ class ChoreItem extends React.Component {
     }
   }
 
-  closeUpdateForm() {
+  toggleShowForm() {
     this.setState({
-      showUpdateForm: false
+      showUpdateForm: !this.state.showUpdateForm,
+      showDetails: false
     });
   }
 
@@ -77,17 +78,6 @@ class ChoreItem extends React.Component {
   }
 
   render() {
-    if (this.state.showUpdateForm) {
-      return (
-        <li>
-          <UpdateChoreForm
-            chore={this.props.chore}
-            closeUpdateForm={this.closeUpdateForm}
-          />
-        </li>
-      );
-    }
-
     let {
       title,
       description,
@@ -105,9 +95,14 @@ class ChoreItem extends React.Component {
       this.updateRecurring();
     }
 
+    let bgdColor =
+      this.state.showUpdateForm || this.state.showDetails
+        ? "shaded"
+        : "transparent";
+
     return (
-      <li className="chores-list-item">
-        <div className="chore-item-main">
+      <li className={`chores-list-item ${bgdColor}`}>
+        <div className="chore-row">
           <div
             className="checkbox-container"
             onClick={e => {
@@ -129,44 +124,70 @@ class ChoreItem extends React.Component {
               {title}
             </label>
           </div>
-          <div>{firstDuedate.isBefore(now) && !complete ? "OVERDUE" : ""}</div>
           <div>
             {assignedUser
               ? this.props.housemates[assignedUser].name
               : "unassigned"}
           </div>
+          <div className="red">
+            {firstDuedate.isBefore(now) && !complete ? " OVERDUE " : ""}
+          </div>
+          <div>Due {firstDuedate.fromNow()}</div>
+          <div className="toggle-btns">
+            <div>
+              {this.state.showUpdateForm ? (
+                <>
+                  <button
+                    onClick={() => this.setState({ showUpdateForm: false })}
+                    className="edit-chore light"
+                  >
+                    X
+                  </button>
+                </>
+              ) : (
+                <>
+                  {this.state.showDetails ? (
+                    <button
+                      onClick={this.toggleDetails}
+                      className="details-chore light"
+                    >
+                      Hide Details
+                    </button>
+                  ) : (
+                    <button
+                      onClick={this.toggleDetails}
+                      className="details-chore light"
+                    >
+                      Show Details
+                    </button>
+                  )}
+                  <button
+                    onClick={this.toggleShowForm}
+                    className="edit-chore light"
+                    id="edit-chore"
+                  >
+                    Edit
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
         </div>
-        {this.state.showDetails ? (
-          <div className="chore-details">
-            <button
-              onClick={this.toggleDetails}
-              className="details-chore light"
-            >
-              Hide Details
-            </button>
-            <div>{description}</div>
-            <div>Difficulty: {difficulty}</div>
-            <div>{recurring}</div>
-            <div>Due {firstDuedate.fromNow()}</div>
-            <div>{this.state.checked ? "Done!" : "Incomplete"}</div>
-          </div>
-        ) : (
-          <div className="chore-details">
-            <button
-              onClick={this.toggleDetails}
-              className="details-chore light"
-            >
-              Show Details
-            </button>
-          </div>
-        )}
-        <div>
-          <button
-            onClick={() => this.setState({ showUpdateForm: true })}
-            className="edit-chore light"
-          >
-            Edit
-          </button>
+        <div className="below chore-row">
+          {this.state.showUpdateForm ? (
+            <UpdateChoreForm
+              chore={this.props.chore}
+              closeUpdateForm={this.toggleShowForm}
+            />
+          ) : null}
+          {this.state.showDetails ? (
+            <>
+              <div>{description}</div>
+              <div>Difficulty: {difficulty}</div>
+              <div>Repeat: {recurring}</div>
+              <div>{this.state.checked ? "Done!" : "Incomplete"}</div>
+            </>
+          ) : null}
         </div>
       </li>
     );

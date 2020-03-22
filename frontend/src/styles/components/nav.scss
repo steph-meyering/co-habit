@@ -20,18 +20,36 @@ a#logo-link {
   justify-content: space-evenly;
   align-items: center;
 }
+
 .nav-item {
-  margin: 0 10px;
+  margin: 0 5px;
 }
 
 .navlink {
   min-width: 35px;
-  padding: 5px 0;
+  padding: 4px 0;
   font-size: 16px;
-}
+  position: relative;
 
-.navlink:hover {
-  font-weight: bold;
+  &::before {
+    content: '';
+    border-bottom: 2px solid black;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    top: 0px;
+    transform: scaleX(0);
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+  }
+
+  &:hover {
+    font-weight: bold;
+
+    &::before {
+      transform: scale(1);
+    }
+  }
+
 }
 
 .active-navlink {

@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { signup } from '../../actions/session_actions';
 import SignupForm from './signup_form';
 import { getHouseholds } from '../../actions/household_actions';
+import {clearSessionErrors} from "../../actions/session_actions";
 
 const mapStateToProps = (state) => {
     return {
@@ -13,9 +14,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        signup: user => dispatch(signup(user)),
-        getHouseholds: () => dispatch(getHouseholds())
-    }
+      signup: user => dispatch(signup(user)),
+      getHouseholds: () => dispatch(getHouseholds()),
+      clearErrors: () => dispatch(clearSessionErrors())
+    };
 }
 
 export default connect(
