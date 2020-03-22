@@ -46,17 +46,19 @@ class BillsIndex extends React.Component {
         pieData.push({
           title: names[name],
           value: paidEach[name] || 0,
-          color: colors.shift()
+          color: colors.shift(),
+          userId: name
         });
       }
+      this.props.updatePieChart(pieData)
       this.setState({pieData: pieData})
     }
 
     pieChart(){
-      if (this.state instanceof Object) {
+      if (this.props.pieChart instanceof Array) {
         return (
           <PieChart
-            data={this.state.pieData}
+            data={this.props.pieChart}
             onMouseOver={(e, propsData, dataIndex) => {
               const data = console.log(this);
             }}
