@@ -1,0 +1,23 @@
+.bills-container {
+    display: flex;
+}
+
+.bills-index {
+    width: 30%;
+}
+
+.chart-and-form {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    align-items: center;
+}
+
+.pie-chart {
+    justify-self: center;
+    width: 100%;
+}
+
+.bill-form{ 
+    padding-top: 30px;
+}
