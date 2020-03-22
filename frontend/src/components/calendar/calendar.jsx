@@ -136,6 +136,7 @@ class HouseholdCalendar extends React.Component {
         infoModalEnd: "",
         infoModalId: "",
         infoModalColor: "",
+        infoModalChore: false,
       });
     });
   }
@@ -149,7 +150,8 @@ class HouseholdCalendar extends React.Component {
         infoModalStart: event.start,
         infoModalEnd: event.end,
         infoModalId: event._id,
-        infoModalColor: event.color
+        infoModalColor: event.color,
+        infoModalChore: !!event.assignedUser
       });
     }
     
@@ -166,6 +168,7 @@ class HouseholdCalendar extends React.Component {
         infoModalEnd: "",
         infoModalId: "",
         infoModalColor: "",
+        infoModalChore: false
     })
     }
   }
@@ -202,20 +205,24 @@ class HouseholdCalendar extends React.Component {
   eventStyleGetter(event, start, end, isSelected) {
     var backgroundColor = event.color ? event.color : "#D2FDFF";
     let fontWeight;
+    let boxShadow;
     if (event.assignedUser === this.props.currentUser.id) {
       fontWeight = '900';
+      boxShadow = '0px 0px 10px 2px gray';
     } else if (event.author === this.props.currentUser.id) {
       fontWeight = '900';
+      boxShadow = '0px 0px 5px 2px gray';
     } else {
       fontWeight = '400';
     }
     var style = {
       backgroundColor: backgroundColor,
       fontWeight: fontWeight,
+      border: '0px',
+      boxShadow: boxShadow,
       borderRadius: '0px',
       opacity: 0.8,
       color: 'black',
-      border: '0px',
       display: 'block'
     };
     return {
@@ -245,27 +252,31 @@ class HouseholdCalendar extends React.Component {
         {/* view event form */}
         <div onClick={this.hideEventInfo.bind(this)} className={this.state.infoModalCls}>
           <div className='event-div-box'>
+            <div onClick={this.hideEventInfo.bind(this)} className="event-close-modal">X</div>
             <div className="event-banner">
               <h1>{this.state.infoModalTitle}</h1>
-              <div onClick={this.hideEventInfo.bind(this)} className="event-close-modal">X</div>
+              
             </div>
-              <p>{this.state.infoModalDescription}</p>
-              <div>
-              <h3>Date: {this.state.infoModalStart.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' })}{this.state.infoModalStart.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' }) === this.state.infoModalEnd.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' }) ? "" : ` - ${this.state.infoModalEnd.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' })}`}</h3>
-              {this.state.infoModalStart.toLocaleString('default', { hour: 'numeric', minute: 'numeric' }) === this.state.infoModalEnd.toLocaleString('default', { hour: 'numeric', minute: 'numeric' }) || 
-              this.state.infoModalStart.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' }) !== this.state.infoModalEnd.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' })
-              ? <h4>Time: All Day</h4> :
-                <h4>Time: {this.state.infoModalStart.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })} - {this.state.infoModalEnd.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })}</h4>}
-              {this.state.infoModalColor === undefined ? "" : <button onClick={this.handleDelete.bind(this)}>Delete Event</button> }
+              <div className="event-info-box">
+                <div className="event-info-time">
+                  <span>{this.state.infoModalStart.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' })}{this.state.infoModalStart.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' }) === this.state.infoModalEnd.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' }) ? "" : ` - ${this.state.infoModalEnd.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' })}`}</span>
+                  {this.state.infoModalStart.toLocaleString('default', { hour: 'numeric', minute: 'numeric' }) === this.state.infoModalEnd.toLocaleString('default', { hour: 'numeric', minute: 'numeric' }) || 
+                  this.state.infoModalStart.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' }) !== this.state.infoModalEnd.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' })
+                  ? <span>All Day</span> :
+                  <span>{this.state.infoModalStart.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })} - {this.state.infoModalEnd.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })}</span>}
+                </div>
+                <p>{this.state.infoModalDescription}</p>
+                {this.state.infoModalChore ? "" : <button id="event-delete-button" onClick={this.handleDelete.bind(this)}>Delete Event</button> }
               </div>
           </div>
         </div>
         {/* create event form */}
         <div onClick={this.hideFormInfo.bind(this)} className={this.state.formModalCls}>
           <div className='event-div-box'>
+            <div onClick={this.hideFormInfo.bind(this)} className="event-close-modal">X</div>
             <div className="event-banner">
               <h1>Create a new event</h1>
-              <div onClick={this.hideFormInfo.bind(this)} className="event-close-modal">X</div>
+              
             </div>
             <form onSubmit={this.newEvent.bind(this)}>
               <input 
@@ -278,7 +289,8 @@ class HouseholdCalendar extends React.Component {
                 value={this.state.description}
                 onChange={this.update('description')}
                 placeholder="Description" />
-                <input type="submit" value="Create Event"/>
+                {/* <input type="submit" value="Create Event"/> */}
+                <button>Create Event</button>
             </form>
           </div>
         </div>
