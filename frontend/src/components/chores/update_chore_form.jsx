@@ -112,10 +112,11 @@ class UpdateChoreForm extends React.Component {
               Never
             </label>
           </div> */}
+          <div>
           <button type="submit">Update Chore</button>
           <button onClick={() => this.props.deleteChore(this.props.chore._id)}>
             Delete
-          </button>
+          </button></div>
         </form>
       </div>
     );
