@@ -70,8 +70,9 @@ class BillsIndex extends React.Component {
       if (this.props.pieChart instanceof Array) {
         return (
           <PieChart
+            className='pie-chart'
             data={this.props.pieChart}
-            radius={40}
+            radius={45}
             onMouseOver={(e, propsData, dataIndex) => {
               const data = propsData.map((entry, i) => {
                 if (i === dataIndex) {
@@ -91,7 +92,6 @@ class BillsIndex extends React.Component {
                   return entry;
                 }
               });
-              debugger
               this.props.updatePieChart(data);
             }}
             onMouseOut={(e, propsData, dataIndex) => {
@@ -103,7 +103,7 @@ class BillsIndex extends React.Component {
                     title: entry.ogTitle,
                     style: {
                       ...entry.style,
-                      strokeWidth: 6
+                      strokeWidth: 7
                     }
                   };
                 } else {
@@ -165,12 +165,14 @@ class BillsIndex extends React.Component {
             );});
 
         return (
-          <>
-            <h3>All household bills: </h3>
-            {this.pieChart()}
-            <ul>{billItems}</ul>
-            <BillFormContainer />
-          </>
+          <div className="bills-container">
+            {/* <h3>All household bills: </h3> */}
+            <ul className="bills-index">{billItems}</ul>
+            <div className="chart-and-form">
+              {this.pieChart()}
+              <BillFormContainer/>
+            </div>
+          </div>
         );
     }
 }

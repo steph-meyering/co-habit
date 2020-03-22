@@ -52,6 +52,7 @@ class BillForm extends React.Component {
             type="text" 
             value={this.state.amount} 
             onChange={this.update('amount')}/>
+            <br/>
           <button type="submit">Save this bill</button>
         </form>
       </div>
