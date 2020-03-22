@@ -1,3 +1,7 @@
+.calendar {
+  height: 70%;
+}
+
 .event-modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -7,8 +11,9 @@
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: $black; /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  
 }
 
 .show-modal {
@@ -18,43 +23,92 @@
 .event-div-box {
     display: flex;
     flex-direction: column;
-  background-color: $gray;
+  background-color: $white;
   margin: 15% auto; /* 15% from the top and centered */
 //   padding: 20px;
   // height: 620px;
-  width: 600px; /* Could be more or less, depending on screen size */
-  color: $white;
+  width: 340px; /* Could be more or less, depending on screen size */
+  color: $black;
+  box-shadow: 0px 0px 20px 2px $muted-blue;
+}
+
+.event-div-box form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.event-div-box input {
+  text-align: center;
+}
+
+.event-div-box button {
+  margin-top: 20px;
+}
+
+.event-info-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.event-info-box span {
+  font-size: 14px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.event-info-box p {
+  font-size: 14px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.event-info-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid $muted-blue;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .event-banner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: purple;
-    height: 100px;
-    padding-left: 30px;
-    padding-right: 30px;
-    font-size: 32px;
-    color: red;
-    font-weight: 700;
+    background-color: $white;
+    padding-left: 10px;
+    padding-right: 10px;
+    // font-size: 100px;
+    color: $black;
+    font-weight: 300;
+    text-align: center;
 }
 
 .event-banner h1 {
-    background-color: purple;
+    background-color: $white;
     padding: 0px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    font-size: 22px;
+    font-family: $rubik;
 }
 
-.event-banner div {
+.event-close-modal {
     // background-color: $dark-purple;
-    border: 3px solid darkblue;
-    padding: 8px 14px 8px 14px;
-    border-radius: 100%;
+    padding: 10px 10px 0px 10px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
+    text-align: right;
 }
 
-.event-banner div:hover {
-    background-color: darkblue;
+.event-close-modal:hover {
+    color: $muted-blue;
+}
+
+#event-delete-button {
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+
+.rbc-event-content {
+  color: $white;
 }

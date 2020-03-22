@@ -12,11 +12,12 @@ const mapStateToProps = (state) => {
     const chore = Object.assign({}, chores[i]);
     for (let j = 0; j < chore.dueDate.length; j++) {
       let ddate = chore.dueDate[j];
-      if (j === 0) {
-        ddate = moment(new Date(ddate)).add(7, "hours").toDate();
-      } else {
-        ddate = new Date(ddate);
-      }
+      // if (j === 0) {
+      //   ddate = moment(new Date(ddate)).add(1, "hours").toDate();
+      // } else {
+      //   ddate = new Date(ddate);
+      // }
+      ddate = moment(new Date(ddate)).add(8, "hours").toDate();
       let dueDateEvent = {
         allDay: true,
         _id: chore._id,
@@ -25,14 +26,16 @@ const mapStateToProps = (state) => {
         start: ddate,
         end: ddate,
         author: chore.assignedUser,
-        household: chore.household
+        household: chore.household,
+        assignedUser: chore.assignedUser
       };
       dueDateEvents.push(dueDateEvent);
     }
   }
 
   let allEvents = Object.values(state.entities.events).concat(dueDateEvents);
-  const colors = ["#F4976C", "#FBE8A6", "#303C6C", "#B4DFE5", "#D2FDFF"];
+  // const colors = ["#F4976C", "#FBE8A6", "#303C6C", "#B4DFE5", "#D2FDFF"];
+  const colors = ["#88C9C9", "#904e55", "#849ca5", "#031a6b", "#7AD3B7"];
   const users = Object.keys(state.entities.users);
   if (users.length > 0) {
     for (let i = 0; i < allEvents.length; i++) {
