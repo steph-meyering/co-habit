@@ -18,7 +18,7 @@ class CreateChoreForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.showForm = this.showForm.bind(this);
+    this.toggleShow = this.toggleShow.bind(this);
   }
 
   componentDidMount() {}
@@ -66,20 +66,23 @@ class CreateChoreForm extends React.Component {
   //   );
   // }
 
-  showForm() {
-    this.setState({show: true})
+  toggleShow() {
+    this.setState({show: !this.state.show})
   }
 
   render() {
     if (!this.state.show) {
-      return( <div>
-        <button onClick={this.showForm}>Add New Chore</button>
-      </div>)
+      return (
+        <div>
+          <button className="bold-btn" onClick={this.toggleShow}>
+            Add New Chore
+          </button>
+        </div>
+      );
     }
 
     return (
       <div>
-        <h3>Add New Chore</h3>
         {/* {this.props.errors ? this.renderErrors() : null} */}
         <form onSubmit={this.handleSubmit}>
           <label>Title</label>
@@ -151,7 +154,8 @@ class CreateChoreForm extends React.Component {
               Never
             </label>
           </div>
-          <button type="submit">Add Chore</button>
+          <button className="bold-btn" type="submit">Add New Chore</button>
+          <button className="light" onClick={this.toggleShow}>Cancel</button>
         </form>
       </div>
     );

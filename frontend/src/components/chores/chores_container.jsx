@@ -61,7 +61,7 @@ class Chores extends React.Component {
           <div className="loading chores-list-container">
             <Loader
               css={override}
-              size={20}
+              size={50}
               color={"#99E8E8"}
               loading={this.state.loading}
             />
@@ -90,12 +90,14 @@ class Chores extends React.Component {
     });
 
     return (
-      <div>
+      <div className="chores-page">
         <h2>All Household Chores</h2>
         <CreateChoreForm show={this.state.showCreateChoreForm} />
         <div className="chores-list-container">
           {this.props.currentUser.adminPrivileges ? (
-            <button onClick={this.reassignChores}>Reassign All Chores</button>
+            <button className="bold-btn" onClick={this.reassignChores}>
+              Reassign All Chores
+            </button>
           ) : (
             ""
           )}

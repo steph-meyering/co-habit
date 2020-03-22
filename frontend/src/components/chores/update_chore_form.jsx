@@ -37,39 +37,42 @@ class UpdateChoreForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>Edit Chore</h3>
+      <div className="edit-chore-container">
         <form onSubmit={this.handleSubmit}>
-          <label>Title</label>
-          <input
-            type="text"
-            value={this.state.title}
-            onChange={this.update("title")}
-          />
-          <br />
-          <label>Description</label>
-          <input
-            type="text"
-            value={this.state.description}
-            onChange={this.update("description")}
-          />
-          <br />
-          <label>Difficulty</label>
-          <input
-            type="number"
-            min="1"
-            max="3"
-            value={this.state.difficulty}
-            onChange={this.update("difficulty")}
-          />
-          <br />
-          <label>Due Date</label>
-          <input
-            type="date"
-            value={this.state.dueDate}
-            onChange={this.update("dueDate")}
-          />
-          <br />
+          <div>
+            <label>Title</label>
+            <input
+              type="text"
+              value={this.state.title}
+              onChange={this.update("title")}
+            />
+          </div>
+          <div>
+            <label>Description</label>
+            <input
+              type="text"
+              value={this.state.description}
+              onChange={this.update("description")}
+            />
+          </div>
+          <div className="small-input">
+            <label>Difficulty</label>
+            <input
+              type="number"
+              min="1"
+              max="3"
+              value={this.state.difficulty}
+              onChange={this.update("difficulty")}
+            />
+          </div>
+          <div className="small-input">
+            <label>Due Date</label>
+            <input
+              type="date"
+              value={this.state.dueDate}
+              onChange={this.update("dueDate")}
+            />
+          </div>
           {/* <label>Recurring? </label>
           <div className="radio">
             <label>
@@ -110,10 +113,10 @@ class UpdateChoreForm extends React.Component {
             </label>
           </div> */}
           <button type="submit">Update Chore</button>
+          <button onClick={() => this.props.deleteChore(this.props.chore._id)}>
+            Delete
+          </button>
         </form>
-        <button onClick={() => this.props.deleteChore(this.props.chore._id)}>
-          Delete
-        </button>
       </div>
     );
   }
