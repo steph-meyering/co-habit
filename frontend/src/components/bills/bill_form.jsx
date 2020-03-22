@@ -5,20 +5,16 @@ class BillForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = this.defaultState()
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.defaultState = this.defaultState.bind(this);
-
-  }
-
-  defaultState(){
-    return {
+    this.state = {
       title: "",
       amount: "",
       errors: {}
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderErrors = this.renderErrors.bind(this);
   }
+
   
   handleSubmit(e) {
     e.preventDefault();
@@ -26,8 +22,10 @@ class BillForm extends React.Component {
       title: this.state.title,
       amount: parseInt(this.state.amount)
     };
-    this.props.createBill(bill).then(
-      this.setState(this.defaultState()))
+    this.props.createBill(bill)
+      .then(res => {
+        this.setState({errors: res.errors})
+      })
   }
 
   update(field) {
@@ -37,13 +35,19 @@ class BillForm extends React.Component {
       });
   }
   
+  renderErrors() {
+    return (
+      <ul className='bill-errors'>
+        {Object.keys(this.state.errors).map((error, i) => (
+          <li key={`error-${i}`}>
+            {this.state.errors[error]}
+          </li>
+        ))}
+      </ul>
+    );
+  }
+  
   render() {
-    // let billErrors = null
-    // debugger
-    // if (!this.props.errors === "undefined"){
-    // debugger
-    //   billErrors = Object.values(this.props.errors.bill)
-    // }
     return (
       <div>
         <div className='bill-form'>Add a new bill
@@ -62,9 +66,7 @@ class BillForm extends React.Component {
             <button type="submit">Save this bill</button>
           </form>
         </div>
-        <ol className='bill-errors'>
-          {/* {billErrors} */}
-        </ol>
+        {this.renderErrors()}
       </div>
     );
   }
