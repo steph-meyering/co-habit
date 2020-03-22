@@ -25,7 +25,7 @@ class ChoreItem extends React.Component {
       complete
     } = this.props.chore;
 
-    let now = moment.utc();
+    let now = moment.utc().add(1, "days");
     let firstDuedate = moment.utc(this.props.chore.dueDate[0]);
 
     if (recurring !== "never" && firstDuedate.isBefore(now) && complete) {
@@ -88,7 +88,7 @@ class ChoreItem extends React.Component {
       complete
     } = this.props.chore;
 
-    let now = moment.utc();
+    let now = moment.utc().add(1, "days");
     let firstDuedate = moment.utc(dueDate[0]);
 
     if (recurring !== "never" && firstDuedate.isBefore(now) && complete) {
@@ -157,7 +157,7 @@ class ChoreItem extends React.Component {
                     <button
                       onClick={this.toggleDetails}
                       className="details-chore light"
-                    >
+                    >   
                       Show Details
                     </button>
                   )}

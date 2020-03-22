@@ -67,6 +67,20 @@ input[type="date"] {
 }
 
 
+#create-chore {
+  // // max-width: 50%;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: flex-start;
+  // justify-content: start;
+  .radio {
+    margin-left: 10px;
+    label {
+      margin-left: 10px;
+      padding: 5px;
+    }
+  }
+}
 
 
 

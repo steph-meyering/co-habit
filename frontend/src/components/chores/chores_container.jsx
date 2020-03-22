@@ -73,8 +73,8 @@ class Chores extends React.Component {
     if (this.props.chores.length === 0) {
       return (
         <div>
-          <CreateChoreForm show={this.state.showCreateChoreForm} />
-          <div>No Chores Yet</div>
+          
+          <div>No Chores Yet</div><CreateChoreForm show={true} />
         </div>
       );
     }
