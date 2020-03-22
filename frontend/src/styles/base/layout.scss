@@ -66,3 +66,8 @@ input[type="text"]:hover,
 input[type="text"]:focus {
     border-bottom: 1px solid $dark-blue;
 }
+
+ol, ul {
+    list-style: none;
+    padding-left: 0;
+}
