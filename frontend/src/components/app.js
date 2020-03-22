@@ -14,7 +14,7 @@ import NavBar from "./nav/nav";
 const App = () => (
   <div className="app">
     <div className="main-container">
-      <NavBar />
+      <ProtectedRoute path="/" component={NavBar} />
       <Switch>
         <AuthRoute exact path="/" component={SplashPageContainer} />
         <PendingRoute
