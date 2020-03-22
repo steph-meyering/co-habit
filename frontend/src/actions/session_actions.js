@@ -12,6 +12,12 @@ export const receiveCurrentUser = currentUser => ({
     currentUser
 });
 
+export const CLEAR_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
+
+export const clearSessionErrors = () => ({
+  type: CLEAR_SESSION_ERRORS
+});
+
 // This will be used to redirect the user to the login page upon signup
 // export const receiveUserSignIn = () => ({
 //     type: RECEIVE_USER_SIGN_IN

@@ -11,8 +11,6 @@ class SignupForm extends React.Component {
       password2: "",
       createHousehold: false,
       housename: "",
-
-      errors: {}
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,6 +24,10 @@ class SignupForm extends React.Component {
 
   //     this.setState({ errors: nextProps.errors })
   // }
+
+    componentWillUnmount() {
+    // this.props.clearErrors();
+  }
 
   update(field) {
     return e =>
