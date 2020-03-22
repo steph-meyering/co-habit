@@ -90,6 +90,7 @@ class CreateChoreForm extends React.Component {
             type="text"
             value={this.state.title}
             onChange={this.update("title")}
+            placeholder="Title"
           />
           <br />
           <label>Description</label>
@@ -97,6 +98,7 @@ class CreateChoreForm extends React.Component {
             type="text"
             value={this.state.description}
             onChange={this.update("description")}
+            placeholder="Description"
           />
           <br />
           <label>Difficulty</label>
@@ -154,8 +156,12 @@ class CreateChoreForm extends React.Component {
               Never
             </label>
           </div>
-          <button className="bold-btn" type="submit">Add New Chore</button>
-          <button className="light" onClick={this.toggleShow}>Cancel</button>
+          <button className="bold-btn" type="submit">
+            Add New Chore
+          </button>
+          <button className="light" onClick={this.toggleShow}>
+            Cancel
+          </button>
         </form>
       </div>
     );

@@ -35,7 +35,6 @@ class SplashPage extends React.Component {
     render() {
         return (
             <div>
-                <h1>Chores App</h1>
                 <div className="session-div">
                     {this.state.formType === "login" ?
                         <>
