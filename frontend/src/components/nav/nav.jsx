@@ -60,15 +60,6 @@ class NavBar extends React.Component {
                   Calendar
                 </NavLink>
               </div>
-              <div className="nav-item">
-                <NavLink
-                  to="/settings"
-                  activeClassName="active-navlink"
-                  className="navlink"
-                >
-                  Settings
-                </NavLink>
-              </div>
             </>
           ) : null}
           <div>
