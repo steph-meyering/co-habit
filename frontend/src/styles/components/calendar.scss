@@ -112,3 +112,26 @@
 .rbc-event-content {
   color: $white;
 }
+
+.calendar {
+  border-radius: 0px;
+
+  .rbc-toolbar button {
+    border-radius: 0px;
+  }
+
+  tr, div {
+    margin-right: 0px;
+  }
+
+  span {
+    padding: 5px;
+  }
+
+  .rbc-header {
+    padding: 5px;
+  }
+  .rbc-date-cell {
+        padding-top: 3px;
+  }
+}

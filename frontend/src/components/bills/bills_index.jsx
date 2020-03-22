@@ -4,18 +4,135 @@ import BillFormContainer from "./bill_form_container";
 import PieChart from "react-minimal-pie-chart";
 
 class BillsIndex extends React.Component {
+    constructor(props){
+      super(props);
+      this.pieChart = this.pieChart.bind(this);
+    }
     
     componentDidMount(){
         this.props.fetchBills()
-        this.props.getAcceptedUsers(this.props.currentUser.household);
+        .then(() => this.props.getAcceptedUsers(this.props.currentUser.household)
+        .then(() => this.calcPieData()))
     }
 
     isMyBill(bill){
         if (this.props.currentUser.id === bill.user) return bill
     }
 
+    calcPieData(){
+      let names = {};
+      for (const user in this.props.housemates) {
+        names[this.props.housemates[user]._id] = this.props.housemates[
+          user
+        ].name;
+      }
+
+      const colors = [
+        "#88C9C9",
+        "#904e55",
+        "#849ca5",
+        "#031a6b",
+        "#7AD3B7",
+        "#afe0ce",
+        "#edffff",
+        "#297373",
+        "#506C84"
+      ];
+
+      // sum the amount each housemate has logged
+      let paidEach = {};
+
+      for (const bill of this.props.bills) {
+        if (paidEach[bill.user]) {
+          paidEach[bill.user] += bill.amount;
+        } else {
+          paidEach[bill.user] = bill.amount;
+        }
+      }
+
+      // shape pieData into PieChart format and add color
+      let pieData = [];
+      for (const name in names) {
+        pieData.push({
+          title: names[name],
+          value: paidEach[name] || 0,
+          color: colors.shift(),
+          userId: name
+        });
+      }
+      this.props.updatePieChart(pieData)
+      this.setState({pieData: pieData})
+    }
+
+
+    
+    pieChart(){
+      if (this.props.pieChart instanceof Array) {
+        return (
+          <PieChart
+            className='pie-chart'
+            data={this.props.pieChart}
+            radius={45}
+            onMouseOver={(e, propsData, dataIndex) => {
+              const data = propsData.map((entry, i) => {
+                if (i === dataIndex) {
+                  return {
+                    ...entry,
+                    ogColor: entry.color,
+                    ogTitle: entry.title,
+                    color: "#afe0ce",
+                    title: `${entry.value}$`,
+                    style: {
+                      ...entry.style,
+                      strokeWidth: 10,
+                      WebkitTransition: "all 0.7s"
+                    }
+                  };
+                } else {
+                  return entry;
+                }
+              });
+              this.props.updatePieChart(data);
+            }}
+            onMouseOut={(e, propsData, dataIndex) => {
+              const data = propsData.map((entry, i) => {
+                if (i === dataIndex) {
+                  return {
+                    ...entry,
+                    color: entry.ogColor,
+                    title: entry.ogTitle,
+                    style: {
+                      ...entry.style,
+                      strokeWidth: 7
+                    }
+                  };
+                } else {
+                  return entry;
+                }
+              });
+              this.props.updatePieChart(data);
+            }}
+            animate
+            animationDuration={700}
+            startAngle={0}
+            animationEasing="ease-out"
+            lineWidth={15}
+            label={props => {
+              return `${props.data[props.dataIndex].title}`;
+            }}
+            paddingAngle={5}
+            labelPosition={75}
+            labelStyle={{
+              fill: "#121212",
+              fontSize: "5px"
+            }}
+          />
+        );
+      }
+    }
+    
     render(){
-        if (this.props.bills.length === 0) {
+        if (this.props.bills.length < 2) {
             return (
               <div>
                 <div>No Bills Yet</div>
@@ -24,8 +141,16 @@ class BillsIndex extends React.Component {
             );
         }
 
+        if (Object.keys(this.props.housemates).length === 0){
+          return(
+            <div>
+              ...loading housemates
+            </div>
+          )
+        }
+
         if (this.props.loading) {
-            return <div>loading...</div>;
+            return <div>...loading</div>;
         }
         let billItems = this.props.bills.map(bill => {
             return (
@@ -39,73 +164,15 @@ class BillsIndex extends React.Component {
               />
             );});
 
-        // let myBillItems = this.props.bills.filter((bill) => this.isMyBill(bill))
-        //     .map(bill => <BillItem bill = {bill} />)
-        // let names = this.props.housemates.keys(person => person.name)
-
-        // get all the names of housemates:
-        let names = {};
-        for (const user in this.props.housemates) {
-          names[this.props.housemates[user]._id] = this.props.housemates[user].name;          
-        }
-
-        let colors = ["#F4976C", "#FBE8A6", "#303C6C", "#B4DFE5", "#D2FDFF"];
-        
-        // sum the amount each housemate has logged
-        let paidEach = {};
-
-        for (const bill of this.props.bills) {
-          if (paidEach[bill.user]){
-            paidEach[bill.user] += bill.amount
-          } else {
-            paidEach[bill.user] = bill.amount;
-          }
-        }
-
-        // shape pieData into PieChart format and add color
-        let pieData = []
-        for (const name in names) {
-          pieData.push(
-            {title: names[name],
-              value: (paidEach[name] || 0), 
-              color: colors.shift()
-            }
-          )
-        }
         return (
-          <>
-            <h3>All household bills: </h3>
-            <PieChart
-              data={pieData}
-
-              onMouseOver={(e, propsData, dataIndex) => {
-                const data = 
-                (console.log(this))
-              }
-              }
-              animate
-              animationDuration={500}
-              startAngle={0}
-              animationEasing="ease-out"
-              lineWidth={15}
-              label={props => {
-                return `${props.data[props.dataIndex].title} ${
-                  props.data[props.dataIndex].value
-                }$`;
-              }}
-              // label={(h)=> {
-              //   return h
-              // } }
-              paddingAngle={5}
-              labelPosition={75}
-              labelStyle={{
-                fill: "#121212",
-                fontSize: "5px"
-              }}
-            />
-            <ul>{billItems}</ul>
-            <BillFormContainer />
-          </>
+          <div className="bills-container">
+            {/* <h3>All household bills: </h3> */}
+            <ul className="bills-index">{billItems}</ul>
+            <div className="chart-and-form">
+              {this.pieChart()}
+              <BillFormContainer/>
+            </div>
+          </div>
         );
     }
 }
