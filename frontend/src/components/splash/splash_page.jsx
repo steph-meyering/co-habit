@@ -47,7 +47,7 @@ class SplashPage extends React.Component {
           <div className="splash">
             <div className="splash">
               <img src="/logo.png" id="splash-logo" alt="logo" />
-              <p>Assign Chores. Track Bills. Schedule Events.</p>
+              <p><i className="fas fa-broom"></i> Assign Chores. <i className="fas fa-file-invoice-dollar"></i> Track Bills. <i className="fas fa-calendar-alt"></i> Schedule Events.</p>
               <p>Lessen the stresses of co-living with Co-Habit.</p>
               <div className={this.state.containerCls} id="container">
                 <div className="form-container sign-up-container">

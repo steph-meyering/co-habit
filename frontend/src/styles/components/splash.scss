@@ -10,8 +10,14 @@
         animation: fadein 2s;
 }
 
+.splash .fas {
+  font-size: 20px;
+  margin-left: 10px;
+}
+
 .splash footer {
   color: $white;
+  margin-bottom: 10px;
 }
 
 .splash footer span {
@@ -30,7 +36,7 @@
 
 .splash > p:last-of-type {
   margin-top: 20px;
-  font-size: 28px;
+  font-size: 30px;
 }
 
 @keyframes fadein {
