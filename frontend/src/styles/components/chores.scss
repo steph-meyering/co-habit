@@ -1,0 +1,160 @@
+label {
+  display: inline-block;
+  color: $black;
+  position: relative;
+
+  span {
+    display: inline-block;
+    position: relative;
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    transform-origin: center;
+    border: 1px solid $light-green;
+    vertical-align: -6px;
+    margin-right: 10px;
+    transition: background-color 150ms 200ms, transform 350ms cubic-bezier(.78, -1.22, .17, 1.89);
+
+    //create lines of checkmark using pseudo elements
+    &:before {
+      content: "";
+      width: 0px;
+      height: 2px;
+      background: $black;
+      position: absolute;
+      transform: rotate(45deg);
+      top: 8px;
+      left: 4px;
+      transition: width 50ms ease 50ms;
+      transform-origin: 0% 0%;
+    }
+
+    &:after {
+      content: "";
+      width: 0;
+      height: 2px;
+      background: $black;
+      position: absolute;
+      transform: rotate(310deg);
+      transition: width 50ms ease;
+      transform-origin: 0% 0%;
+      top: 13px;
+      left: 6px;
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      &:before {
+        width: 6px;
+        transition: width 100ms ease;
+      }
+
+      &:after {
+        width: 13px;
+        transition: width 150ms ease 100ms;
+      }
+
+    }
+  }
+
+}
+
+
+
+
+
+
+input[type="checkbox"] {
+  user-select: none;
+  // hide the system checkbox
+  display: none;
+  position: absolute;
+  z-index: 9999;
+  width: 20px;
+  margin: 2px;
+  height: 20px;
+  transform-origin: center;
+
+  &:checked {
+    +label {
+      span {
+        background-color: transparent;
+        border-color: transparent;
+
+        &:after {
+          width: 13px;
+          background: $black;
+          transition: width 150ms ease 100ms;
+        }
+
+        &:before {
+          width: 6px;
+          background: $black;
+          transition: width 150ms ease 100ms;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        span {
+          background-color: transparent;
+          border-color: transparent;
+
+          &:after {
+            width: 13px;
+            background: $black;
+            transition: width 150ms ease 100ms;
+          }
+
+          &:before {
+            width: 5px;
+            background: $black;
+            transition: width 150ms ease 100ms;
+          }
+        }
+      }
+    }
+  }
+}
+
+button.light {
+  border-color: transparent;
+  color: $dark-teal;
+  padding: 0 2px;
+  margin: 0 5px;
+}
+button.light:hover {
+  color: $dark-blue;
+}
+
+.chores-list-item {
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  margin: 10px 0;
+}
+
+.chore-item-main {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+
+    * {
+      margin-right: 10px;
+    }
+}
+
+.chore-details {
+
+
+
+  div {
+    font-size: 13px;
+  }
+}
+
+.chores-list-container {
+
+}

@@ -50,4 +50,14 @@ router.get('/:id', (req, res) => {
     );
 });
 
+router.get('/', (req, res) => {
+  Household.find()
+    .then(households => {
+      res.json(households)
+    })
+    .catch(err =>
+      res.status(404).json({ nohouseholdsfound: 'No households found' })
+    );
+});
+
 module.exports = router;
