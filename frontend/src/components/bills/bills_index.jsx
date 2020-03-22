@@ -27,7 +27,17 @@ class BillsIndex extends React.Component {
         ].name;
       }
 
-      let colors = ["#F4976C", "#FBE8A6", "#303C6C", "#B4DFE5", "#D2FDFF"];
+      const colors = [
+        "#88C9C9",
+        "#904e55",
+        "#849ca5",
+        "#031a6b",
+        "#7AD3B7",
+        "#afe0ce",
+        "#edffff",
+        "#297373",
+        "#506C84"
+      ];
 
       // sum the amount each housemate has logged
       let paidEach = {};
@@ -61,21 +71,41 @@ class BillsIndex extends React.Component {
         return (
           <PieChart
             data={this.props.pieChart}
+            radius={40}
             onMouseOver={(e, propsData, dataIndex) => {
               const data = propsData.map((entry, i) => {
                 if (i === dataIndex) {
-                  return { ...entry, ogColor: entry.color, color: "#000000" };
+                  return {
+                    ...entry,
+                    ogColor: entry.color,
+                    ogTitle: entry.title,
+                    color: "#afe0ce",
+                    title: `${entry.value}$`,
+                    style: {
+                      ...entry.style,
+                      strokeWidth: 10,
+                      WebkitTransition: "all 0.7s"
+                    }
+                  };
                 } else {
                   return entry;
                 }
               });
-              this.props.updatePieChart(data);
               debugger
+              this.props.updatePieChart(data);
             }}
             onMouseOut={(e, propsData, dataIndex) => {
               const data = propsData.map((entry, i) => {
                 if (i === dataIndex) {
-                  return { ...entry, color: entry.ogColor };
+                  return {
+                    ...entry,
+                    color: entry.ogColor,
+                    title: entry.ogTitle,
+                    style: {
+                      ...entry.style,
+                      strokeWidth: 6
+                    }
+                  };
                 } else {
                   return entry;
                 }
@@ -83,14 +113,12 @@ class BillsIndex extends React.Component {
               this.props.updatePieChart(data);
             }}
             animate
-            animationDuration={500}
+            animationDuration={700}
             startAngle={0}
             animationEasing="ease-out"
             lineWidth={15}
             label={props => {
-              return `${props.data[props.dataIndex].title} ${
-                props.data[props.dataIndex].value
-              }$`;
+              return `${props.data[props.dataIndex].title}`;
             }}
             paddingAngle={5}
             labelPosition={75}
