@@ -52,16 +52,20 @@ class Chores extends React.Component {
       const override = css`
         display: block;
         margin: auto;
-        border-color: white;
+        border-color: transparent;
       `;
       return (
-        <div className="loading submit-loading">
-          <Loader
-            css={override}
-            size={20}
-            color={"#1a7d88"}
-            loading={this.state.loading}
-          />
+        <div>
+          <h2>All Household Chores</h2>
+          <CreateChoreForm show={this.state.showCreateChoreForm} />
+          <div className="loading chores-list-container">
+            <Loader
+              css={override}
+              size={20}
+              color={"#99E8E8"}
+              loading={this.state.loading}
+            />
+          </div>
         </div>
       );
     }
@@ -69,8 +73,8 @@ class Chores extends React.Component {
     if (this.props.chores.length === 0) {
       return (
         <div>
+          <CreateChoreForm show={this.state.showCreateChoreForm} />
           <div>No Chores Yet</div>
-          <CreateChoreForm />
         </div>
       );
     }
@@ -88,12 +92,15 @@ class Chores extends React.Component {
     return (
       <div>
         <h2>All Household Chores</h2>
-        <div>
-          <button onClick={this.reassignChores}>Reassign All Chores</button>
+        <CreateChoreForm show={this.state.showCreateChoreForm} />
+        <div className="chores-list-container">
+          {this.props.currentUser.adminPrivileges ? (
+            <button onClick={this.reassignChores}>Reassign All Chores</button>
+          ) : (
+            ""
+          )}
+          <ol>{allChoreItems}</ol>
         </div>
-        <ol>{allChoreItems}</ol>
-        {/* <h2>Your Assigned Chores</h2> */}
-        <CreateChoreForm />
       </div>
     );
   }

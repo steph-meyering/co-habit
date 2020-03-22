@@ -6,30 +6,15 @@ class ChoreItem extends React.Component {
     super(props);
     this.state = {
       showUpdateForm: false,
+      showDetails: false,
       checked: this.props.chore.complete
     };
     this.closeUpdateForm = this.closeUpdateForm.bind(this);
+    this.updateRecurring = this.updateRecurring.bind(this);
+    this.toggleDetails = this.toggleDetails.bind(this);
   }
 
-  closeUpdateForm() {
-    this.setState({
-      showUpdateForm: false,
-      checked: this.props.chore.complete
-    });
-  }
-
-  render() {
-    if (this.state.showUpdateForm) {
-      return (
-        <li>
-          <UpdateChoreForm
-            chore={this.props.chore}
-            closeUpdateForm={this.closeUpdateForm}
-          />
-        </li>
-      );
-    }
-
+  updateRecurring() {
     let {
       title,
       description,
@@ -40,9 +25,8 @@ class ChoreItem extends React.Component {
       complete
     } = this.props.chore;
 
-
     let now = moment.utc();
-    let firstDuedate = moment.utc(dueDate[0]);
+    let firstDuedate = moment.utc(this.props.chore.dueDate[0]);
 
     if (recurring !== "never" && firstDuedate.isBefore(now) && complete) {
       let updatedChore = this.props.chore;
@@ -78,21 +62,52 @@ class ChoreItem extends React.Component {
         checked: false
       });
     }
+  }
+
+  closeUpdateForm() {
+    this.setState({
+      showUpdateForm: false
+    });
+  }
+
+  toggleDetails() {
+    this.setState({
+      showDetails: !this.state.showDetails
+    });
+  }
+
+  render() {
+    if (this.state.showUpdateForm) {
+      return (
+        <li>
+          <UpdateChoreForm
+            chore={this.props.chore}
+            closeUpdateForm={this.closeUpdateForm}
+          />
+        </li>
+      );
+    }
+
+    let {
+      title,
+      description,
+      assignedUser,
+      difficulty,
+      recurring,
+      dueDate,
+      complete
+    } = this.props.chore;
+
+    let now = moment.utc();
+    let firstDuedate = moment.utc(dueDate[0]);
+
+    if (recurring !== "never" && firstDuedate.isBefore(now) && complete) {
+      this.updateRecurring();
+    }
 
     return (
-      <li>
-        <div>
-          <div>{title}</div>
-          <div>{description}</div>
-          <div>
-            {assignedUser
-              ? this.props.housemates[assignedUser].name
-              : "unassigned"}
-          </div>
-          <div>{difficulty}</div>
-          <div>{recurring}</div>
-          <div>Due {firstDuedate.fromNow()}</div>
-          <div>{firstDuedate.isBefore(now) && !complete ? "OVERDUE" : ""}</div>
+      <li className="chores-list-item">
+        <div className="chore-item-main">
           <div
             className="checkbox-container"
             onClick={e => {
@@ -111,12 +126,45 @@ class ChoreItem extends React.Component {
 
             <label className="label-cbx">
               <span></span>
-              {this.state.checked ? "Done!" : "Incomplete"}
+              {title}
             </label>
           </div>
+          <div>{firstDuedate.isBefore(now) && !complete ? "OVERDUE" : ""}</div>
+          <div>
+            {assignedUser
+              ? this.props.housemates[assignedUser].name
+              : "unassigned"}
+          </div>
         </div>
+        {this.state.showDetails ? (
+          <div className="chore-details">
+            <button
+              onClick={this.toggleDetails}
+              className="details-chore light"
+            >
+              Hide Details
+            </button>
+            <div>{description}</div>
+            <div>Difficulty: {difficulty}</div>
+            <div>{recurring}</div>
+            <div>Due {firstDuedate.fromNow()}</div>
+            <div>{this.state.checked ? "Done!" : "Incomplete"}</div>
+          </div>
+        ) : (
+          <div className="chore-details">
+            <button
+              onClick={this.toggleDetails}
+              className="details-chore light"
+            >
+              Show Details
+            </button>
+          </div>
+        )}
         <div>
-          <button onClick={() => this.setState({ showUpdateForm: true })}>
+          <button
+            onClick={() => this.setState({ showUpdateForm: true })}
+            className="edit-chore light"
+          >
             Edit
           </button>
         </div>

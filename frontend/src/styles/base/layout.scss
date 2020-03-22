@@ -10,8 +10,9 @@ body {
 
 body * {
     font-family: $roboto;
-    font-size: 13px;
+    font-size: 15px;
     box-sizing: border-box;
+       -webkit-font-smoothing: antialiased;
 }
 
 h1 {
@@ -39,7 +40,7 @@ a {
 }
 
 button {
-    border: 1px solid $light-teal;
+    border: 1px solid $light-green;
 }
 
 button:hover {
@@ -58,10 +59,15 @@ input {
 input[type="text"] {
     background-color: transparent;
     border: 1px solid transparent;
-    border-bottom: 1px solid $light-teal;
+    border-bottom: 1px solid $light-green;
 }
 
 input[type="text"]:hover,
 input[type="text"]:focus {
     border-bottom: 1px solid $dark-blue;
+}
+
+ol, ul {
+    list-style: none;
+    padding-left: 0;
 }

@@ -13,10 +13,12 @@ class CreateChoreForm extends React.Component {
       household: this.props.currentUser.household,
       difficulty: 1,
       recurring: "weekly",
-      dueDate: new Date(moment().add(7, "days")).toISOString().substr(0, 10)
+      dueDate: new Date(moment().add(7, "days")).toISOString().substr(0, 10),
+      show: this.props.show
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.showForm = this.showForm.bind(this);
   }
 
   componentDidMount() {}
@@ -35,7 +37,7 @@ class CreateChoreForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let { loading, ...chore } = this.state;
+    let { loading, show, ...chore } = this.state;
     chore.difficulty = parseInt(chore.difficulty);
     chore.dueDate = new Date(chore.dueDate).toISOString().substr(0, 10);
     this.props.createNewChore(chore).then(() =>
@@ -64,25 +66,15 @@ class CreateChoreForm extends React.Component {
   //   );
   // }
 
+  showForm() {
+    this.setState({show: true})
+  }
+
   render() {
-    if (this.state.loading) {
-      // const override = css`
-      //   display: block;
-      //   margin: auto;
-      //   border-color: white;
-      // `;
-      return (
-        <div className="main-component-container">
-          <div className="loading submit-loading">
-            {/* <RotateLoader
-              css={override}
-              size={20}
-              color={"#1a7d88"}
-              loading={this.state.loading}
-            /> */}
-          </div>
-        </div>
-      );
+    if (!this.state.show) {
+      return( <div>
+        <button onClick={this.showForm}>Add New Chore</button>
+      </div>)
     }
 
     return (
@@ -166,10 +158,11 @@ class CreateChoreForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.session.user,
-    errors: state.errors.chores
+    errors: state.errors.chores,
+    show: ownProps.show
   };
 };
 
