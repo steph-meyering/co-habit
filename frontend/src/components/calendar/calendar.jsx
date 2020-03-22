@@ -201,8 +201,17 @@ class HouseholdCalendar extends React.Component {
 
   eventStyleGetter(event, start, end, isSelected) {
     var backgroundColor = event.color ? event.color : "#D2FDFF";
+    let fontWeight;
+    if (event.assignedUser === this.props.currentUser.id) {
+      fontWeight = '900';
+    } else if (event.author === this.props.currentUser.id) {
+      fontWeight = '900';
+    } else {
+      fontWeight = '400';
+    }
     var style = {
       backgroundColor: backgroundColor,
+      fontWeight: fontWeight,
       borderRadius: '0px',
       opacity: 0.8,
       color: 'black',
@@ -231,7 +240,7 @@ class HouseholdCalendar extends React.Component {
           // onDragStart={console.log}
           defaultView={Views.MONTH}
           defaultDate={new Date()}
-          eventPropGetter={(this.eventStyleGetter)}
+          eventPropGetter={(this.eventStyleGetter.bind(this))}
         />
         {/* view event form */}
         <div onClick={this.hideEventInfo.bind(this)} className={this.state.infoModalCls}>

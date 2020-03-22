@@ -12,11 +12,12 @@ const mapStateToProps = (state) => {
     const chore = Object.assign({}, chores[i]);
     for (let j = 0; j < chore.dueDate.length; j++) {
       let ddate = chore.dueDate[j];
-      if (j === 0) {
-        ddate = moment(new Date(ddate)).add(7, "hours").toDate();
-      } else {
-        ddate = new Date(ddate);
-      }
+      // if (j === 0) {
+      //   ddate = moment(new Date(ddate)).add(1, "hours").toDate();
+      // } else {
+      //   ddate = new Date(ddate);
+      // }
+      ddate = moment(new Date(ddate)).add(8, "hours").toDate();
       let dueDateEvent = {
         allDay: true,
         _id: chore._id,
@@ -25,7 +26,8 @@ const mapStateToProps = (state) => {
         start: ddate,
         end: ddate,
         author: chore.assignedUser,
-        household: chore.household
+        household: chore.household,
+        assignedUser: chore.assignedUser
       };
       dueDateEvents.push(dueDateEvent);
     }
