@@ -20,6 +20,7 @@ class HouseholdCalendar extends React.Component {
       infoModalEnd: "",
       infoModalId: "",
       infoModalColor: "",
+      infoModalUser: "",
       formModalCls: "event-modal",
       title: "",
       description: "",
@@ -137,6 +138,7 @@ class HouseholdCalendar extends React.Component {
         infoModalId: "",
         infoModalColor: "",
         infoModalChore: false,
+        infoModalUser: ""
       });
     });
   }
@@ -151,7 +153,8 @@ class HouseholdCalendar extends React.Component {
         infoModalEnd: event.end,
         infoModalId: event._id,
         infoModalColor: event.color,
-        infoModalChore: !!event.assignedUser
+        infoModalChore: !!event.assignedUser,
+        infoModalUser: event.assignedUser || event.author
       });
     }
     
@@ -168,7 +171,8 @@ class HouseholdCalendar extends React.Component {
         infoModalEnd: "",
         infoModalId: "",
         infoModalColor: "",
-        infoModalChore: false
+        infoModalChore: false,
+        infoModalUser: ""
     })
     }
   }
@@ -264,6 +268,7 @@ class HouseholdCalendar extends React.Component {
                   this.state.infoModalStart.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' }) !== this.state.infoModalEnd.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' })
                   ? <span>All Day</span> :
                   <span>{this.state.infoModalStart.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })} - {this.state.infoModalEnd.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })}</span>}
+                  <span>{this.props.users[this.state.infoModalUser] ? this.props.users[this.state.infoModalUser].name : "" }</span>
                 </div>
                 <p>{this.state.infoModalDescription}</p>
                 {this.state.infoModalChore ? "" : <button id="event-delete-button" onClick={this.handleDelete.bind(this)}>Delete Event</button> }
