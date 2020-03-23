@@ -56,6 +56,7 @@ const mapStateToProps = (state) => {
 
   return {
     currentUser: state.session.user,
+    users: state.entities.users,
     events: allEvents,
     errors: state.errors.session
   };
