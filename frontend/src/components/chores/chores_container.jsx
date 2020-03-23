@@ -48,27 +48,34 @@ class Chores extends React.Component {
   }
 
   render() {
-    if (this.state.loading) {
-      const override = css`
-        display: block;
-        margin: auto;
-        border-color: transparent;
-      `;
-      return (
-        <div>
-          <h2>All Household Chores</h2>
-          <CreateChoreForm show={this.state.showCreateChoreForm} />
-          <div className="loading chores-list-container">
-            <Loader
-              css={override}
-              size={50}
-              color={"#99E8E8"}
-              loading={this.state.loading}
-            />
-          </div>
-        </div>
-      );
+
+    if (!this.props.chores) {
+      return (<div>
+        <div>No Chores Yet</div>
+        
+      </div>)
     }
+      if (this.state.loading) {
+        const override = css`
+          display: block;
+          margin: auto;
+          border-color: transparent;
+        `;
+        return (
+          <div>
+            {/* <h2>All Household Chores</h2> */}
+            <CreateChoreForm show={this.state.showCreateChoreForm} />
+            <div className="loading chores-list-container">
+              <Loader
+                css={override}
+                size={50}
+                color={"#99E8E8"}
+                loading={this.state.loading}
+              />
+            </div>
+          </div>
+        );
+      }
 
     if (this.props.chores.length === 0) {
       return (
@@ -91,7 +98,7 @@ class Chores extends React.Component {
 
     return (
       <div className="chores-page">
-        <h2>All Household Chores</h2>
+        {/* <h2>All Household Chores</h2> */}
         <CreateChoreForm show={this.state.showCreateChoreForm} />
         <div className="chores-list-container">
           {this.props.currentUser.adminPrivileges ? (

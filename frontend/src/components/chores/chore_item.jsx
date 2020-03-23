@@ -1,6 +1,7 @@
 import React from "react";
 import UpdateChoreForm from "./update_chore_form";
 import moment from "moment";
+import Slide from "react-reveal/Slide";
 class ChoreItem extends React.Component {
   constructor(props) {
     super(props);
@@ -100,93 +101,97 @@ class ChoreItem extends React.Component {
         : "transparent";
 
     return (
-      
-      <li className={`chores-list-item ${bgdColor}`}>
-        <div className="chore-row">
-          <div
-            className="checkbox-container"
-            onClick={e => {
-              e.preventDefault();
-              let updatedChore = this.props.chore;
-              updatedChore.complete = !this.state.checked;
-              this.props.updateChore(updatedChore);
-              this.setState({ checked: !this.state.checked });
-            }}
-          >
-            <input
-              type="checkbox"
-              value={this.state.checked}
-              checked={this.state.checked}
-            />
+      <Slide up>
+        <li className={`chores-list-item ${bgdColor}`}>
+          <div className="chore-row">
+            <div
+              className="checkbox-container"
+              onClick={e => {
+                e.preventDefault();
+                let updatedChore = this.props.chore;
+                updatedChore.complete = !this.state.checked;
+                this.props.updateChore(updatedChore);
+                this.setState({ checked: !this.state.checked });
+              }}
+            >
+              <input
+                type="checkbox"
+                value={this.state.checked}
+                checked={this.state.checked}
+              />
 
-            <label className="label-cbx">
-              <span></span>
-              {title}
-            </label>
-          </div>
-          <div>
-            {assignedUser
-              ? this.props.housemates[assignedUser].name
-              : "unassigned"}
-          </div>
-          <div className="red">
-            {firstDuedate.isBefore(now) && !complete ? " OVERDUE " : ""}
-          </div>
-          <div>Due {firstDuedate.from(now)}</div>
-          <div className="toggle-btns">
+              <label className="label-cbx">
+                <span></span>
+                {title}
+              </label>
+            </div>
             <div>
-              {this.state.showUpdateForm ? (
-                <>
-                  <button onClick={this.toggleShowForm} className="edit-chore light">
-                    X
-                  </button>
-                </>
-              ) : (
-                <>
-                  {this.state.showDetails ? (
+              {assignedUser
+                ? this.props.housemates[assignedUser].name
+                : "unassigned"}
+            </div>
+            <div className="red">
+              {firstDuedate.isBefore(now) && !complete ? " OVERDUE " : ""}
+            </div>
+            <div>Due {firstDuedate.from(now)}</div>
+            <div className="toggle-btns">
+              <div>
+                {this.state.showUpdateForm ? (
+                  <>
                     <button
-                      onClick={this.toggleDetails}
-                      className="details-chore light"
+                      onClick={this.toggleShowForm}
+                      className="edit-chore light"
                     >
-                      Hide Details
+                      X
                     </button>
-                  ) : (
+                  </>
+                ) : (
+                  <>
+                    {this.state.showDetails ? (
+                      <button
+                        onClick={this.toggleDetails}
+                        className="details-chore light"
+                      >
+                        Hide Details
+                      </button>
+                    ) : (
+                      <button
+                        onClick={this.toggleDetails}
+                        className="details-chore light"
+                      >
+                        Show Details
+                      </button>
+                    )}
                     <button
-                      onClick={this.toggleDetails}
-                      className="details-chore light"
+                      onClick={this.toggleShowForm}
+                      className="edit-chore light"
+                      id="edit-chore"
                     >
-                      Show Details
+                      Edit
                     </button>
-                  )}
-                  <button
-                    onClick={this.toggleShowForm}
-                    className="edit-chore light"
-                    id="edit-chore"
-                  >
-                    Edit
-                  </button>
-                </>
-              )}
+                  </>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="below chore-row">
-          {this.state.showUpdateForm ? (
-            <UpdateChoreForm
-              chore={this.props.chore}
-              closeUpdateForm={this.toggleShowForm}
-            />
-          ) : null}
-          {this.state.showDetails ? (
-            <>
-              <div>{description}</div>
-              <div>Difficulty: {difficulty}</div>
-              <div>Repeat: {recurring}</div>
-              <div>{this.state.checked ? "Done!" : "Incomplete"}</div>
-            </>
-          ) : null}
-        </div>
-      </li>
+          <div className="below chore-row">
+            {this.state.showUpdateForm ? (
+              <UpdateChoreForm
+                chore={this.props.chore}
+                closeUpdateForm={this.toggleShowForm}
+              />
+            ) : null}
+            {this.state.showDetails ? (
+              <>
+                <div>{description}</div>
+                <div>Difficulty: {difficulty}</div>
+                <div>Repeat: {recurring}</div>
+                <div>{this.state.checked ? "Done!" : "Incomplete"}</div>
+              </>
+            ) : null}
+          </div>
+        </li>
+      </Slide>
     );
   }
 }
