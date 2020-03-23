@@ -27,11 +27,23 @@
 //     border: 1px solid;
 // }
 
+$colors: (
+    #88C9C9,
+    #7AD3B7,
+    #297373,
+    #506C84,
+    #afe0ce,
+    #edffff,
+    #849ca5,
+    #904e55,
+    #031a6b
+    );
+
 .bill, .bill-form {
     padding: 10px;
     margin: 5px;
-    border: 1px solid;
-    animation: slide-up 0.4s ease;
+    border: 1px solid #849ca5;
+    animation: slide-up 0.2s ease;
 }
 
 .bill-title {
@@ -39,11 +51,13 @@
 }
 
 .bill-errors {
-    color: red;
+    color: #904e55;
     list-style: circle;
     display: flex;
     flex-direction: column;
     align-items: center;
+    animation: slide-up 0.4s ease-in;;
+
 }
 
 
