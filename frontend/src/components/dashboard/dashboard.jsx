@@ -49,7 +49,17 @@ class Dashboard extends React.Component {
       }
     }
 
-    
+    const colors = [
+      "#88C9C9",
+      "#7AD3B7",
+      "#297373",
+      "#506C84",
+      "#afe0ce",
+      "#edffff",
+      "#849ca5",
+      "#904e55",
+      "#031a6b",
+    ];
 
     return (
       <div className="dashboard">
@@ -59,13 +69,12 @@ class Dashboard extends React.Component {
             {this.props.household.name}, is waiting for you.
           </h1>
         </div>
-        <div className="dashboard-mid">
           <div className="housemates">
-            <div className="accepted-housemates">
               <h3>Housemates:</h3>
-              {acceptedHousemates.map(user => (
+            <div className="accepted-housemates">
+              {acceptedHousemates.map((user, idx) => (
                 <div key={user._id}>
-                  <span>{user.name}</span>
+                  <span style={{backgroundColor: colors[idx]}}>{user.name}</span>
                 </div>
               ))}
             </div>
@@ -94,42 +103,51 @@ class Dashboard extends React.Component {
               )}
             </div>
           </div>
-          <Link to="/calendar" className="upcoming-events">
-            <h1>Events Today</h1>
-            <ul>
-              {this.props.events.map(event => (
-                <li>
-                  <span>{event.title}</span>
-                  {/* <span> Due: {moment((new Date(event.dueDate[0]))).format('MMMM Do, YYYY')}</span> */}
-                </li>
-              ))}
-            </ul>
-          </Link>
-        </div>
-        <div className="dashboard-bottom">
-          <Link to="/chores" className="dashboard-chores">
-            <h1>Your Chores</h1>
-            <ul>
-              {this.props.chores.map(chore => (
-                <li>
-                  <span>{chore.title}</span>
-                  <span> Due: {moment((new Date(chore.dueDate[0]))).format('MMMM Do, YYYY')}</span>
-                </li>
-              ))}
-            </ul>
-          </Link>
-          <Link to="/bills" className="dashboard-bills">
-            <h1>Your Bills</h1>
-            <ul>
-              {this.props.bills.map(bill => (
-                <li>
-                  <span>{bill.title}</span>
-                  <span>{bill.amount}</span>
-                </li>
-              ))}
-            </ul>
-          </Link>
-        </div>
+          <div className="upcoming-events-div">
+            <Link to="/calendar" className="upcoming-events">
+              <h1>Events Today</h1>
+              <ul>
+                {this.props.events.map(event => (
+                  <li key={event._id}>
+                    <span>{event.title}</span>
+                    {/* <span> Due: {moment((new Date(event.dueDate[0]))).format('MMMM Do, YYYY')}</span> */}
+                  </li>
+                ))}
+              </ul>
+            </Link>
+            <p>Schedule house events and upcoming chores by selecting the calendar tab.</p>
+            <i className="fas fa-calendar-alt"></i>
+          </div>
+          <div className="chores-div">
+            <Link to="/chores" className="dashboard-chores">
+              <h1>Your Chores</h1>
+              <ul>
+                {this.props.chores.map(chore => (
+                  <li key={chore._id}>
+                    <span>{chore.title}</span>
+                    <span> Due: {moment((new Date(chore.dueDate[0]))).format('MMMM Do, YYYY')}</span>
+                  </li>
+                ))}
+              </ul>
+            </Link>
+            <p>Add and randomly assign recurring chores by selecting the chores tab.</p>
+            <i className="fas fa-broom"></i>
+          </div>
+          <div className="bills-div">
+            <Link to="/bills" className="dashboard-bills">
+              <h1>Your Bills</h1>
+              <ul>
+                {this.props.bills.map(bill => (
+                  <li key={bill._id}>
+                    <span>{bill.title}</span>
+                    <span>{bill.amount}</span>
+                  </li>
+                ))}
+              </ul>
+            </Link>
+            <p>Add and randomly assign recurring chores by selecting the chores tab.</p>
+            <i className="fas fa-file-invoice-dollar"></i>
+          </div>
       </div>
     );
   }

@@ -5,14 +5,26 @@
 }
 
 .dashboard-welcome, .housemates, .upcoming-events, .dashboard-chores, .dashboard-bills{
-  background-color: $light-teal;
-  margin: 5px;
+  // background-color: $light-teal;
+  // margin: 5px;
   box-shadow: 0px 0px 5px 2px $muted-blue;
   padding: 10px;
 }
 
 .dashboard-welcome {
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  box-shadow: none;
+}
+
+.dashboard-welcome h1 {
+  font-size: 36px;
+  font-weight: 900;
+  color: $light-teal;
+  // background: linear-gradient(to right, $dark-teal, $green, $light-teal);
+  // -webkit-background-clip: text;
+  // -webkit-text-fill-color: transparent;
 }
 
 .dashboard-mid, .dashboard-bottom {
@@ -21,35 +33,119 @@
 
 .housemates {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
   flex: 0.3;
-  margin-right: 20px;
   margin-bottom: 20px;
-  background-color: $bright-blue;
+  box-shadow: none;
+  // background-color: $bright-blue;
+}
+
+.housemates h3 {
+  font-size: 20px;
+  color: $dark-teal;
 }
 
 .accepted-housemates {
   display: flex;
   flex-direction: row;
+  margin-top: 10px;
 }
 
 .housemates span {
-  padding: 10px;
-  background-color: red;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-right: 10px;
+  margin-left: 10px;
+  background-color: $light-teal;
+  display: flex;
 }
 
-.upcoming-events {
-  flex: 0.7;
+// .upcoming-events h1 {
+
+// }
+
+.upcoming-events-div, .bills-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.chores-div {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
-  box-shadow: 0px 0px 5px 2px $grey-blue;
-  background-color: $grey-blue;
 }
 
-.dashboard-chores {
-  flex: 0.5;
+.upcoming-events-div a {
+  flex: 1;
+  margin-right: 40px;
+}
+
+.upcoming-events-div i {
+  flex: 0.7;
+  font-size: 200px;
+  color: $light-teal;
+  margin-left: 40px;
   margin-right: 20px;
 }
 
+.upcoming-events-div p {
+  flex: 1.3;
+  text-align: center;
+}
+
+.chores-div a {
+  flex: 1;
+  margin-left: 40px;
+}
+
+.chores-div i {
+  flex: 0.7;
+  font-size: 200px;
+  color: $green;
+  margin-left: 20px;
+  margin-right: 40px;
+  padding-left: 40px;
+}
+
+.chores-div p {
+  flex: 1.3;
+  text-align: center;
+}
+
+.bills-div a {
+  flex: 1;
+  margin-right: 40px;
+}
+
+.bills-div i {
+  flex: 0.7;
+  font-size: 200px;
+  color: $dark-teal;
+  margin-left: 40px;
+  margin-right: 20px;
+}
+
+.bills-div p {
+  flex: 1.3;
+  text-align: center;
+}
+
+.dashboard p {
+  font-size: 20px;
+}
+
+.dashboard-chores {
+  // flex: 0.5;
+  margin-bottom: 20px;
+}
+
 .dashboard-bills {
-  flex: 0.5;
+  // flex: 0.5;
 }
