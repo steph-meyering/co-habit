@@ -20,6 +20,7 @@ class HouseholdCalendar extends React.Component {
       infoModalEnd: "",
       infoModalId: "",
       infoModalColor: "",
+      infoModalUser: "",
       formModalCls: "event-modal",
       title: "",
       description: "",
@@ -150,7 +151,8 @@ class HouseholdCalendar extends React.Component {
         infoModalEnd: "",
         infoModalId: "",
         infoModalColor: "",
-        infoModalChore: false
+        infoModalChore: false,
+        infoModalUser: ""
       });
     });
   }
@@ -165,7 +167,8 @@ class HouseholdCalendar extends React.Component {
         infoModalEnd: event.end,
         infoModalId: event._id,
         infoModalColor: event.color,
-        infoModalChore: !!event.assignedUser
+        infoModalChore: !!event.assignedUser,
+        infoModalUser: event.assignedUser || event.author
       });
     }
   }
@@ -183,8 +186,9 @@ class HouseholdCalendar extends React.Component {
         infoModalEnd: "",
         infoModalId: "",
         infoModalColor: "",
-        infoModalChore: false
-      });
+        infoModalChore: false,
+        infoModalUser: ""
+    })
     }
   }
 
