@@ -15,10 +15,6 @@ class LoginForm extends React.Component {
     this.renderErrors = this.renderErrors.bind(this);
   }
 
-  componentWillUnmount() {
-    // this.props.clearErrors();
-  }
-
   // Once the user has been authenticated, redirect
   // componentWillReceiveProps(nextProps) {
   //     if (nextProps.currentUser) {
@@ -77,7 +73,7 @@ class LoginForm extends React.Component {
           onChange={this.update("password")}
           placeholder="Password"
         />
-        <button id="signup">Sign In</button>
+        <button type="submit" id="signin">Sign In</button>
         {this.renderErrors()}
       </form>
     );

@@ -67,6 +67,20 @@ input[type="date"] {
 }
 
 
+#create-chore {
+  // // max-width: 50%;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: flex-start;
+  // justify-content: start;
+  .radio {
+    margin-left: 10px;
+    label {
+      margin-left: 10px;
+      padding: 5px;
+    }
+  }
+}
 
 
 
@@ -189,9 +203,9 @@ input[type="checkbox"] {
   min-width: 150px;
 }
 
-* {
-  margin-right: 10px;
-}
+// * {
+//   margin-right: 10px;
+// }
 
 
 .chore-details {
@@ -218,7 +232,7 @@ li.shaded {
 
   .update-form-container {
 
-    transition: height 2s linear;
+    
   }
 
 }
@@ -226,7 +240,7 @@ li.shaded {
 .chores-list-item {
   height: auto;
 
-  transition: height 2s linear;
+  
   padding: 5px;
 }
 
@@ -260,4 +274,18 @@ li.shaded {
     width: 100%;
 
   }
+}
+
+
+#create-chore {
+  border: 1px solid #849ca5;
+  // animation: slide-up 0.2s ease;
+  padding: 10px;
+
+  margin-bottom: 10px;
+}
+
+
+.no-chores {
+  margin-bottom: 10px;
 }
