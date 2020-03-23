@@ -20,7 +20,7 @@ class BillForm extends React.Component {
     e.preventDefault();
     let bill = {
       title: this.state.title,
-      amount: parseInt(this.state.amount)
+      amount: this.state.amount
     };
     this.props.createBill(bill)
       .then(res => {
@@ -36,15 +36,18 @@ class BillForm extends React.Component {
   }
   
   renderErrors() {
-    return (
-      <ul className='bill-errors'>
-        {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>
-            {this.state.errors[error]}
-          </li>
-        ))}
-      </ul>
-    );
+    if (this.state.errors === undefined) return null
+    if (Object.keys(this.state.errors).length > 0){
+      return (
+        <ul className='bill-errors'>
+          {Object.keys(this.state.errors).map((error, i) => (
+            <li key={`error-${i}`}>
+              {this.state.errors[error]}
+            </li>
+          ))}
+        </ul>
+      );
+    }
   }
   
   render() {

@@ -38,6 +38,14 @@
     font-size: 18px;
 }
 
+.bill-errors {
+    color: red;
+    list-style: circle;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 @keyframes slide-up {
     0% {
