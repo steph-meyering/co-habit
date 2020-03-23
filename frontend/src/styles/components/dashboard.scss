@@ -4,10 +4,14 @@
   color: $black;
 }
 
-.dashboard-welcome, .housemates, .upcoming-events, .dashboard-chores, .dashboard-bills{
+.dashboard-welcome,
+.housemates,
+.upcoming-events,
+.dashboard-chores,
+.dashboard-bills {
   // background-color: $light-teal;
   // margin: 5px;
-  box-shadow: 0px 0px 5px 2px $muted-blue;
+  // box-shadow: 0px 0px 5px 2px $muted-blue;
   padding: 10px;
 
 }
@@ -15,68 +19,76 @@
 .dashboard-welcome {
   // margin-bottom: 20px;
   text-align: center;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   box-shadow: none;
 }
 
 .dashboard-welcome h1 {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 900;
-  color: $dark-teal;
+  line-height: 1.5;
+  // color: $dark-teal;
   // background: linear-gradient(to right, $dark-teal, $green, $light-teal);
   // -webkit-background-clip: text;
   // -webkit-text-fill-color: transparent;
-  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 2s; /* Firefox < 16 */
-        -ms-animation: fadein 2s; /* Internet Explorer */
-        animation: fadein 2s;
+  -webkit-animation: fadein 2s;
+  /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 2s;
+  /* Firefox < 16 */
+  -ms-animation: fadein 2s;
+  /* Internet Explorer */
+  animation: fadein 2s;
 }
 
 @keyframes fadein {
-    from { 
-      opacity: 0;
-      transform: translate3d(0,40px,0)
-    }
-    to   { 
-      transform: translate3d(0,0,0);
-      opacity: 1; 
-    }
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0)
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
 }
 
 /* Firefox < 16 */
 @-moz-keyframes fadein {
-    from { 
-      opacity: 0;
-      transform: translate3d(0,40px,0)
-    }
-    to   { 
-      transform: translate3d(0,0,0);
-      opacity: 1; 
-    }
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0)
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
 }
 
 /* Safari, Chrome and Opera > 12.1 */
 @-webkit-keyframes fadein {
-    from { 
-      opacity: 0;
-      transform: translate3d(0,40px,0)
-    }
-    to   { 
-      transform: translate3d(0,0,0);
-      opacity: 1; 
-    }
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0)
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
 }
 
 /* Internet Explorer */
 @-ms-keyframes fadein {
-    from { 
-      opacity: 0;
-      transform: translate3d(0,40px,0)
-    }
-    to   { 
-      transform: translate3d(0,0,0);
-      opacity: 1; 
-    }
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0)
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
 }
 
 .housemates {
@@ -89,15 +101,29 @@
   // background-color: $bright-blue;
 }
 
-.housemates h3 {
-  font-size: 20px;
-  color: $dark-teal;
+.housemates {
+
+  h3,
+  h4 {
+    font-size: 18px;
+    margin: 5px;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-align: center;
+  }
+
+  .pending-user {
+    display: flex;
+  }
+
 }
 
 .accepted-housemates {
   display: flex;
   flex-direction: row;
-  margin-top: 10px;
+  margin: 10px;
+  text-shadow: 1px 0 2px inherit;
+
 }
 
 .housemates span {
@@ -107,23 +133,22 @@
   padding-bottom: 5px;
   margin-right: 10px;
   margin-left: 10px;
-  background-color: $light-teal;
+  font-weight: bold;
+  font-size: 18px;
   display: flex;
-  box-shadow: 0px 0px 4px 2px $gray;
+  // box-shadow: 0px 0px 4px 2px $gray;
 }
 
-// .upcoming-events h1 {
 
-// }
-
-.upcoming-events-div, .bills-div {
+.upcoming-events-div,
+.bills-div {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 20px;
   padding-top: 20px;
-  background-image: linear-gradient(to left, lighten($dark-teal, 45%), lighten($green, 30%), lighten($light-teal, 20%));
+  // background-image: linear-gradient(to left, lighten($dark-teal, 45%), lighten($green, 30%), lighten($light-teal, 20%));
 
 }
 
@@ -133,7 +158,7 @@
   justify-content: space-between;
   align-items: center;
   // margin-bottom: 20px;
-  background-image: linear-gradient(to left, lighten($dark-teal, 45%), lighten($green, 30%), lighten($light-teal, 20%));
+  // background-image: linear-gradient(to left, lighten($dark-teal, 45%), lighten($green, 30%), lighten($light-teal, 20%));
   padding-bottom: 20px;
   padding-top: 20px;
 }
@@ -202,7 +227,7 @@
 }
 
 .dashboard p {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .dashboard a h1 {
@@ -217,23 +242,49 @@
 .dashboard-bottom {
   display: flex;
   justify-content: space-between;
-  background-image: linear-gradient(to left, lighten($dark-teal, 45%), lighten($green, 30%), lighten($light-teal, 20%));
+  // background-image: linear-gradient(to left, lighten($dark-teal, 45%), lighten($green, 30%), lighten($light-teal, 20%));
+  margin: 10px;
+  border: 1px solid $muted-blue;
   padding: 20px;
-  box-shadow: 0px 0px 10px 2px $gray;
+  // box-shadow: 0px 0px 10px 2px $gray;
+
+    -webkit-animation: fadein 2s;
+    /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 2s;
+    /* Firefox < 16 */
+    -ms-animation: fadein 2s;
+    /* Internet Explorer */
+    animation: fadein 2s;
+
+  .action-icons-div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  i.fas::before {
+    font-size: 100px;
+    color: lighten($dark-teal, 45%);
+  }
+
+  .fa-broom::before {
+    font-size: 90px;
+  }
+
+  .action-text-div p {
+    font-size: 16px;
+  }
 }
 
-.dashboard-bottom i {
-  font-size: 200px;
-  color: lighten($dark-teal, 45%);
-
-}
 
 .dashboard-bottom i:nth-of-type(2) {
   margin-top: 40px;
   margin-bottom: 40px;
 }
 
-.action-icons-div, .action-text-div, .action-items-div {
+.action-icons-div,
+.action-text-div,
+.action-items-div {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -252,15 +303,12 @@
 
 .action-items-div {
   flex: 0.7;
-  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 2s; /* Firefox < 16 */
-        -ms-animation: fadein 2s; /* Internet Explorer */
-        animation: fadein 2s;
-        
+
 }
 
 .action-items-div a {
   background-color: $white;
+  border: 1px solid $black;
 }
 
 .upcoming-events li {

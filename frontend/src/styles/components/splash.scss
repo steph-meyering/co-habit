@@ -34,17 +34,17 @@
 
 .splash>p {
 	color: $black;
-	font-size: 24px;
+	font-size: 25px;
 	opacity: 90%;
 }
 
 .splash>p:first-of-type {
-	margin-top: 50px;
+	margin-top: 35px;
 }
 
 .splash>p:last-of-type {
 	margin-top: 20px;
-	font-size: 30px;
+	font-size: 25px;
 }
 
 @keyframes fadein {
@@ -101,7 +101,7 @@
 .splash img {
 	// filter: invert(100%); 
 	// -webkit-filter:invert(100%) opacity(60%); 
-	max-height: 100px;
+	max-height: 85px;
 	width: auto;
 	margin-top: 20px;
 }
