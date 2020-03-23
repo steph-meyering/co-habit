@@ -26,7 +26,7 @@ class BillUpdateForm extends React.Component {
     
     render() {
         return (
-          <div>
+          <div className='bill-form'>
             <form onSubmit={this.handleSubmit}>
               <h2>What is this bill for?</h2>
               <input

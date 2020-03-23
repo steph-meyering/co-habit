@@ -25,7 +25,7 @@ router.post(
     newBill
       .save()
       .then(bill => res.json(bill))
-      .catch(err => console.log(err));
+      .catch(err => res.status(400).json({ invalidbill: "Invalid bill description or total"}));
   }
 );
 
