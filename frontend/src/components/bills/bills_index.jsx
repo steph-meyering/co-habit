@@ -2,6 +2,8 @@ import React from "react";
 import BillItem from './bill_item';
 import BillFormContainer from "./bill_form_container";
 import PieChart from "react-minimal-pie-chart";
+import Fade from "react-reveal/Fade";
+
 
 class BillsIndex extends React.Component {
     constructor(props){
@@ -165,14 +167,16 @@ class BillsIndex extends React.Component {
             );});
 
         return (
-          <div className="bills-container">
-            {/* <h3>All household bills: </h3> */}
-            <ul className="bills-index">{billItems}</ul>
-            <div className="chart-and-form">
-              {this.pieChart()}
-              <BillFormContainer/>
+          <Fade>
+            <div className="bills-container">
+              {/* <h3>All household bills: </h3> */}
+              <ul className="bills-index">{billItems}</ul>
+              <div className="chart-and-form">
+                {this.pieChart()}
+                <BillFormContainer />
+              </div>
             </div>
-          </div>
+          </Fade>
         );
     }
 }
