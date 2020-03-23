@@ -9,6 +9,7 @@
   // margin: 5px;
   box-shadow: 0px 0px 5px 2px $muted-blue;
   padding: 10px;
+  background-color: $super-light-blue;
 }
 
 .dashboard-welcome {
@@ -21,14 +22,61 @@
 .dashboard-welcome h1 {
   font-size: 36px;
   font-weight: 900;
-  color: $light-teal;
+  color: $dark-teal;
   // background: linear-gradient(to right, $dark-teal, $green, $light-teal);
   // -webkit-background-clip: text;
   // -webkit-text-fill-color: transparent;
+  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 2s; /* Firefox < 16 */
+        -ms-animation: fadein 2s; /* Internet Explorer */
+        animation: fadein 2s;
 }
 
-.dashboard-mid, .dashboard-bottom {
-  display: flex;
+@keyframes fadein {
+    from { 
+      opacity: 0;
+      transform: translate3d(0,40px,0)
+    }
+    to   { 
+      transform: translate3d(0,0,0);
+      opacity: 1; 
+    }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { 
+      opacity: 0;
+      transform: translate3d(0,40px,0)
+    }
+    to   { 
+      transform: translate3d(0,0,0);
+      opacity: 1; 
+    }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { 
+      opacity: 0;
+      transform: translate3d(0,40px,0)
+    }
+    to   { 
+      transform: translate3d(0,0,0);
+      opacity: 1; 
+    }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { 
+      opacity: 0;
+      transform: translate3d(0,40px,0)
+    }
+    to   { 
+      transform: translate3d(0,0,0);
+      opacity: 1; 
+    }
 }
 
 .housemates {
@@ -69,9 +117,13 @@
 
 .upcoming-events-div, .bills-div {
   display: flex;
+  flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 50px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  background-image: linear-gradient(to left, $dark-teal, $green, $light-teal);
+
 }
 
 .chores-div {
@@ -79,20 +131,21 @@
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
+  background-image: linear-gradient(to left, $dark-teal, $green, $light-teal);
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 
-.upcoming-events-div a {
-  flex: 1;
-  margin-right: 40px;
-}
+
 
 .upcoming-events-div i {
   flex: 0.7;
   font-size: 200px;
-  color: $light-teal;
+  color: $dark-teal;
   margin-left: 40px;
   margin-right: 20px;
+
 }
 
 .upcoming-events-div p {
@@ -100,18 +153,31 @@
   text-align: center;
 }
 
-.chores-div a {
+.upcoming-events-div a {
   flex: 1;
-  margin-left: 40px;
+  margin-right: 20px;
+  min-width: 300px;
+}
+
+.chores-div a {
+  // flex: 1;
+  margin-right: 20px;
+  min-width: 300px;
+}
+
+.bills-div a {
+  // flex: 1;
+  margin-right: 20px;
+  min-width: 300px;
 }
 
 .chores-div i {
   flex: 0.7;
   font-size: 200px;
-  color: $green;
+  color: $dark-teal;
   margin-left: 20px;
   margin-right: 40px;
-  padding-left: 40px;
+  // padding-left: 40px;
 }
 
 .chores-div p {
@@ -119,10 +185,7 @@
   text-align: center;
 }
 
-.bills-div a {
-  flex: 1;
-  margin-right: 40px;
-}
+
 
 .bills-div i {
   flex: 0.7;
@@ -141,11 +204,55 @@
   font-size: 20px;
 }
 
-.dashboard-chores {
-  // flex: 0.5;
-  margin-bottom: 20px;
+.dashboard a h1 {
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
-.dashboard-bills {
-  // flex: 0.5;
+.dashboard a span {
+  text-transform: capitalize;
+}
+
+.dashboard-bottom {
+  display: flex;
+  justify-content: space-between;
+  background-image: linear-gradient(to left, $dark-teal, $green, $light-teal);
+  padding: 20px;
+  box-shadow: 0px 0px 10px 2px $gray;
+}
+
+.dashboard-bottom i {
+  font-size: 200px;
+  color: $dark-teal;
+
+}
+
+.dashboard-bottom i:nth-of-type(2) {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.action-icons-div, .action-text-div, .action-items-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.action-icons-div {
+  flex: 0.4;
+}
+
+.action-text-div {
+  flex: 0.7;
+  // text-align: center;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.action-items-div {
+  flex: 0.7;
+  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 2s; /* Firefox < 16 */
+        -ms-animation: fadein 2s; /* Internet Explorer */
+        animation: fadein 2s;
 }

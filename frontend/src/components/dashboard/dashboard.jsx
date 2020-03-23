@@ -103,50 +103,61 @@ class Dashboard extends React.Component {
               )}
             </div>
           </div>
-          <div className="upcoming-events-div">
-            <Link to="/calendar" className="upcoming-events">
-              <h1>Events Today</h1>
-              <ul>
-                {this.props.events.map(event => (
-                  <li key={event._id}>
-                    <span>{event.title}</span>
-                    {/* <span> Due: {moment((new Date(event.dueDate[0]))).format('MMMM Do, YYYY')}</span> */}
-                  </li>
-                ))}
-              </ul>
-            </Link>
-            <p>Schedule house events and upcoming chores by selecting the calendar tab.</p>
-            <i className="fas fa-calendar-alt"></i>
-          </div>
-          <div className="chores-div">
-            <Link to="/chores" className="dashboard-chores">
-              <h1>Your Chores</h1>
-              <ul>
-                {this.props.chores.map(chore => (
-                  <li key={chore._id}>
-                    <span>{chore.title}</span>
-                    <span> Due: {moment((new Date(chore.dueDate[0]))).format('MMMM Do, YYYY')}</span>
-                  </li>
-                ))}
-              </ul>
-            </Link>
-            <p>Add and randomly assign recurring chores by selecting the chores tab.</p>
-            <i className="fas fa-broom"></i>
-          </div>
-          <div className="bills-div">
-            <Link to="/bills" className="dashboard-bills">
-              <h1>Your Bills</h1>
-              <ul>
-                {this.props.bills.map(bill => (
-                  <li key={bill._id}>
-                    <span>{bill.title}</span>
-                    <span>{bill.amount}</span>
-                  </li>
-                ))}
-              </ul>
-            </Link>
-            <p>Add and randomly assign recurring chores by selecting the chores tab.</p>
-            <i className="fas fa-file-invoice-dollar"></i>
+          <div className="dashboard-bottom">
+            <div className="action-icons-div">
+              <i className="fas fa-calendar-alt"></i>
+              <i className="fas fa-broom"></i>
+              <i className="fas fa-file-invoice-dollar"></i>
+            </div>
+            <div className="action-text-div">
+              <p>Schedule house events and upcoming chores by selecting the calendar tab.</p>
+              <p>Add and randomly assign recurring chores by selecting the chores tab.</p>
+              <p>Track and manage household expenses by selecting the bills tab.</p>
+            </div>
+            <div className="action-items-div">
+              <Link to="/calendar" className="upcoming-events">
+                <h1>Events Today</h1>
+                <ul>
+                  {this.props.events.map(event => (
+                    <li key={event._id}>
+                      <span>{event.title}: </span>
+                      {event.start ?
+                        event.start.toLocaleString('default', { hour: 'numeric', minute: 'numeric' }) === event.end.toLocaleString('default', { hour: 'numeric', minute: 'numeric' }) ||
+                          event.start.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' }) !== event.end.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' })
+                          ? <span>All Day</span> : <span>{event.start.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })} - {event.end.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })}</span>
+                        : ""}
+                      {event.dueDate ?
+                        <span>All Day</span>
+                        : ""}
+                    </li>
+                  ))}
+                </ul>
+              </Link>
+              <Link to="/chores" className="dashboard-chores">
+                <h1>Your Chores</h1>
+                <ul>
+                  {this.props.chores.map(chore => (
+                    <li key={chore._id}>
+                      <span>{chore.title}: </span>
+                      <span>{moment((new Date(chore.dueDate[0]))).format('MMMM D, YYYY')}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Link>
+              <Link to="/bills" className="dashboard-bills">
+                <h1>Your Bills</h1>
+                <ul>
+                  {this.props.bills.map(bill => (
+                    <li key={bill._id}>
+                      <span>{bill.title}: </span>
+                      <span>${bill.amount}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Link>
+              
+              
+            </div>
           </div>
       </div>
     );
