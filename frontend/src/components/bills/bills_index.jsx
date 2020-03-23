@@ -29,14 +29,14 @@ class BillsIndex extends React.Component {
 
       const colors = [
         "#88C9C9",
-        "#904e55",
-        "#849ca5",
-        "#031a6b",
         "#7AD3B7",
+        "#297373",
+        "#506C84",
         "#afe0ce",
         "#edffff",
-        "#297373",
-        "#506C84"
+        "#849ca5",
+        "#904e55",
+        "#031a6b",
       ];
 
       // sum the amount each housemate has logged
