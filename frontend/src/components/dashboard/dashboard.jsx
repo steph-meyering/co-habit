@@ -20,18 +20,22 @@ class Dashboard extends React.Component {
       let newUser = Object.assign({}, user);
       newUser.acceptedIntoHousehold = true;
       this.props.updateUser(newUser);
-    }
+    };
   }
 
   denyHousemate(user) {
     return e => {
       this.props.deleteUser(user._id);
-    }
+    };
   }
 
   render() {
     if (!this.props.household) return null;
-    if (Object.keys(this.props.users).length === 0 && this.props.users.constructor === Object) return null;
+    if (
+      Object.keys(this.props.users).length === 0 &&
+      this.props.users.constructor === Object
+    )
+      return null;
 
     let acceptedHousemates = [];
     let pendingHousemates = [];
@@ -49,9 +53,26 @@ class Dashboard extends React.Component {
         {this.props.currentUser.acceptedIntoHousehold ? (
           <>
             <h1>
-              Welcome {this.props.currentUser.name}! Your house,{" "}
-              {this.props.household.name}, is waiting for you.
+               Welcome {this.props.currentUser.name}! This is your {" "}
+              {this.props.household.name} home dashboard.
+              {/* <div class="home col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <h3 id="resizing-h3" class="">
+                <span>
+                  <div class="stage">
+                    <div class="cubespinner">
+                      <div class="face1">
+                        Welcome {this.props.currentUser.name}!
+                      </div>
+                      <div class="face2">{this.props.household.name}</div>
+                      <div class="face3">Unbeatable</div>
+                      <div class="face4">Exceptional</div>
+                    </div>
+                  </div>
+                </span>
+              </h3>
+            </div> */}
             </h1>
+            
             {/* <button onClick={this.handleLogout}>Log Out</button> */}
             <div className="accepted-housemates">
               <h3>Housemates:</h3>
