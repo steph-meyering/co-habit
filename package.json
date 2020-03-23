@@ -43,7 +43,7 @@
   "devDependencies": {
     "nodemon": "^2.0.2"
   },
-    "engines": {
+  "engines": {
     "node": "10.13.0",
     "npm": "6.4.1"
   }

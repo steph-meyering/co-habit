@@ -25,10 +25,6 @@ class SignupForm extends React.Component {
   //     this.setState({ errors: nextProps.errors })
   // }
 
-    componentWillUnmount() {
-    // this.props.clearErrors();
-  }
-
   update(field) {
     return e =>
       this.setState({
@@ -105,7 +101,7 @@ class SignupForm extends React.Component {
             ? "Join"
             : ""} */}
         </span>
-        <button id="signup">Sign Up</button>
+        <button type="submit" id="signup">Sign Up</button>
         {this.renderErrors()}
       </form>
     );
