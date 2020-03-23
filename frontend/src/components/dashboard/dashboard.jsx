@@ -1,4 +1,6 @@
 import React from 'react';
+import moment from 'moment';
+import { Link } from "react-router-dom";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -9,6 +11,9 @@ class Dashboard extends React.Component {
   componentDidMount() {
     this.props.getHousehold(this.props.currentUser.household);
     this.props.getUsers(this.props.currentUser.household);
+    this.props.fetchChoresForUser(this.props.currentUser);
+    this.props.fetchBills();
+    this.props.getEvents(this.props.currentUser.household);
   }
 
   handleLogout() {
@@ -48,40 +53,36 @@ class Dashboard extends React.Component {
       }
     }
 
+    const colors = [
+      "#88C9C9",
+      "#7AD3B7",
+      "#297373",
+      "#506C84",
+      "#afe0ce",
+      "#edffff",
+      "#849ca5",
+      "#904e55",
+      "#031a6b",
+    ];
+
     return (
-      <div>
-        {this.props.currentUser.acceptedIntoHousehold ? (
-          <>
-            <h1>
-               Welcome {this.props.currentUser.name}! This is your {" "}
-              {this.props.household.name} home dashboard.
-              {/* <div class="home col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <h3 id="resizing-h3" class="">
-                <span>
-                  <div class="stage">
-                    <div class="cubespinner">
-                      <div class="face1">
-                        Welcome {this.props.currentUser.name}!
-                      </div>
-                      <div class="face2">{this.props.household.name}</div>
-                      <div class="face3">Unbeatable</div>
-                      <div class="face4">Exceptional</div>
-                    </div>
-                  </div>
-                </span>
-              </h3>
-            </div> */}
-            </h1>
-            
-            {/* <button onClick={this.handleLogout}>Log Out</button> */}
-            <div className="accepted-housemates">
+      <div className="dashboard">
+        <div className="dashboard-welcome">
+          <h1>
+            Welcome {this.props.currentUser.name}! Your house,{" "}
+            {this.props.household.name}, is waiting for you.
+          </h1>
+        </div>
+          <div className="housemates">
               <h3>Housemates:</h3>
-              {acceptedHousemates.map(user => (
+            <div className="accepted-housemates">
+              {acceptedHousemates.map((user, idx) => (
                 <div key={user._id}>
-                  <span>{user.name}</span>
+                  <span style={{backgroundColor: colors[idx]}}>{user.name}</span>
                 </div>
               ))}
             </div>
+          
             <div className="pending-housemates">
               {this.props.currentUser.adminPrivileges &&
               pendingHousemates.length > 0 ? (
@@ -111,16 +112,63 @@ class Dashboard extends React.Component {
                 ""
               )}
             </div>
-          </>
-        ) : (
-          <>
-            <h1>
-              Welcome {this.props.currentUser.name}! Your request to join{" "}
-              {this.props.household.name} is pending.
-            </h1>
-            <button onClick={this.handleLogout}>Log Out</button>
-          </>
-        )}
+          </div>
+          <div className="dashboard-bottom">
+            <div className="action-icons-div">
+              <i className="fas fa-calendar-alt"></i>
+              <i className="fas fa-broom"></i>
+              <i className="fas fa-file-invoice-dollar"></i>
+            </div>
+            <div className="action-text-div">
+              <p>Schedule house events and upcoming chores by selecting the calendar tab.</p>
+              <p>Add and randomly assign recurring chores by selecting the chores tab.</p>
+              <p>Track and manage household expenses by selecting the bills tab.</p>
+            </div>
+            <div className="action-items-div">
+              <Link to="/calendar" className="upcoming-events">
+                <h1>Events Today</h1>
+                <ul>
+                  {this.props.events.map(event => (
+                    <li key={event._id}>
+                      <span>{event.title}: </span>
+                      {event.start ?
+                        event.start.toLocaleString('default', { hour: 'numeric', minute: 'numeric' }) === event.end.toLocaleString('default', { hour: 'numeric', minute: 'numeric' }) ||
+                          event.start.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' }) !== event.end.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' })
+                          ? <span>All Day</span> : <span>{event.start.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })} - {event.end.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })}</span>
+                        : ""}
+                      {event.dueDate ?
+                        <span>All Day</span>
+                        : ""}
+                    </li>
+                  ))}
+                </ul>
+              </Link>
+              <Link to="/chores" className="dashboard-chores">
+                <h1>Your Chores</h1>
+                <ul>
+                  {this.props.chores.map(chore => (
+                    <li key={chore._id}>
+                      <span>{chore.title}: </span>
+                      <span>{moment((new Date(chore.dueDate[0]))).format('MMMM D, YYYY')}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Link>
+              <Link to="/bills" className="dashboard-bills">
+                <h1>Your Bills</h1>
+                <ul>
+                  {this.props.bills.map(bill => (
+                    <li key={bill._id}>
+                      <span>{bill.title}: </span>
+                      <span>${bill.amount}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Link>
+              
+              
+            </div>
+          </div>
       </div>
     );
   }
