@@ -3,7 +3,6 @@ import { logout } from '../../actions/session_actions';
 import Dashboard from './dashboard';
 import { getHousehold } from '../../actions/household_actions';
 import { getUsers, updateUser, deleteUser } from '../../actions/user_actions';
-import { clearSessionErrors } from "../../actions/session_actions";
 
 const mapStateToProps = (state) => {
   return {

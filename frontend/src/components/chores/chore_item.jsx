@@ -18,10 +18,6 @@ class ChoreItem extends React.Component {
 
   updateRecurring() {
     let {
-      title,
-      description,
-      assignedUser,
-      difficulty,
       recurring,
       dueDate,
       complete
