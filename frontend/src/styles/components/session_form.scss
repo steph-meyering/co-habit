@@ -30,7 +30,6 @@
   
 }
 .session-form input[type="submit"] {
-    border-radius: 2px;
     background-color: transparent;
     border: 2px solid $dark-blue;
   }
@@ -162,3 +161,17 @@
 // button:focus {
 //   outline: none;
 // }
+
+.session-errors {
+  position: absolute;
+  bottom: 20px;
+  li {
+    font-size: 12px;
+  }
+  
+}
+
+#signup,
+#signin {
+  margin-bottom: 45px;
+}

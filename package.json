@@ -37,13 +37,14 @@
     "passport-jwt": "^4.0.0",
     "react-big-calendar": "^0.24.1",
     "react-minimal-pie-chart": "^6.0.1",
+    "react-reveal": "^1.2.2",
     "react-spinners": "^0.8.1",
     "validator": "^12.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
   },
-    "engines": {
+  "engines": {
     "node": "10.13.0",
     "npm": "6.4.1"
   }

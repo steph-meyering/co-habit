@@ -27,9 +27,9 @@ class BillItem extends React.Component {
       );
 	  }
         return (
-          <div>
+          <div className="bill">
+            <li className='bill-title'>{this.props.bill.title}</li>
             <li>Added by: {this.props.owner}</li>
-            <li>{this.props.bill.title}</li>
             <li>${this.props.bill.amount}</li>
             <li>
               {this.props.isMine ? (
@@ -45,9 +45,8 @@ class BillItem extends React.Component {
                     DELETE
                   </button>
                 </div>
-              ) : null }
+              ) : null}
             </li>
-            <br />
           </div>
         );
     }

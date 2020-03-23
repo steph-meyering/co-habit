@@ -25,18 +25,22 @@ class Dashboard extends React.Component {
       let newUser = Object.assign({}, user);
       newUser.acceptedIntoHousehold = true;
       this.props.updateUser(newUser);
-    }
+    };
   }
 
   denyHousemate(user) {
     return e => {
       this.props.deleteUser(user._id);
-    }
+    };
   }
 
   render() {
     if (!this.props.household) return null;
-    if (Object.keys(this.props.users).length === 0 && this.props.users.constructor === Object) return null;
+    if (
+      Object.keys(this.props.users).length === 0 &&
+      this.props.users.constructor === Object
+    )
+      return null;
 
     let acceptedHousemates = [];
     let pendingHousemates = [];
@@ -88,10 +92,16 @@ class Dashboard extends React.Component {
                     {pendingHousemates.map(user => (
                       <div key={user._id}>
                         <span>{user.name}</span>
-                        <button onClick={this.acceptHousemate(user).bind(this)}>
+                        <button
+                          id="accept-btn"
+                          onClick={this.acceptHousemate(user).bind(this)}
+                        >
                           Accept
                         </button>
-                        <button onClick={this.denyHousemate(user).bind(this)}>
+                        <button
+                          id="deny-btn"
+                          onClick={this.denyHousemate(user).bind(this)}
+                        >
                           Deny
                         </button>
                       </div>

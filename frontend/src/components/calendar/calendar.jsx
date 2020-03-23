@@ -1,16 +1,16 @@
-import React from 'react'
-import { Calendar, Views, momentLocalizer } from 'react-big-calendar'
-import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
+import React from "react";
+import { Calendar, Views, momentLocalizer } from "react-big-calendar";
+import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import moment from "moment";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-
-const DragAndDropCalendar = withDragAndDrop(Calendar)
-const localizer = momentLocalizer(moment)
+import Fade from "react-reveal/Fade";
+const DragAndDropCalendar = withDragAndDrop(Calendar);
+const localizer = momentLocalizer(moment);
 
 class HouseholdCalendar extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       events: [],
       infoModalCls: "event-modal",
@@ -28,77 +28,88 @@ class HouseholdCalendar extends React.Component {
       start: "",
       end: "",
       colors: ""
-    }
+    };
 
-    this.moveEvent = this.moveEvent.bind(this)
-    this.newEvent = this.newEvent.bind(this)
+    this.moveEvent = this.moveEvent.bind(this);
+    this.newEvent = this.newEvent.bind(this);
   }
 
   componentDidMount() {
     this.props.getUsers(this.props.currentUser.household);
-    this.props.getEvents(this.props.currentUser.household)
-      .then(() => this.props.fetchChores()
-      .then(() => this.setState({events: this.props.events})));
+    this.props
+      .getEvents(this.props.currentUser.household)
+      .then(() =>
+        this.props
+          .fetchChores()
+          .then(() => this.setState({ events: this.props.events }))
+      );
   }
 
   moveEvent({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
-    const { events } = this.state
+    const { events } = this.state;
 
-    const idx = events.indexOf(event)
-    let allDay = event.allDay
+    const idx = events.indexOf(event);
+    let allDay = event.allDay;
 
     if (!event.allDay && droppedOnAllDaySlot) {
-      allDay = true
+      allDay = true;
     } else if (event.allDay && !droppedOnAllDaySlot) {
-      allDay = false
+      allDay = false;
     }
-    end = end.getHours() === 0 && end.getMinutes() === 0 ?
-      moment(end).add(1, "seconds").toDate() : end;
-    
-    const updatedEvent = { ...event, start, end, allDay }
+    end =
+      end.getHours() === 0 && end.getMinutes() === 0
+        ? moment(end)
+            .add(1, "seconds")
+            .toDate()
+        : end;
+
+    const updatedEvent = { ...event, start, end, allDay };
     //make sure the event doesn't jump before updating the database
-    const nextEvents = [...events]
-    nextEvents.splice(idx, 1, updatedEvent)
+    const nextEvents = [...events];
+    nextEvents.splice(idx, 1, updatedEvent);
 
     this.setState({
-      events: nextEvents,
-    })
+      events: nextEvents
+    });
     //update the event
     this.props.updateEvent(updatedEvent).then(() => {
-        this.setState({
-          events: this.props.events,
-        });
+      this.setState({
+        events: this.props.events
       });
-
+    });
   }
 
   resizeEvent = ({ event, start, end }) => {
-    const { events } = this.state
-    const idx = events.indexOf(event)
-    end = end.getHours() === 0 && end.getMinutes() === 0 && end.getSeconds() === 0? 
-    moment(end).subtract(1, "seconds").toDate() : end;
+    const { events } = this.state;
+    const idx = events.indexOf(event);
+    end =
+      end.getHours() === 0 && end.getMinutes() === 0 && end.getSeconds() === 0
+        ? moment(end)
+            .subtract(1, "seconds")
+            .toDate()
+        : end;
     // const nextEvents = events.map(existingEvent => {
     //   return existingEvent._id === event._id
     //     ? { ...existingEvent, start, end }
     //     : existingEvent
     // })
-    const updatedEvent = { ...event, start, end}
+    const updatedEvent = { ...event, start, end };
     //make sure the event doesn't jump before updating the database
-    const nextEvents = [...events]
-    nextEvents.splice(idx, 1, updatedEvent)
+    const nextEvents = [...events];
+    nextEvents.splice(idx, 1, updatedEvent);
 
     this.setState({
-      events: nextEvents,
-    })
+      events: nextEvents
+    });
 
     this.props.updateEvent(updatedEvent).then(() => {
       this.setState({
-        events: this.props.events,
+        events: this.props.events
       });
     });
 
     //alert(`${event.title} was resized to ${start}-${end}`)
-  }
+  };
 
   newEvent(event) {
     let dayWrapper = moment(this.state.end);
@@ -112,16 +123,19 @@ class HouseholdCalendar extends React.Component {
       description: this.state.description,
       allDay: this.state.slotsLength === 1,
       start: this.state.start,
-      end: this.state.end.getHours() === 0 && this.state.end.getMinutes() === 0 ? dayWrapper.toDate() : this.state.end,
+      end:
+        this.state.end.getHours() === 0 && this.state.end.getMinutes() === 0
+          ? dayWrapper.toDate()
+          : this.state.end,
       author: this.props.currentUser.id,
       household: this.props.currentUser.household
-    }
+    };
     this.props.createEvent(hour).then(() => {
       this.setState({
         events: this.props.events,
         formModalCls: "event-modal",
         title: "",
-        description: "",
+        description: ""
       });
     });
   }
@@ -157,13 +171,14 @@ class HouseholdCalendar extends React.Component {
         infoModalUser: event.assignedUser || event.author
       });
     }
-    
   }
 
   hideEventInfo(e) {
-    if (e.target.className === "event-modal show-modal" ||
-      e.target.className === "event-close-modal") {
-      this.setState({ 
+    if (
+      e.target.className === "event-modal show-modal" ||
+      e.target.className === "event-close-modal"
+    ) {
+      this.setState({
         infoModalCls: "event-modal",
         infoModalTitle: "",
         infoModalDescription: "",
@@ -186,24 +201,26 @@ class HouseholdCalendar extends React.Component {
         end: event.end
       });
     }
-
   }
 
   hideFormInfo(e) {
-    if (e.target.className === "event-modal show-modal" ||
-      e.target.className === "event-close-modal") {
+    if (
+      e.target.className === "event-modal show-modal" ||
+      e.target.className === "event-close-modal"
+    ) {
       this.setState({
         formModalCls: "event-modal",
         title: "",
-        description: "",
-      })
+        description: ""
+      });
     }
   }
 
   update(field) {
-    return e => this.setState({
-      [field]: e.currentTarget.value
-    });
+    return e =>
+      this.setState({
+        [field]: e.currentTarget.value
+      });
   }
 
   eventStyleGetter(event, start, end, isSelected) {
@@ -211,23 +228,23 @@ class HouseholdCalendar extends React.Component {
     let fontWeight;
     let boxShadow;
     if (event.assignedUser === this.props.currentUser.id) {
-      fontWeight = '900';
-      boxShadow = '0px 0px 10px 2px gray';
+      fontWeight = "900";
+      boxShadow = "0px 0px 10px 2px gray";
     } else if (event.author === this.props.currentUser.id) {
-      fontWeight = '900';
-      boxShadow = '0px 0px 5px 2px gray';
+      fontWeight = "900";
+      boxShadow = "0px 0px 5px 2px gray";
     } else {
-      fontWeight = '400';
+      fontWeight = "400";
     }
     var style = {
       backgroundColor: backgroundColor,
       fontWeight: fontWeight,
-      border: '0px',
+      border: "0px",
       boxShadow: boxShadow,
-      borderRadius: '0px',
+      borderRadius: "0px",
       opacity: 0.8,
-      color: 'black',
-      display: 'block'
+      color: "black",
+      display: "block"
     };
     return {
       style: style
@@ -235,8 +252,8 @@ class HouseholdCalendar extends React.Component {
   }
 
   render() {
-    
     return (
+      <Fade>
       <div className="calendar">
         <DragAndDropCalendar
           selectable
@@ -251,58 +268,131 @@ class HouseholdCalendar extends React.Component {
           // onDragStart={console.log}
           defaultView={Views.MONTH}
           defaultDate={new Date()}
-          eventPropGetter={(this.eventStyleGetter.bind(this))}
+          eventPropGetter={this.eventStyleGetter.bind(this)}
         />
         {/* view event form */}
-        <div onClick={this.hideEventInfo.bind(this)} className={this.state.infoModalCls}>
-          <div className='event-div-box'>
-            <div onClick={this.hideEventInfo.bind(this)} className="event-close-modal">X</div>
+        <div
+          onClick={this.hideEventInfo.bind(this)}
+          className={this.state.infoModalCls}
+        >
+          <div className="event-div-box">
+            <div
+              onClick={this.hideEventInfo.bind(this)}
+              className="event-close-modal"
+            >
+              X
+            </div>
             <div className="event-banner">
               <h1>{this.state.infoModalTitle}</h1>
-              
             </div>
-              <div className="event-info-box">
-                <div className="event-info-time">
-                  <span>{this.state.infoModalStart.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' })}{this.state.infoModalStart.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' }) === this.state.infoModalEnd.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' }) ? "" : ` - ${this.state.infoModalEnd.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' })}`}</span>
-                  {this.state.infoModalStart.toLocaleString('default', { hour: 'numeric', minute: 'numeric' }) === this.state.infoModalEnd.toLocaleString('default', { hour: 'numeric', minute: 'numeric' }) || 
-                  this.state.infoModalStart.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' }) !== this.state.infoModalEnd.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric' })
-                  ? <span>All Day</span> :
-                  <span>{this.state.infoModalStart.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })} - {this.state.infoModalEnd.toLocaleString('default', { hour: 'numeric', minute: 'numeric' })}</span>}
-                  <span>{this.props.users[this.state.infoModalUser] ? this.props.users[this.state.infoModalUser].name : "" }</span>
-                </div>
-                <p>{this.state.infoModalDescription}</p>
-                {this.state.infoModalChore ? "" : <button id="event-delete-button" onClick={this.handleDelete.bind(this)}>Delete Event</button> }
+            <div className="event-info-box">
+              <div className="event-info-time">
+                <span>
+                  {this.state.infoModalStart.toLocaleString("default", {
+                    weekday: "long",
+                    month: "long",
+                    day: "numeric"
+                  })}
+                  {this.state.infoModalStart.toLocaleString("default", {
+                    weekday: "long",
+                    month: "long",
+                    day: "numeric"
+                  }) ===
+                  this.state.infoModalEnd.toLocaleString("default", {
+                    weekday: "long",
+                    month: "long",
+                    day: "numeric"
+                  })
+                    ? ""
+                    : ` - ${this.state.infoModalEnd.toLocaleString("default", {
+                        weekday: "long",
+                        month: "long",
+                        day: "numeric"
+                      })}`}
+                </span>
+                {this.state.infoModalStart.toLocaleString("default", {
+                  hour: "numeric",
+                  minute: "numeric"
+                }) ===
+                  this.state.infoModalEnd.toLocaleString("default", {
+                    hour: "numeric",
+                    minute: "numeric"
+                  }) ||
+                this.state.infoModalStart.toLocaleString("default", {
+                  weekday: "long",
+                  month: "long",
+                  day: "numeric"
+                }) !==
+                  this.state.infoModalEnd.toLocaleString("default", {
+                    weekday: "long",
+                    month: "long",
+                    day: "numeric"
+                  }) ? (
+                  <span>All Day</span>
+                ) : (
+                  <span>
+                    {this.state.infoModalStart.toLocaleString("default", {
+                      hour: "numeric",
+                      minute: "numeric"
+                    })}{" "}
+                    -{" "}
+                    {this.state.infoModalEnd.toLocaleString("default", {
+                      hour: "numeric",
+                      minute: "numeric"
+                    })}
+                  </span>
+                )}
               </div>
+              <p>{this.state.infoModalDescription}</p>
+              {this.state.infoModalChore ? (
+                ""
+              ) : (
+                <button
+                  id="event-delete-button"
+                  onClick={this.handleDelete.bind(this)}
+                >
+                  Delete Event
+                </button>
+              )}
+            </div>
           </div>
         </div>
         {/* create event form */}
-        <div onClick={this.hideFormInfo.bind(this)} className={this.state.formModalCls}>
-          <div className='event-div-box'>
-            <div onClick={this.hideFormInfo.bind(this)} className="event-close-modal">X</div>
+        <div
+          onClick={this.hideFormInfo.bind(this)}
+          className={this.state.formModalCls}
+        >
+          <div className="event-div-box">
+            <div
+              onClick={this.hideFormInfo.bind(this)}
+              className="event-close-modal"
+            >
+              X
+            </div>
             <div className="event-banner">
               <h1>Create a new event</h1>
-              
             </div>
             <form onSubmit={this.newEvent.bind(this)}>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={this.state.title}
-                onChange={this.update('title')}
-                placeholder="Title"/>
+                onChange={this.update("title")}
+                placeholder="Title"
+              />
               <input
                 type="text"
                 value={this.state.description}
-                onChange={this.update('description')}
-                placeholder="Description" />
-                {/* <input type="submit" value="Create Event"/> */}
-                <button>Create Event</button>
+                onChange={this.update("description")}
+                placeholder="Description"
+              />
+              {/* <input type="submit" value="Create Event"/> */}
+              <button>Create Event</button>
             </form>
           </div>
         </div>
-      </div>
-
-    )
+      </div></Fade>
+    );
   }
 }
 
-export default HouseholdCalendar
+export default HouseholdCalendar;

@@ -2,15 +2,17 @@ label {
   display: inline-block;
   color: $black;
   position: relative;
+  font-weight: bold;
+  text-transform: capitalize;
 
   span {
     display: inline-block;
     position: relative;
-    background-color: transparent;
+    background-color: $super-light-blue;
     width: 20px;
     height: 20px;
     transform-origin: center;
-    border: 1px solid $light-green;
+    border: 1px solid $black;
     vertical-align: -6px;
     margin-right: 10px;
     transition: background-color 150ms 200ms, transform 350ms cubic-bezier(.78, -1.22, .17, 1.89);
@@ -60,7 +62,25 @@ label {
 
 }
 
+input[type="date"] {
+  width: 155px;
+}
 
+
+#create-chore {
+  // // max-width: 50%;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: flex-start;
+  // justify-content: start;
+  .radio {
+    margin-left: 10px;
+    label {
+      margin-left: 10px;
+      padding: 5px;
+    }
+  }
+}
 
 
 
@@ -119,32 +139,74 @@ input[type="checkbox"] {
   }
 }
 
-button.light {
-  border-color: transparent;
-  color: $dark-teal;
-  padding: 0 2px;
-  margin: 0 5px;
-}
-button.light:hover {
-  color: $dark-blue;
-}
+// button.light {
+//   border-color: transparent;
+//   color: lighten($dark-blue, 15%);
+//   padding: 2px 5px;
+//       // font-weight: bold;
+//   margin: 0 5px;
+// }
+// #edit-chore {
+
+// }
+// button.light:hover {
+//   color: $dark-blue;
+// }
 
 .chores-list-item {
   display: flex;
-  justify-content: flex-start;
-  align-content: center;
+  flex-direction: column;
+  // justify-content: flex-start;
+  // align-content: center;
   margin: 10px 0;
-}
+  padding: 5px;
 
-.chore-item-main {
+  .chore-row {
     display: flex;
     justify-content: space-between;
-    align-content: center;
+    overflow: hidden;
+    align-items: center;
+  }
 
-    * {
-      margin-right: 10px;
+  .below {
+    margin-left: 30px;
+    margin-top: 10px;
+
+    label {
+      font-weight: bold;
+      font-size: 14px;
+      color: $grey-blue;
     }
+  }
+
+  .toggle-btns {
+    display: flex;
+  }
+
+  input {
+    margin: 0 15px 0 0;
+  }
+
+  button {
+    margin: 5 15px 5 0;
+  }
 }
+
+
+
+
+
+.checkbox-container {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  min-width: 150px;
+}
+
+// * {
+//   margin-right: 10px;
+// }
+
 
 .chore-details {
 
@@ -155,6 +217,75 @@ button.light:hover {
   }
 }
 
-.chores-list-container {
+.red {
+  color: $red;
+}
 
+.update-form-container {
+  height: 0;
+}
+
+li.shaded {
+  border: 1px solid $muted-blue;
+
+  transition: border-color 1s ease-out;
+
+  .update-form-container {
+
+    
+  }
+
+}
+
+.chores-list-item {
+  height: auto;
+
+  
+  padding: 5px;
+}
+
+
+.edit-chore-container form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-right: 0;
+  flex-wrap: wrap;
+
+  input[type="number"] {
+    width: 50px;
+  }
+
+  .small-input {
+    // max-width: 100px;
+  }
+}
+
+.loading {
+  margin-top: 15vh;
+}
+
+.chores-page {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+
+  .chores-list-container {
+    width: 100%;
+
+  }
+}
+
+
+#create-chore {
+  border: 1px solid #849ca5;
+  // animation: slide-up 0.2s ease;
+  padding: 10px;
+
+  margin-bottom: 10px;
+}
+
+
+.no-chores {
+  margin-bottom: 10px;
 }

@@ -9,7 +9,7 @@
   // margin: 5px;
   box-shadow: 0px 0px 5px 2px $muted-blue;
   padding: 10px;
-  background-color: $super-light-blue;
+
 }
 
 .dashboard-welcome {
@@ -109,6 +109,7 @@
   margin-left: 10px;
   background-color: $light-teal;
   display: flex;
+  box-shadow: 0px 0px 4px 2px $gray;
 }
 
 // .upcoming-events h1 {
@@ -122,7 +123,7 @@
   align-items: center;
   padding-bottom: 20px;
   padding-top: 20px;
-  background-image: linear-gradient(to left, $dark-teal, $green, $light-teal);
+  background-image: linear-gradient(to left, lighten($dark-teal, 45%), lighten($green, 30%), lighten($light-teal, 20%));
 
 }
 
@@ -132,7 +133,7 @@
   justify-content: space-between;
   align-items: center;
   // margin-bottom: 20px;
-  background-image: linear-gradient(to left, $dark-teal, $green, $light-teal);
+  background-image: linear-gradient(to left, lighten($dark-teal, 45%), lighten($green, 30%), lighten($light-teal, 20%));
   padding-bottom: 20px;
   padding-top: 20px;
 }
@@ -216,14 +217,14 @@
 .dashboard-bottom {
   display: flex;
   justify-content: space-between;
-  background-image: linear-gradient(to left, $dark-teal, $green, $light-teal);
+  background-image: linear-gradient(to left, lighten($dark-teal, 45%), lighten($green, 30%), lighten($light-teal, 20%));
   padding: 20px;
   box-shadow: 0px 0px 10px 2px $gray;
 }
 
 .dashboard-bottom i {
   font-size: 200px;
-  color: $dark-teal;
+  color: lighten($dark-teal, 45%);
 
 }
 
@@ -255,4 +256,24 @@
        -moz-animation: fadein 2s; /* Firefox < 16 */
         -ms-animation: fadein 2s; /* Internet Explorer */
         animation: fadein 2s;
+        
+}
+
+.action-items-div a {
+  background-color: $white;
+}
+
+.upcoming-events li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard-chores li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard-bills li {
+  display: flex;
+  justify-content: space-between;
 }

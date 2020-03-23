@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { updateChore, deleteChore } from "../../actions/chore_actions";
 import moment from "moment";
+import Fade from "react-reveal/Fade";
 class UpdateChoreForm extends React.Component {
   constructor(props) {
     super(props);
@@ -28,7 +29,7 @@ class UpdateChoreForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let chore  = this.state;
+    let chore = this.state;
     chore.difficulty = parseInt(chore.difficulty);
     chore.dueDate = new Date(chore.dueDate).toISOString().substr(0, 10);
     this.props.updateChore(chore);
@@ -37,40 +38,44 @@ class UpdateChoreForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>Edit Chore</h3>
-        <form onSubmit={this.handleSubmit}>
-          <label>Title</label>
-          <input
-            type="text"
-            value={this.state.title}
-            onChange={this.update("title")}
-          />
-          <br />
-          <label>Description</label>
-          <input
-            type="text"
-            value={this.state.description}
-            onChange={this.update("description")}
-          />
-          <br />
-          <label>Difficulty</label>
-          <input
-            type="number"
-            min="1"
-            max="3"
-            value={this.state.difficulty}
-            onChange={this.update("difficulty")}
-          />
-          <br />
-          <label>Due Date</label>
-          <input
-            type="date"
-            value={this.state.dueDate}
-            onChange={this.update("dueDate")}
-          />
-          <br />
-          {/* <label>Recurring? </label>
+      <Fade>
+        <div className="edit-chore-container">
+          <form onSubmit={this.handleSubmit}>
+            <div>
+              <label>Title</label>
+              <input
+                type="text"
+                value={this.state.title}
+                onChange={this.update("title")}
+              />
+            </div>
+            <div>
+              <label>Description</label>
+              <input
+                type="text"
+                value={this.state.description}
+                onChange={this.update("description")}
+              />
+            </div>
+            <div className="small-input">
+              <label>Difficulty</label>
+              <input
+                type="number"
+                min="1"
+                max="3"
+                value={this.state.difficulty}
+                onChange={this.update("difficulty")}
+              />
+            </div>
+            <div className="small-input">
+              <label>Due Date</label>
+              <input
+                type="date"
+                value={this.state.dueDate}
+                onChange={this.update("dueDate")}
+              />
+            </div>
+            {/* <label>Recurring? </label>
           <div className="radio">
             <label>
               <input
@@ -109,12 +114,17 @@ class UpdateChoreForm extends React.Component {
               Never
             </label>
           </div> */}
-          <button type="submit">Update Chore</button>
-        </form>
-        <button onClick={() => this.props.deleteChore(this.props.chore._id)}>
-          Delete
-        </button>
-      </div>
+            <div>
+              <button type="submit">Update Chore</button>
+              <button
+                onClick={() => this.props.deleteChore(this.props.chore._id)}
+              >
+                Delete
+              </button>
+            </div>
+          </form>
+        </div>
+      </Fade>
     );
   }
 }

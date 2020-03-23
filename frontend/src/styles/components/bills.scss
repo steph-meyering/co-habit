@@ -3,6 +3,8 @@
 }
 
 .bills-index {
+    padding: 20px 0px 20px 10px;
+    // border: 1px solid;
     width: 30%;
 }
 
@@ -11,13 +13,61 @@
     flex-direction: column;
     width: 70%;
     align-items: center;
+    // border: 1px solid;
 }
 
 .pie-chart {
     justify-self: center;
     width: 100%;
+    max-width: 500px;
 }
 
-.bill-form{ 
-    padding-top: 30px;
+// .bill-form{ 
+//     padding-top: 30px;
+//     border: 1px solid;
+// }
+
+$colors: (
+    #88C9C9,
+    #7AD3B7,
+    #297373,
+    #506C84,
+    #afe0ce,
+    #edffff,
+    #849ca5,
+    #904e55,
+    #031a6b
+    );
+
+.bill, .bill-form {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #849ca5;
+    animation: slide-up 0.2s ease;
+}
+
+.bill-title {
+    font-size: 18px;
+}
+
+.bill-errors {
+    color: #904e55;
+    list-style: circle;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: slide-up 0.4s ease-in;;
+
+}
+
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(-60px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
