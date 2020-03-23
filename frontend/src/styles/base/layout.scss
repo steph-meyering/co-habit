@@ -4,15 +4,16 @@ body {
     justify-content: center;
     align-items: center;
     // background-image: linear-gradient(135deg, #f5f7fa 0%, hsl(217, 35%, 83%) 100%);
-    // background-image: linear-gradient(to top, $light, $fade-blue, $light-green);
+    // background-image: linear-gradient(to top, rgba($muted-blue, 0.25), rgba($super-light-blue, 0.25));
+    background-image: linear-gradient(to top, lighten($dark-teal, 45%), lighten($green, 30%), lighten($light-teal, 20%));
     // background-color: $fade-black;
 }
 
 body * {
     font-family: $roboto;
-    font-size: 15px;
+    font-size: 16px;
     box-sizing: border-box;
-       -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
 }
 
 h1 {
@@ -23,7 +24,7 @@ h1 {
     height: 100%;
     display: flex;
     justify-content: center;
-    background-image: linear-gradient(to top, $dark-teal, $green, $light-teal);
+    // background-image: linear-gradient(to top, lighten($dark-teal, 5%), lighteen($green, 5%), lighten($light-teal, 5%));
     min-height: 100vh;
     // overflow: hidden;
 }
@@ -41,8 +42,8 @@ h1 {
     width: 70%;
     min-height: 100vh;
     padding: 20px;
-    background-color: $super-light-blue;
-    box-shadow: 0px 0px 20px 2px $black;
+    background-color: lighten($super-light-blue, 2%);
+    box-shadow: 0px 0px 20px 2px $gray;
 }
 
 button,
@@ -53,34 +54,66 @@ a {
 }
 
 button {
-    border: 1px solid $light-green;
+    border: 1px solid darken($green, 10%);
+    white-space: nowrap;
+    background-color: white;
 }
 
 button:hover {
     border-color: $dark-blue;
 }
 
+input:hover, button:hover {
+    cursor: pointer;
+}
 
+
+
+.bold-btn {
+    background-color: rgba($light-teal, 0.7);
+    border: 1px solid $black;
+    padding: 5px 20px;
+}
+
+.bold-btn:hover {
+    background-color: $light-teal;
+    border: 1px solid $black;
+    padding: 5px 20px;
+}
 
 input {
     padding: 5px;
     margin: 5px;
     box-sizing: border-box;
-    border: 1px solid transparent;
+    // border: 1px solid transparent;
 }
 
 input[type="text"] {
     background-color: transparent;
-    border: 1px solid transparent;
-    border-bottom: 1px solid $light-green;
+    // border: 1px solid transparent;
+    border-bottom: 2px solid $light-green;
 }
 
 input[type="text"]:hover,
 input[type="text"]:focus {
-    border-bottom: 1px solid $dark-blue;
+    border-bottom: 2px solid $dark-blue;
 }
 
-ol, ul {
+ol,
+ul {
     list-style: none;
     padding-left: 0;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .main-container {
+        width: 90%
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .main-container {
+        width: 100%
+    }
 }
