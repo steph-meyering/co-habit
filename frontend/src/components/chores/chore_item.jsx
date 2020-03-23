@@ -1,6 +1,7 @@
 import React from "react";
 import UpdateChoreForm from "./update_chore_form";
 import moment from "moment";
+import Fade from "react-reveal/Fade";
 import Slide from "react-reveal/Slide";
 class ChoreItem extends React.Component {
   constructor(props) {
@@ -182,12 +183,12 @@ class ChoreItem extends React.Component {
               />
             ) : null}
             {this.state.showDetails ? (
-              <>
+              <Fade>
                 <div>{description}</div>
                 <div>Difficulty: {difficulty}</div>
                 <div>Repeat: {recurring}</div>
                 <div>{this.state.checked ? "Done!" : "Incomplete"}</div>
-              </>
+              </Fade>
             ) : null}
           </div>
         </li>

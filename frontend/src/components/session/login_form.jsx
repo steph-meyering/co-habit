@@ -73,7 +73,7 @@ class LoginForm extends React.Component {
           onChange={this.update("password")}
           placeholder="Password"
         />
-        <button type="submit" id="signup">Sign In</button>
+        <button type="submit" id="signin">Sign In</button>
         {this.renderErrors()}
       </form>
     );

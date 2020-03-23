@@ -4,7 +4,7 @@ import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import moment from "moment";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-
+import Fade from "react-reveal/Fade";
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 const localizer = momentLocalizer(moment);
 
@@ -249,6 +249,7 @@ class HouseholdCalendar extends React.Component {
 
   render() {
     return (
+      <Fade>
       <div className="calendar">
         <DragAndDropCalendar
           selectable
@@ -385,7 +386,7 @@ class HouseholdCalendar extends React.Component {
             </form>
           </div>
         </div>
-      </div>
+      </div></Fade>
     );
   }
 }

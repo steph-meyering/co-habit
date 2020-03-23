@@ -81,7 +81,7 @@ class Chores extends React.Component {
       return (
         <div>
           
-          <div>No Chores Yet</div><CreateChoreForm show={true} />
+          <div className="no-chores">No Chores Yet</div><CreateChoreForm show={true} />
         </div>
       );
     }
