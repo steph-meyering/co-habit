@@ -85,7 +85,6 @@ class CreateChoreForm extends React.Component {
     return (
       <div>
         {/* {this.props.errors ? this.renderErrors() : null} */}
-
         <Fade>
           <form id="create-chore" onSubmit={this.handleSubmit}>
             <label>Title</label>

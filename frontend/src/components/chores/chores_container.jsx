@@ -10,6 +10,7 @@ import ChoreItem from "./chore_item";
 import CreateChoreForm from "./create_chore_form";
 import Loader from "react-spinners/BounceLoader";
 import { css } from "@emotion/core";
+import Fade from "react-reveal/Fade";
 
 class Chores extends React.Component {
   constructor(props) {
@@ -37,6 +38,8 @@ class Chores extends React.Component {
     });
 
     this.props.fetchChores().then(() => {
+      // show loading animation for minimum of 0.8 seconds 
+      //    while fetching updated chores list
       setTimeout(() => this.setState({ loading: false }), 800);
     });
   }
@@ -48,40 +51,35 @@ class Chores extends React.Component {
   }
 
   render() {
-
     if (!this.props.chores) {
-      return (<div>
-        <div>No Chores Yet</div>
-        
-      </div>)
+      return null;
     }
-      if (this.state.loading) {
-        const override = css`
-          display: block;
-          margin: auto;
-          border-color: transparent;
-        `;
-        return (
-          <div>
-            {/* <h2>All Household Chores</h2> */}
-            <CreateChoreForm show={this.state.showCreateChoreForm} />
-            <div className="loading chores-list-container">
-              <Loader
-                css={override}
-                size={50}
-                color={"#99E8E8"}
-                loading={this.state.loading}
-              />
-            </div>
+    if (this.state.loading) {
+      const override = css`
+        display: block;
+        margin: auto;
+        border-color: transparent;
+      `;
+      return (
+        <div>
+          <CreateChoreForm show={this.state.showCreateChoreForm} />
+          <div className="loading chores-list-container">
+            <Loader
+              css={override}
+              size={50}
+              color={"#99E8E8"}
+              loading={this.state.loading}
+            />
           </div>
-        );
-      }
+        </div>
+      );
+    }
 
     if (this.props.chores.length === 0) {
       return (
         <div>
-          
-          <div className="no-chores">No Chores Yet</div><CreateChoreForm show={true} />
+          <div className="no-chores">No Chores Yet</div>
+          <CreateChoreForm show={this.state.showCreateChoreForm} />
         </div>
       );
     }
@@ -97,20 +95,21 @@ class Chores extends React.Component {
     });
 
     return (
-      <div className="chores-page">
-        {/* <h2>All Household Chores</h2> */}
-        <CreateChoreForm show={this.state.showCreateChoreForm} />
-        <div className="chores-list-container">
-          {this.props.currentUser.adminPrivileges ? (
-            <button className="bold-btn" onClick={this.reassignChores}>
-              Reassign All Chores
-            </button>
-          ) : (
-            ""
-          )}
-          <ol>{allChoreItems}</ol>
+
+        <div className="chores-page">
+          <CreateChoreForm show={this.state.showCreateChoreForm} />
+          <div className="chores-list-container">
+            {this.props.currentUser.adminPrivileges ? (
+              <button className="bold-btn" onClick={this.reassignChores}>
+                Reassign All Chores
+              </button>
+            ) : (
+              null
+            )}
+            <ol>{allChoreItems}</ol>
+          </div>
         </div>
-      </div>
+
     );
   }
 }

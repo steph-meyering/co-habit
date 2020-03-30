@@ -2,7 +2,7 @@ import React from "react";
 import UpdateChoreForm from "./update_chore_form";
 import moment from "moment";
 import Fade from "react-reveal/Fade";
-import Slide from "react-reveal/Slide";
+
 class ChoreItem extends React.Component {
   constructor(props) {
     super(props);
@@ -50,8 +50,8 @@ class ChoreItem extends React.Component {
       if (!(updatedChore.dueDate instanceof Array))
         updatedChore.dueDate = [updatedChore.dueDate];
       updatedChore.dueDate.push(nextDate._d.toISOString().substr(0, 10));
-      // delete old due date if complete
 
+      // delete old due date if complete and past due date
       updatedChore.dueDate.shift();
       updatedChore.complete = false;
       this.props.updateChore(updatedChore);
@@ -98,7 +98,6 @@ class ChoreItem extends React.Component {
         : "transparent";
 
     return (
-      <Slide up>
         <li className={`chores-list-item ${bgdColor}`}>
           <div className="chore-row">
             <div
@@ -114,7 +113,7 @@ class ChoreItem extends React.Component {
               <input
                 type="checkbox"
                 value={this.state.checked}
-                checked={this.state.checked}
+                defaultChecked={this.state.checked}
               />
 
               <label className="label-cbx">
@@ -188,7 +187,6 @@ class ChoreItem extends React.Component {
             ) : null}
           </div>
         </li>
-      </Slide>
     );
   }
 }
