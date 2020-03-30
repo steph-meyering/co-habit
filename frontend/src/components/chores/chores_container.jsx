@@ -10,12 +10,12 @@ import ChoreItem from "./chore_item";
 import CreateChoreForm from "./create_chore_form";
 import Loader from "react-spinners/BounceLoader";
 import { css } from "@emotion/core";
-import Fade from "react-reveal/Fade";
+import Slide from "react-reveal/Slide";
 
 class Chores extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loading: false, showCreateChoreForm: false };
+    this.state = { loading: true, showCreateChoreForm: false };
     this.reassignChores = this.reassignChores.bind(this);
   }
 
@@ -95,7 +95,7 @@ class Chores extends React.Component {
     });
 
     return (
-
+      <Slide up>
         <div className="chores-page">
           <CreateChoreForm show={this.state.showCreateChoreForm} />
           <div className="chores-list-container">
@@ -103,13 +103,11 @@ class Chores extends React.Component {
               <button className="bold-btn" onClick={this.reassignChores}>
                 Reassign All Chores
               </button>
-            ) : (
-              null
-            )}
+            ) : null}
             <ol>{allChoreItems}</ol>
           </div>
         </div>
-
+      </Slide>
     );
   }
 }
