@@ -68,11 +68,6 @@ input[type="date"] {
 
 
 #create-chore {
-  // // max-width: 50%;
-  // display: flex;
-  // flex-direction: column;
-  // align-items: flex-start;
-  // justify-content: start;
   .radio {
     margin-left: 10px;
     label {
@@ -81,9 +76,6 @@ input[type="date"] {
     }
   }
 }
-
-
-
 
 input[type="checkbox"] {
   user-select: none;
@@ -139,25 +131,9 @@ input[type="checkbox"] {
   }
 }
 
-// button.light {
-//   border-color: transparent;
-//   color: lighten($dark-blue, 15%);
-//   padding: 2px 5px;
-//       // font-weight: bold;
-//   margin: 0 5px;
-// }
-// #edit-chore {
-
-// }
-// button.light:hover {
-//   color: $dark-blue;
-// }
-
 .chores-list-item {
   display: flex;
   flex-direction: column;
-  // justify-content: flex-start;
-  // align-content: center;
   margin: 10px 0;
   padding: 5px;
 
@@ -193,9 +169,6 @@ input[type="checkbox"] {
 }
 
 
-
-
-
 .checkbox-container {
   display: flex;
   justify-content: space-between;
@@ -203,15 +176,8 @@ input[type="checkbox"] {
   min-width: 150px;
 }
 
-// * {
-//   margin-right: 10px;
-// }
-
 
 .chore-details {
-
-
-
   div {
     font-size: 13px;
   }
@@ -230,17 +196,10 @@ li.shaded {
 
   transition: border-color 1s ease-out;
 
-  .update-form-container {
-
-    
-  }
-
 }
 
 .chores-list-item {
   height: auto;
-
-  
   padding: 5px;
 }
 
@@ -255,10 +214,6 @@ li.shaded {
   input[type="number"] {
     width: 50px;
   }
-
-  .small-input {
-    // max-width: 100px;
-  }
 }
 
 .loading {
@@ -272,16 +227,13 @@ li.shaded {
 
   .chores-list-container {
     width: 100%;
-
   }
 }
 
 
 #create-chore {
   border: 1px solid #849ca5;
-  // animation: slide-up 0.2s ease;
   padding: 10px;
-
   margin-bottom: 10px;
 }
 
