@@ -99,6 +99,7 @@ class Chores extends React.Component {
         <div className="chores-page">
           <CreateChoreForm show={this.state.showCreateChoreForm} />
           <div className="chores-list-container">
+            {/* Only allow house admin to reassign all chores */}
             {this.props.currentUser.adminPrivileges ? (
               <button className="bold-btn" onClick={this.reassignChores}>
                 Reassign All Chores

@@ -14,6 +14,7 @@ class CreateChoreForm extends React.Component {
       household: this.props.currentUser.household,
       difficulty: 1,
       recurring: "weekly",
+      // Set default due date to 1 week from now
       dueDate: new Date(moment().add(7, "days")).toISOString().substr(0, 10),
       show: this.props.show
     };
@@ -40,6 +41,7 @@ class CreateChoreForm extends React.Component {
     e.preventDefault();
     let { loading, show, ...chore } = this.state;
     chore.difficulty = parseInt(chore.difficulty);
+    // Convert date to format readable by mongoose
     chore.dueDate = new Date(chore.dueDate).toISOString().substr(0, 10);
     this.props.createNewChore(chore).then(() =>
       this.setState({
