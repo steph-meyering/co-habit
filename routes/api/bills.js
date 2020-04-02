@@ -5,10 +5,9 @@ const passport = require("passport");
 
 const validateBillInput = require('../../validation/bill')
 
-router.get("/test", (req, res) => res.json({ msg: "This is the bills route" }));
-
 router.post(
   "/",
+  // passport middleware used to extract user and household info from the request
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateBillInput(req.body);
@@ -29,7 +28,7 @@ router.post(
   }
 );
 
-// all bills for household
+
 router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
@@ -53,7 +52,6 @@ router.delete(
 
 router.patch(
   "/:billId",
-  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Bill.findByIdAndUpdate(
       req.params.billId,

@@ -22,10 +22,6 @@
     max-width: 500px;
 }
 
-// .bill-form{ 
-//     padding-top: 30px;
-//     border: 1px solid;
-// }
 
 $colors: (
     #88C9C9,
@@ -44,6 +40,10 @@ $colors: (
     margin: 10px;
     border: 1px solid #849ca5;
     animation: slide-up 0.2s ease;
+    & input {
+        // ensure input fields don't stretch out of container div on narrow screens
+        width: -webkit-fill-available;
+    }
 }
 
 .bill-title {
