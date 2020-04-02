@@ -11,6 +11,7 @@ import CreateChoreForm from "./create_chore_form";
 import Loader from "react-spinners/BounceLoader";
 import { css } from "@emotion/core";
 import Slide from "react-reveal/Slide";
+import "../../styles/components/chores.scss";
 
 class Chores extends React.Component {
   constructor(props) {
