@@ -139,9 +139,7 @@ class BillsIndex extends React.Component {
   }
 
   render() {
-    if (!this.props.housemates) {
-      return null;
-    }
+
     if (this.props.bills.length < 1) {
       return (
         <div>
@@ -151,13 +149,8 @@ class BillsIndex extends React.Component {
       );
     }
 
-    if (Object.keys(this.props.housemates).length === 0) {
-      return <div>...loading housemates</div>;
-    }
+    if (Object.keys(this.props.housemates).length === 0) return null;
 
-    // if (this.props.loading) {
-    //     return <div>...loading</div>;
-    // }
     let billItems = this.props.bills.map(bill => {
       return (
         <BillItem
@@ -174,7 +167,6 @@ class BillsIndex extends React.Component {
     return (
       <Fade>
         <div className="bills-container">
-          {/* <h3>All household bills: </h3> */}
           <ul className="bills-index">{billItems}</ul>
           <div className="chart-and-form">
             {this.pieChart()}
