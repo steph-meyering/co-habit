@@ -20,16 +20,21 @@ class BillsIndex extends React.Component {
       );
   }
 
+  
   isMyBill(bill) {
+    // check if current user is bill author
     if (this.props.currentUser.id === bill.user) return bill;
   }
 
   calcPieData() {
+
+    // create an object with the id's and names of all housemates in current household
     let names = {};
     for (const user in this.props.housemates) {
       names[this.props.housemates[user]._id] = this.props.housemates[user].name;
     }
 
+    // default colors assigned to represent each housemate in the pie chart 
     const colors = [
       "#88C9C9",
       "#7AD3B7",
@@ -53,7 +58,7 @@ class BillsIndex extends React.Component {
       }
     }
 
-    // shape pieData into PieChart format and add color
+    // shape pieData into PieChart format and add color for each house mate
     let pieData = [];
     for (const name in names) {
       pieData.push({
@@ -63,8 +68,7 @@ class BillsIndex extends React.Component {
         userId: name
       });
     }
-    this.props.updatePieChart(pieData);
-    this.setState({ pieData: pieData });
+    this.props.updatePieChart(pieData);    
   }
 
   pieChart() {
@@ -79,6 +83,7 @@ class BillsIndex extends React.Component {
               if (i === dataIndex) {
                 return {
                   ...entry,
+                  // onMouseOver event: save original color + title, then over-write them.
                   ogColor: entry.color,
                   ogTitle: entry.title,
                   color: "#afe0ce",
@@ -100,6 +105,7 @@ class BillsIndex extends React.Component {
               if (i === dataIndex) {
                 return {
                   ...entry,
+                  // onMouseOut event: revert color and title to saved originals
                   color: entry.ogColor,
                   title: entry.ogTitle,
                   style: {
@@ -133,9 +139,7 @@ class BillsIndex extends React.Component {
   }
 
   render() {
-    if (!this.props.housemates) {
-      return null;
-    }
+
     if (this.props.bills.length < 1) {
       return (
         <div>
@@ -145,13 +149,8 @@ class BillsIndex extends React.Component {
       );
     }
 
-    if (Object.keys(this.props.housemates).length === 0) {
-      return <div>...loading housemates</div>;
-    }
+    if (Object.keys(this.props.housemates).length === 0) return null;
 
-    // if (this.props.loading) {
-    //     return <div>...loading</div>;
-    // }
     let billItems = this.props.bills.map(bill => {
       return (
         <BillItem
@@ -168,7 +167,6 @@ class BillsIndex extends React.Component {
     return (
       <Fade>
         <div className="bills-container">
-          {/* <h3>All household bills: </h3> */}
           <ul className="bills-index">{billItems}</ul>
           <div className="chart-and-form">
             {this.pieChart()}
