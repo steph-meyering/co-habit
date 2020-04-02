@@ -44,6 +44,7 @@ class Dashboard extends React.Component {
 
     let acceptedHousemates = [];
     let pendingHousemates = [];
+    //differentiate accepted housemates from pending
     for (let i = 0; i < this.props.users.length; i++) {
       const user = this.props.users[i];
       if (user.acceptedIntoHousehold) {
@@ -53,6 +54,7 @@ class Dashboard extends React.Component {
       }
     }
 
+    //give each housemate a distinct color
     const colors = [
       "#88C9C9",
       "#7AD3B7",
@@ -136,6 +138,7 @@ class Dashboard extends React.Component {
             <Link to="/calendar" className="upcoming-events">
               <h1>Events Today</h1>
               <ul>
+                {/* format all dates */}
                 {this.props.events.map(event => (
                   <li key={event._id}>
                     <span>{event.title}: </span>
@@ -175,6 +178,7 @@ class Dashboard extends React.Component {
                     ) : (
                       ""
                     )}
+                    {/* if event has a dueDate, it should be listed as all day */}
                     {event.dueDate ? <span>All Day</span> : ""}
                   </li>
                 ))}

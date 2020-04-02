@@ -26,6 +26,7 @@ export const removeEvent = eventId => {
   };
 };
 
+//using household api util
 export const getEvents = (householdId) => dispatch => {
   return HouseholdAPIUtil.getEvents(householdId)
     .then(events => dispatch(receiveEvents(events)))

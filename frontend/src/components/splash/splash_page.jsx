@@ -32,7 +32,7 @@ class SplashPage extends React.Component {
       this.setState({ formType: "login" });
     }
   }
-
+  //trigger css transition and show other form
   changeContainerCls(e) {
     if (e.target.id === "signUp") {
       this.setState({ containerCls: "container right-panel-active" });

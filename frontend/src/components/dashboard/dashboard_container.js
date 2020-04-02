@@ -15,6 +15,7 @@ const datesAreOnSameDay = (first, second) =>
 const mapStateToProps = (state) => {
   const allBills = Object.values(state.entities.bills);
   let usersBills = [];
+  //push bill to usersBills if it belongs to current user
   for (let i = 0; i < allBills.length; i++) {
     const bill = allBills[i];
     if (bill.user === state.session.user.id) {
@@ -24,6 +25,7 @@ const mapStateToProps = (state) => {
 
   const allEvents = Object.values(state.entities.events);
   let usersEventsToday = [];
+  //push to usersEventsToday if event is today so it can be shown on dashboard
   for (let i = 0; i < allEvents.length; i++) {
     const event = allEvents[i];
     if (event.author === state.session.user.id && 
@@ -32,7 +34,7 @@ const mapStateToProps = (state) => {
       usersEventsToday.push(Object.assign({}, event));
     }
   }
-
+  //push to usersChoresToday if chore is today so it can be shown on dashboard
   const allChores = Object.values(state.entities.chores);
   let usersChoresToday = [];
   for (let i = 0; i < allChores.length; i++) {
@@ -42,7 +44,7 @@ const mapStateToProps = (state) => {
       usersChoresToday.push(Object.assign({}, chore));
     }
   }
-
+  //concat today's chores and events
   return {
     currentUser: state.session.user,
     household: state.entities.households[state.session.user.household],
