@@ -84,6 +84,7 @@ class Chores extends React.Component {
         </div>
       );
     }
+    
     let allChoreItems = this.props.chores.map(chore => {
       return (
         <ChoreItem

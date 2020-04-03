@@ -85,6 +85,8 @@ class ChoreItem extends React.Component {
       complete
     } = this.props.chore;
 
+    console.log(dueDate)
+    
     let now = moment.utc().subtract(1, "days");
     let firstDuedate = moment.utc(dueDate[0]);
 

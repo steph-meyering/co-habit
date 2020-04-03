@@ -9,11 +9,6 @@ class UpdateChoreForm extends React.Component {
     super(props);
     let chore = this.props.chore;
 
-    // Display upcoming due date, convert date format
-    chore.dueDate = new Date(moment.utc(chore.dueDate[0]))
-      .toISOString()
-      .substr(0, 10);
-
     this.state = {
       ...chore
     };
@@ -27,6 +22,12 @@ class UpdateChoreForm extends React.Component {
         [field]: e.currentTarget.value
       });
     };
+  }
+
+  updateDueDate(e) {
+    this.setState({
+      dueDate: e.currentTarget.value
+    });
   }
 
   handleSubmit(e) {
