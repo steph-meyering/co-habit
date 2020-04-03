@@ -12,7 +12,7 @@ export const receiveCurrentUser = currentUser => ({
     currentUser
 });
 
-export const CLEAR_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
+export const CLEAR_SESSION_ERRORS = "CLEAR_SESSION_ERRORS";
 
 export const clearSessionErrors = () => ({
   type: CLEAR_SESSION_ERRORS

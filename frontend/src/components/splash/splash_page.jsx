@@ -39,6 +39,7 @@ class SplashPage extends React.Component {
     } else if (e.target.id === "signIn") {
       this.setState({ containerCls: "container" });
     }
+    this.props.clearErrors();
   }
 
   render() {
