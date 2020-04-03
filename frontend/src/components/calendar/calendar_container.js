@@ -16,8 +16,8 @@ const mapStateToProps = (state) => {
     const chore = Object.assign({}, chores[i]);
     for (let j = 0; j < chore.dueDate.length; j++) {
       let ddate = chore.dueDate[j];
-      //use moment library to add 8 hours to the chore's due date because
-      //the chore's due date currently is 8 hours behind as received
+      //use moment library to add 8 hours to the chore's due date to comply with
+      //calendar's time requirements
       ddate = moment(new Date(ddate)).add(8, "hours").toDate();
       let dueDateEvent = {
         allDay: true,

@@ -50,7 +50,7 @@ class HouseholdCalendar extends React.Component {
   moveEvent({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
     const { events } = this.state;
 
-    const idx = events.indexOf(event);
+    const eventIdx = events.indexOf(event);
     let allDay = event.allDay;
     //set allDay variable to show whether calendar should show event as all day
     if (!event.allDay && droppedOnAllDaySlot) {
@@ -70,23 +70,20 @@ class HouseholdCalendar extends React.Component {
     const updatedEvent = { ...event, start, end, allDay };
     //make sure the event doesn't jump before updating the database by setting
     //state
-    const nextEvents = [...events];
-    nextEvents.splice(idx, 1, updatedEvent);
+    const newEvents = [...events];
+    //replace old event with new updated event
+    newEvents.splice(eventIdx, 1, updatedEvent);
 
     this.setState({
-      events: nextEvents
+      events: newEvents
     });
     //update the event and reset events state
-    this.props.updateEvent(updatedEvent).then(() => {
-      this.setState({
-        events: this.props.events
-      });
-    });
+    this.props.updateEvent(updatedEvent);
   }
   //destructure resize event object
   resizeEvent = ({ event, start, end }) => {
     const { events } = this.state;
-    const idx = events.indexOf(event);
+    const eventIdx = events.indexOf(event);
     //fix glitch in calendar where 00:00:00 as start and end for two days apart
     //only shows up as spanning one day on the calendar
     end =
@@ -99,11 +96,11 @@ class HouseholdCalendar extends React.Component {
     const updatedEvent = { ...event, start, end };
     //make sure the event doesn't jump before updating the database by setting
     //state
-    const nextEvents = [...events];
-    nextEvents.splice(idx, 1, updatedEvent);
+    const newEvents = [...events];
+    newEvents.splice(eventIdx, 1, updatedEvent);
 
     this.setState({
-      events: nextEvents
+      events: newEvents
     });
     //update the event and reset events state
     this.props.updateEvent(updatedEvent).then(() => {

@@ -17,14 +17,6 @@ class SignupForm extends React.Component {
     this.clearedErrors = false;
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //     if (nextProps.currentUser) {
-  //         this.props.history.push('/dashboard');
-  //     }
-
-  //     this.setState({ errors: nextProps.errors })
-  // }
-
   update(field) {
     return e =>
       this.setState({
