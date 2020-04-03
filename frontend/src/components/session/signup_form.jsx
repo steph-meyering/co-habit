@@ -46,9 +46,11 @@ class SignupForm extends React.Component {
   }
 
   renderErrors() {
+    let errors = Object.keys(this.props.errors);
+    if (errors.length > 3) errors = errors.slice(0,3)
     return (
       <ul className="session-errors">
-        {Object.keys(this.props.errors).map((error, i) => (
+        {errors.map((error, i) => (
           <li key={`error-${i}`} className="red">
             {this.props.errors[error]}
           </li>
