@@ -7,13 +7,10 @@ const passport = require("passport");
 const moment = require("moment");
 mongoose.set("useFindAndModify", false);
 
-router.get("/test", (req, res) =>
-  res.json({ msg: "This is the chores route" })
-);
-
-// all chores for household
+// all chores for the current user's household
 router.get(
   "/",
+  // Use passport auth to get req.user info
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Chore.find({ household: req.user.household })
@@ -58,32 +55,14 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors);
     }
+
+    // Create new chore for the household, default assign to current user
     let newChore = new Chore({
       ...req.body,
       author: req.user._id,
       household: req.user.household,
       assignedUser: req.user._id
     });
-    // // add second due date if chore is recurring
-    // if (req.body.recurring !== "never") {
-    //   let nextDate;
-    //   // space due dates based on recurring input
-    //   switch (req.body.recurring) {
-    //     case "daily":
-    //       nextDate = moment.utc(req.body.dueDate).add(1, "days");
-    //       break;
-    //     case "weekly":
-    //       nextDate = moment.utc(req.body.dueDate).add(7, "days");
-    //       break;
-    //     case "biweekly":
-    //       nextDate = moment.utc(req.body.dueDate).add(14, "days");
-    //       break;
-    //     default:
-    //       nextDate = moment.utc(req.body.dueDate).add(7, "days");
-    //       break;
-    //   }
-    //   newChore.dueDate.push(nextDate._d);
-    // }
 
     newChore
       .save()

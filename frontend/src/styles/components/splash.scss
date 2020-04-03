@@ -34,17 +34,9 @@
 
 .splash>p {
 	color: $black;
-	font-size: 25px;
+	font-size: 24px;
 	opacity: 100%;
-}
-
-.splash>p:first-of-type {
-	margin-top: 35px;
-}
-
-.splash>p:last-of-type {
 	margin-top: 20px;
-	font-size: 25px;
 }
 
 @keyframes fadein {
@@ -177,10 +169,6 @@
 	box-shadow: none;
 	margin-top: 15px;
 }
-
-// .form-container button {
-//   margin-top: 20px;
-// }
 
 .form-container span {
 	position: absolute;

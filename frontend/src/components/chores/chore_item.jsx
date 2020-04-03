@@ -30,7 +30,7 @@ class ChoreItem extends React.Component {
       let updatedChore = this.props.chore;
       let nextDate;
       let numDueDates = dueDate.length;
-      // space due dates based on recurring input
+      // Space due dates based on recurring input
       switch (recurring) {
         case "daily":
           nextDate = moment.utc(dueDate[numDueDates - 1]).add(1, "day");
@@ -46,12 +46,12 @@ class ChoreItem extends React.Component {
           break;
       }
 
-      // add second due date if chore is recurring
+      // Add second due date if chore is recurring
       if (!(updatedChore.dueDate instanceof Array))
         updatedChore.dueDate = [updatedChore.dueDate];
       updatedChore.dueDate.push(nextDate._d.toISOString().substr(0, 10));
 
-      // delete old due date if complete and past due date
+      // Delete old due date if complete and past due date
       updatedChore.dueDate.shift();
       updatedChore.complete = false;
       this.props.updateChore(updatedChore);
@@ -85,9 +85,12 @@ class ChoreItem extends React.Component {
       complete
     } = this.props.chore;
 
+    console.log(dueDate)
+    
     let now = moment.utc().subtract(1, "days");
     let firstDuedate = moment.utc(dueDate[0]);
 
+    // Update recurring due dates if needed
     if (recurring !== "never" && firstDuedate.isBefore(now) && complete) {
       this.updateRecurring();
     }
@@ -170,6 +173,7 @@ class ChoreItem extends React.Component {
               </div>
             </div>
           </div>
+          {/* Show update form or details under the chore item row */}
           <div className="below chore-row">
             {this.state.showUpdateForm ? (
               <UpdateChoreForm

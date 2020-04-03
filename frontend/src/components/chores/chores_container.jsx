@@ -11,6 +11,7 @@ import CreateChoreForm from "./create_chore_form";
 import Loader from "react-spinners/BounceLoader";
 import { css } from "@emotion/core";
 import Slide from "react-reveal/Slide";
+import "../../styles/components/chores.scss";
 
 class Chores extends React.Component {
   constructor(props) {
@@ -83,6 +84,7 @@ class Chores extends React.Component {
         </div>
       );
     }
+    
     let allChoreItems = this.props.chores.map(chore => {
       return (
         <ChoreItem
@@ -99,6 +101,7 @@ class Chores extends React.Component {
         <div className="chores-page">
           <CreateChoreForm show={this.state.showCreateChoreForm} />
           <div className="chores-list-container">
+            {/* Only allow house admin to reassign all chores */}
             {this.props.currentUser.adminPrivileges ? (
               <button className="bold-btn" onClick={this.reassignChores}>
                 Reassign All Chores

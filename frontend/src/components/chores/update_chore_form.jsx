@@ -8,9 +8,6 @@ class UpdateChoreForm extends React.Component {
   constructor(props) {
     super(props);
     let chore = this.props.chore;
-    chore.dueDate = new Date(moment.utc(chore.dueDate[0]))
-      .toISOString()
-      .substr(0, 10);
 
     this.state = {
       ...chore
@@ -25,6 +22,12 @@ class UpdateChoreForm extends React.Component {
         [field]: e.currentTarget.value
       });
     };
+  }
+
+  updateDueDate(e) {
+    this.setState({
+      dueDate: e.currentTarget.value
+    });
   }
 
   handleSubmit(e) {
