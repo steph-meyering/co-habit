@@ -26,6 +26,7 @@ export const removeUser = userId => ({
 //   errors
 // });
 
+//use household api go through household route
 export const getUsers = householdId => dispatch => {
   return HouseholdAPIUtil.getUsers(householdId)
     .then(users => {

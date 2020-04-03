@@ -164,11 +164,13 @@
 
 .session-errors {
   position: absolute;
-  bottom: 20px;
+  bottom: 15px;
+  left: 85px;
+  text-align: center;
+  width: 220px;
   li {
     font-size: 12px;
   }
-  
 }
 
 #signup,

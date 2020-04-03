@@ -18,19 +18,23 @@ Bills tracker
 
 ![](https://media.giphy.com/media/L0NP9OSV0mbYBs5jz3/giphy.gif)
 
-Events calendar
-![]()
+Drag & drop events calendar
+
+![](https://media.giphy.com/media/f74j3Nef8l82LmGJB8/giphy.gif)
 
 
 ## Technologies
 
-### MERN Stack
+**MERN Stack**
+
 Backend: Node.js, Express.js, MongoDB
+
 Frontend: React.js, Redux.js
 
 
 ## Developers
-* [Sara Sampson](_)
-* [Steven Davies]()
-* [Stephane Meyering]()
+
+* [Sara Sampson](https://github.com/sara-ls)
+* [Steven Davies](https://github.com/s-davies)
+* [Stephane Meyering](https://github.com/steph-meyering)
 

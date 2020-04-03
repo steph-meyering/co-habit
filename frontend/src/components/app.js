@@ -13,6 +13,7 @@ import NonSplash from "./nonsplash";
 
 const App = () => (
   <div className="app">
+    {/* split splash page from other pages because other pages have shared formatting */}
     <Switch>
 
         <AuthRoute exact path="/" component={SplashPageContainer} />
