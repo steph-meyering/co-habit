@@ -10,28 +10,12 @@ class SplashPage extends React.Component {
       containerCls: "container"
     };
 
-    this.changeFormType = this.changeFormType.bind(this);
-  }
-
-  changeFormType() {
-    if (this.state.formType === "login") {
-      this.setState({ formType: "signup" });
-    } else {
-      this.setState({ formType: "login" });
-    }
   }
 
   componentDidMount() {
     this.props.getHouseholds();
   }
 
-  changeFormType() {
-    if (this.state.formType === "login") {
-      this.setState({ formType: "signup" });
-    } else {
-      this.setState({ formType: "login" });
-    }
-  }
   //trigger css transition and show other form
   changeContainerCls(e) {
     if (e.target.id === "signUp") {
