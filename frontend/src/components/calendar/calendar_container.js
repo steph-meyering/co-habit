@@ -6,17 +6,18 @@ import moment from "moment";
 import { getUsers } from '../../actions/user_actions';
 
 const mapStateToProps = (state) => {
+  //get array of all chores
   let chores = Object.values(state.entities.chores);
   let dueDateEvents = [];
+  //iterate though all chores and create an event-like object that
+  //the calendar will be able to render
   for (let i = 0; i < chores.length; i++) {
+    //create shallow copy of chore
     const chore = Object.assign({}, chores[i]);
     for (let j = 0; j < chore.dueDate.length; j++) {
       let ddate = chore.dueDate[j];
-      // if (j === 0) {
-      //   ddate = moment(new Date(ddate)).add(1, "hours").toDate();
-      // } else {
-      //   ddate = new Date(ddate);
-      // }
+      //use moment library to add 8 hours to the chore's due date because
+      //the chore's due date currently is 8 hours behind as received
       ddate = moment(new Date(ddate)).add(8, "hours").toDate();
       let dueDateEvent = {
         allDay: true,
@@ -32,9 +33,11 @@ const mapStateToProps = (state) => {
       dueDateEvents.push(dueDateEvent);
     }
   }
-
+  //join chores and events so the render function can iterate through
+  //all at the same time and treat them the same way
   let allEvents = Object.values(state.entities.events).concat(dueDateEvents);
-  // const colors = ["#F4976C", "#FBE8A6", "#303C6C", "#B4DFE5", "#D2FDFF"];
+  //set constant colors so that each user always has the same
+  //color on the calendar
   const colors = [
     "#88C9C9",
     "#7AD3B7",
@@ -47,6 +50,8 @@ const mapStateToProps = (state) => {
     "#031a6b",
   ];
   const users = Object.keys(state.entities.users);
+  //assign an event or event-like chore object a color; users will always be
+  //fetched in the same order, so they will receive the same color
   if (users.length > 0) {
     for (let i = 0; i < allEvents.length; i++) {
       const event = allEvents[i];

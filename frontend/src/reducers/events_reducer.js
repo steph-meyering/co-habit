@@ -3,6 +3,7 @@ import { RECEIVE_EVENTS, REMOVE_EVENT, RECEIVE_EVENT } from '../actions/event_ac
 const EventsReducer = (state = {}, action) => {
   Object.freeze(state);
   let newState = Object.assign({}, state);
+  // convert strings back into dates
   switch (action.type) {
     case RECEIVE_EVENTS:
       newState = {}
