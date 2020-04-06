@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { updateChore, deleteChore } from "../../actions/chore_actions";
-import moment from "moment";
 import Fade from "react-reveal/Fade";
+
 class UpdateChoreForm extends React.Component {
   constructor(props) {
     super(props);

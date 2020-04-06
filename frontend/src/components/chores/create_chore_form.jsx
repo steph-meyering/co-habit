@@ -16,7 +16,7 @@ class CreateChoreForm extends React.Component {
       recurring: "weekly",
       // Set default due date to 1 week from now
       dueDate: new Date(moment().add(7, "days")).toISOString().substr(0, 10),
-      show: this.props.show
+      show: this.props.show,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,9 +24,10 @@ class CreateChoreForm extends React.Component {
   }
 
   update(field) {
-    return e => {
+    return (e) => {
+      if (field === "recurring") console.log(e.currentTarget.value);
       this.setState({
-        [field]: e.currentTarget.value
+        [field]: e.currentTarget.value,
       });
     };
   }
@@ -45,7 +46,7 @@ class CreateChoreForm extends React.Component {
         household: this.props.currentUser.household,
         difficulty: 1,
         recurring: "weekly",
-        dueDate: new Date(moment().add(7, "days")).toISOString().substr(0, 10)
+        dueDate: new Date(moment().add(7, "days")).toISOString().substr(0, 10),
       })
     );
   }
@@ -100,45 +101,17 @@ class CreateChoreForm extends React.Component {
             onChange={this.update("dueDate")}
           />
           <br />
-          <label>Recurring? </label>
-          <div className="radio">
-            <label>
-              <input
-                type="radio"
-                value="daily"
-                checked={this.state.recurring === "daily"}
-                onChange={this.update("recurring")}
-              />
-              Daily
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="weekly"
-                checked={this.state.recurring === "weekly"}
-                onChange={this.update("recurring")}
-              />
-              Every week
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="biweekly"
-                checked={this.state.recurring === "biweekly"}
-                onChange={this.update("recurring")}
-              />
-              Every 2 weeks
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="never"
-                checked={this.state.recurring === "never"}
-                onChange={this.update("recurring")}
-              />
-              Never
-            </label>
-          </div>
+          <label>Repeat? </label>
+          <select
+            id="recurring"
+            name="recurring"
+            onChange={this.update("recurring")}
+          >
+            <option value="daily">Daily</option>
+            <option value="weekly">Every week</option>
+            <option value="biweekly">Every 2 weeks</option>
+            <option value="never">Never</option>
+          </select>
           <br />
           <button className="bold-btn" type="submit">
             Add New Chore
@@ -156,12 +129,12 @@ const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.session.user,
     errors: state.errors.chores,
-    show: ownProps.show
+    show: ownProps.show,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  createNewChore: chore => dispatch(createNewChore(chore))
+const mapDispatchToProps = (dispatch) => ({
+  createNewChore: (chore) => dispatch(createNewChore(chore)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateChoreForm);
