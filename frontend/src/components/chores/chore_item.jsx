@@ -9,19 +9,16 @@ class ChoreItem extends React.Component {
     this.state = {
       showUpdateForm: false,
       showDetails: false,
-      checked: this.props.chore.complete
+      checked: this.props.chore.complete,
     };
     this.toggleShowForm = this.toggleShowForm.bind(this);
     this.updateRecurring = this.updateRecurring.bind(this);
     this.toggleDetails = this.toggleDetails.bind(this);
+    this.updateChecked = this.updateChecked.bind(this);
   }
 
   updateRecurring() {
-    let {
-      recurring,
-      dueDate,
-      complete
-    } = this.props.chore;
+    let { recurring, dueDate, complete } = this.props.chore;
 
     let now = moment.utc().add(1, "days");
     let firstDuedate = moment.utc(this.props.chore.dueDate[0]);
@@ -56,7 +53,7 @@ class ChoreItem extends React.Component {
       updatedChore.complete = false;
       this.props.updateChore(updatedChore);
       this.setState({
-        checked: false
+        checked: false,
       });
     }
   }
@@ -64,14 +61,21 @@ class ChoreItem extends React.Component {
   toggleShowForm() {
     this.setState({
       showUpdateForm: !this.state.showUpdateForm,
-      showDetails: false
+      showDetails: false,
     });
   }
 
   toggleDetails() {
     this.setState({
-      showDetails: !this.state.showDetails
+      showDetails: !this.state.showDetails,
     });
+  }
+
+  updateChecked(e) {
+    let updatedChore = this.props.chore;
+    updatedChore.complete = !this.state.checked;
+    this.setState({ checked: updatedChore.complete });
+    this.props.updateChore(updatedChore);
   }
 
   render() {
@@ -82,9 +86,9 @@ class ChoreItem extends React.Component {
       difficulty,
       recurring,
       dueDate,
-      complete
+      complete,
     } = this.props.chore;
-    
+
     let now = moment.utc().subtract(1, "days");
     let firstDuedate = moment.utc(dueDate[0]);
 
@@ -99,96 +103,87 @@ class ChoreItem extends React.Component {
         : "transparent";
 
     return (
-        <li className={`chores-list-item ${bgdColor}`}>
-          <div className="chore-row">
-            <div
-              className="checkbox-container"
-              onClick={e => {
-                e.preventDefault();
-                let updatedChore = this.props.chore;
-                updatedChore.complete = !this.state.checked;
-                this.props.updateChore(updatedChore);
-                this.setState({ checked: !this.state.checked });
-              }}
-            >
-              <input
-                type="checkbox"
-                value={this.state.checked}
-                defaultChecked={this.state.checked}
-              />
+      <li className={`chores-list-item ${bgdColor}`}>
+        <div className="chore-row">
+          <div className="checkbox-container" onClick={this.updateChecked}>
+            <input
+              type="checkbox"
+              value={this.state.checked}
+              checked={this.state.checked}
+            />
 
-              <label className="label-cbx">
-                <span></span>
-                {title}
-              </label>
-            </div>
+            <label className="label-cbx">
+              <span></span>
+              {title}
+            </label>
+          </div>
+          <div>
+            {assignedUser
+              ? this.props.housemates[assignedUser].name
+              : "unassigned"}
+          </div>
+          <div className="red">
+            {firstDuedate.isBefore(now) && !complete ? " OVERDUE " : ""}
+          </div>
+          <div>Due {firstDuedate.from(now)}</div>
+          <div className="toggle-btns">
             <div>
-              {assignedUser
-                ? this.props.housemates[assignedUser].name
-                : "unassigned"}
-            </div>
-            <div className="red">
-              {firstDuedate.isBefore(now) && !complete ? " OVERDUE " : ""}
-            </div>
-            <div>Due {firstDuedate.from(now)}</div>
-            <div className="toggle-btns">
-              <div>
-                {this.state.showUpdateForm ? (
-                  <>
+              {this.state.showUpdateForm ? (
+                <>
+                  <button
+                    onClick={this.toggleShowForm}
+                    className="edit-chore light"
+                  >
+                    X
+                  </button>
+                </>
+              ) : (
+                <>
+                  {this.state.showDetails ? (
                     <button
-                      onClick={this.toggleShowForm}
-                      className="edit-chore light"
+                      onClick={this.toggleDetails}
+                      className="details-chore light"
                     >
-                      X
+                      Hide Details
                     </button>
-                  </>
-                ) : (
-                  <>
-                    {this.state.showDetails ? (
-                      <button
-                        onClick={this.toggleDetails}
-                        className="details-chore light"
-                      >
-                        Hide Details
-                      </button>
-                    ) : (
-                      <button
-                        onClick={this.toggleDetails}
-                        className="details-chore light"
-                      >
-                        Show Details
-                      </button>
-                    )}
+                  ) : (
                     <button
-                      onClick={this.toggleShowForm}
-                      className="edit-chore light"
-                      id="edit-chore"
+                      onClick={this.toggleDetails}
+                      className="details-chore light"
                     >
-                      Edit
+                      Show Details
                     </button>
-                  </>
-                )}
-              </div>
+                  )}
+                  <button
+                    onClick={this.toggleShowForm}
+                    className="edit-chore light"
+                    id="edit-chore"
+                  >
+                    Edit
+                  </button>
+                </>
+              )}
             </div>
           </div>
-          {/* Show update form or details under the chore item row */}
-          <div className="below chore-row">
-            {this.state.showUpdateForm ? (
-              <UpdateChoreForm
-                chore={this.props.chore}
-                closeUpdateForm={this.toggleShowForm}
-              />
-            ) : null}
-            {this.state.showDetails ? (
-              <Fade>
-                <div>{description}</div>
-                <div>Difficulty: {difficulty}</div>
-                <div>Repeat: {recurring}</div>
-                <div>{this.state.checked ? "Done!" : "Incomplete"}</div>
-              </Fade>
-            ) : null}
-          </div>
-        </li>
+        </div>
+        {/* Show update form or details under the chore item row */}
+        <div className="below chore-row">
+          {this.state.showUpdateForm ? (
+            <UpdateChoreForm
+              chore={this.props.chore}
+              closeUpdateForm={this.toggleShowForm}
+            />
+          ) : null}
+          {this.state.showDetails ? (
+            <Fade>
+              <div>{description}</div>
+              <div>Difficulty: {difficulty}</div>
+              <div>Repeat: {recurring}</div>
+              <div>{this.state.checked ? "Done!" : "Incomplete"}</div>
+            </Fade>
+          ) : null}
+        </div>
+      </li>
     );
   }
 }

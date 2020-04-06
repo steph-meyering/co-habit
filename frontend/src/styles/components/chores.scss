@@ -245,6 +245,10 @@ li.shaded {
   border: 1px solid #849ca5;
   padding: 10px;
   margin-bottom: 10px;
+
+  select#recurring {
+    margin-left: 10px;
+  }
 }
 
 .no-chores {
