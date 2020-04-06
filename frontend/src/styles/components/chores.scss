@@ -20,6 +20,7 @@ label {
     transition: background-color 150ms 200ms, transform 350ms cubic-bezier(.78, -1.22, .17, 1.89);
 
     //create lines of checkmark using pseudo elements
+
     &:before {
       content: "";
       width: 0px;
@@ -46,6 +47,7 @@ label {
       left: 6px;
     }
 
+    // draw checkmark hover animation
     &:hover {
       cursor: pointer;
 
@@ -72,6 +74,7 @@ input[type="date"] {
 #create-chore {
   .radio {
     margin-left: 10px;
+
     label {
       margin-left: 10px;
       padding: 5px;
@@ -138,15 +141,21 @@ input[type="checkbox"] {
   flex-direction: column;
   margin: 10px 0;
   padding: 5px;
+  display: grid;
+
 
   .chore-row {
-    display: flex;
-    justify-content: space-between;
-    overflow: hidden;
+    display: grid;
+    grid-template-columns: 30% 10% 12% 20% 28%;
     align-items: center;
+    overflow: hidden;
   }
 
   .below {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+
     margin-left: 30px;
     margin-top: 10px;
 
@@ -169,7 +178,6 @@ input[type="checkbox"] {
     margin: 5 15px 5 0;
   }
 }
-
 
 .checkbox-container {
   display: flex;
@@ -223,9 +231,9 @@ li.shaded {
 }
 
 .chores-page {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
+  display: grid;
+  // flex-direction: column;
+  // align-content: center;
 
   .chores-list-container {
     width: 100%;
@@ -238,7 +246,6 @@ li.shaded {
   padding: 10px;
   margin-bottom: 10px;
 }
-
 
 .no-chores {
   margin-bottom: 10px;
