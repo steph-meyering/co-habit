@@ -11,16 +11,20 @@
 	-ms-animation: fadein 2s;
 	/* Internet Explorer */
 	animation: fadein 2s;
+	height: 100vh;
+	width: 100vw;
 }
 
 .splash .fas {
-	font-size: 20px;
+	font-size: 1em;
 	margin-left: 10px;
 }
 
 .splash footer {
 	color: $black;
 	margin-bottom: 10px;
+	position: fixed;
+	bottom: 1em;
 
 	i:hover {
 		color: $gray;
@@ -34,9 +38,9 @@
 
 .splash>p {
 	color: $black;
-	font-size: 24px;
-	opacity: 100%;
-	margin-top: 20px;
+	font-size: 20px;
+	margin-top: 10px;
+	text-align: center;
 }
 
 @keyframes fadein {
@@ -91,10 +95,9 @@
 }
 
 .splash img {
-	// filter: invert(100%); 
-	// -webkit-filter:invert(100%) opacity(60%); 
 	max-height: 85px;
 	width: auto;
+	max-width: 90vw;
 	margin-top: 20px;
 }
 
@@ -103,7 +106,7 @@
 }
 
 .container {
-	margin-top: 50px;
+	margin-top: 2em;
 }
 
 .container h1 {
@@ -118,7 +121,7 @@
 .container p {
 	font-size: 14px;
 	font-weight: 100;
-	line-height: 20px;
+	line-height: 18px;
 	letter-spacing: 0.5px;
 	margin: 20px 0 30px;
 }
@@ -232,8 +235,8 @@
 	position: relative;
 	overflow: hidden;
 	width: 768px;
-	max-width: 100%;
-	min-height: 480px;
+	max-width: 100vw;
+	min-height: 50vh;
 }
 
 .form-container {
@@ -311,6 +314,7 @@
 	width: 200%;
 	transform: translateX(0);
 	transition: transform 0.6s ease-in-out;
+
 }
 
 .container.right-panel-active .overlay {
@@ -347,4 +351,57 @@
 
 .container.right-panel-active .overlay-right {
 	transform: translateX(20%);
+}
+
+@media screen and (max-width: 700px) {
+	.container {
+		.overlay p {
+			display: none;
+		}
+
+		h1,
+		h2 {
+			font-size: 18px;
+			margin-bottom: 5px;
+		}
+
+		form {
+			padding: 0 1em;
+		}
+
+
+		input {
+			padding: 10px 4px;
+			margin-bottom: 2px;
+			font-size: 12px;
+		}
+
+		button {
+			font-size: 15px;
+			padding: 10px 5px;
+		}
+	}
+
+}
+
+@media screen and (max-width: 500px) {
+	.overlay div {
+		padding: 2px 5px;
+	}
+
+	footer span {
+		display: block;
+
+		text-transform: capitalize;
+		text-align: center;
+
+		* {
+			font-size: 10px;
+			line-height: 1em;
+		}
+
+		.fab {
+			display: none;
+		}
+	}
 }

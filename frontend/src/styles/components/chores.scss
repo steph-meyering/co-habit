@@ -254,3 +254,10 @@ li.shaded {
 .no-chores {
   margin-bottom: 10px;
 }
+
+@media screen and (max-width: 500px) {
+  .chores-list-item .chore-row {
+    display: block;
+  }
+
+}
