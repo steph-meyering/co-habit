@@ -23,8 +23,7 @@
 }
 
 
-$colors: (
-    #88C9C9,
+$colors: (#88C9C9,
     #7AD3B7,
     #297373,
     #506C84,
@@ -32,14 +31,15 @@ $colors: (
     #edffff,
     #849ca5,
     #904e55,
-    #031a6b
-    );
+    #031a6b);
 
-.bill, .bill-form {
+.bill,
+.bill-form {
     padding: 10px;
     margin: 10px;
     border: 1px solid #849ca5;
     animation: slide-up 0.2s ease;
+
     & input {
         // ensure input fields don't stretch out of container div on narrow screens
         width: -webkit-fill-available;
@@ -56,7 +56,8 @@ $colors: (
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: slide-up 0.4s ease-in;;
+    animation: slide-up 0.4s ease-in;
+    ;
 
 }
 
@@ -66,8 +67,20 @@ $colors: (
         opacity: 0;
         transform: translateY(-60px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .bills-container {
+        flex-direction: column-reverse;
+        align-items: center;
+
+        div, ul {
+            width: 90%;
+        }
     }
 }
