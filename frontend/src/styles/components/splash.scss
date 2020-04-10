@@ -361,7 +361,7 @@ footer {
 
 		input {
 			padding: 10px 4px;
-			margin-bottom: 2px;
+			margin: 2px;
 			font-size: 12px;
 		}
 
@@ -410,6 +410,23 @@ footer {
 	footer * {
 		font-size: 14px;
 	}
+
+	.splash {
+
+		h1,
+		h2 {
+			margin-bottom: 2;
+		}
+
+		.sign-up-container h1 {
+			display: none;
+		}
+
+		input {
+			margin: 4px 0;
+			padding-bottom: 4px;
+		}
+	}
 }
 
 @media screen and (max-height: 620px) {
@@ -418,4 +435,15 @@ footer {
 		margin-top: 1em;
 	}
 
+}
+
+@media screen and (max-height: 540px) {
+
+	.splash p {
+		display: none;
+	}
+
+	.container {
+		min-height: 75vh;
+	}
 }
