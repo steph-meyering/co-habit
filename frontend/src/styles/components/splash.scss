@@ -415,16 +415,8 @@ footer {
 
 		h1,
 		h2 {
+			font-size: 17px;
 			margin-bottom: 2;
-		}
-
-		.sign-up-container h1 {
-			display: none;
-		}
-
-		input {
-			margin: 4px 0;
-			padding-bottom: 4px;
 		}
 	}
 }
@@ -435,9 +427,18 @@ footer {
 		margin-top: 1em;
 	}
 
+	.splash input {
+		margin: 4px 0;
+		padding-bottom: 4px;
+	}
+
+
 }
 
 @media screen and (max-height: 540px) {
+	.sign-up-container h1 {
+		display: none;
+	}
 
 	.splash p {
 		display: none;
@@ -445,5 +446,8 @@ footer {
 
 	.container {
 		min-height: 75vh;
+
+		margin-top: 0.2em;
+
 	}
 }
