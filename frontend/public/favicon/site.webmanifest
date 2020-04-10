@@ -1,0 +1,7 @@
+{
+  "name": "CO-HABIT Housemates App",
+  "short_name": "CO-HABIT",
+  "theme_color": "#b6e5e5",
+  "start_url": ".",
+  "display": "standalone"
+}
