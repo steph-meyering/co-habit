@@ -87,7 +87,7 @@ class BillsIndex extends React.Component {
                   ogColor: entry.color,
                   ogTitle: entry.title,
                   color: "#afe0ce",
-                  title: `${entry.value}$`,
+                  title: `$${entry.value}`,
                   style: {
                     ...entry.style,
                     strokeWidth: 10,
