@@ -27,7 +27,6 @@ class BillsIndex extends React.Component {
   }
 
   calcPieData() {
-
     // create an object with the id's and names of all housemates in current household
     let names = {};
     for (const user in this.props.housemates) {
@@ -48,14 +47,16 @@ class BillsIndex extends React.Component {
     ];
 
     // sum the amount each housemate has logged
-    let paidEach = {};
+    let userTotal = {};
+    // keep track of individual bills with their IDs (necessary to update pie chart without recalculating everything)
+    let bills = {};
 
     for (const bill of this.props.bills) {
-      if (paidEach[bill.user]) {
-        paidEach[bill.user] += bill.amount;
-      } else {
-        paidEach[bill.user] = bill.amount;
+      if (!userTotal[bill.user]){
+        userTotal[bill.user] = 0;
       }
+      userTotal[bill.user] += bill.amount;
+      bills[bill._id] = bill.amount;
     }
 
     // shape pieData into PieChart format and add color for each house mate
@@ -63,9 +64,10 @@ class BillsIndex extends React.Component {
     for (const name in names) {
       pieData.push({
         title: names[name],
-        value: paidEach[name] || 0,
+        value: userTotal[name] || 0,
         color: colors.shift(),
-        userId: name
+        userId: name,
+        bills
       });
     }
     this.props.updatePieChart(pieData);    

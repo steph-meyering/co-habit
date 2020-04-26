@@ -57,6 +57,7 @@ class BillForm extends React.Component {
             />
             <br />
             <h2>Bill total:</h2>
+            <p className='bill-form-dollar'>$</p>
             <input
               type="text"
               value={this.state.amount}
