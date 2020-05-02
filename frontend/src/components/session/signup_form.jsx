@@ -52,9 +52,6 @@ class SignupForm extends React.Component {
   }
 
   render() {
-    const existingHousehold = this.props.householdNames.has(
-      this.state.housename
-    );
     return (
       <form onSubmit={this.handleSubmit}>
         <h1>Sign Up</h1>
@@ -88,13 +85,6 @@ class SignupForm extends React.Component {
           onChange={this.update("housename")}
           placeholder="Household Name"
         />
-        <span>
-          {/* {this.state.housename.length < 2
-            ? ""
-            : existingHousehold
-            ? "Join"
-            : ""} */}
-        </span>
         <button type="submit" id="signup">Sign Up</button>
         {this.renderErrors()}
       </form>
