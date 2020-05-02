@@ -18,7 +18,7 @@ class BillForm extends React.Component {
     };
   }
 
-  // dispatch createBill and reset state to blank if bill created successfully
+  // dispatch createBill and reset form state to blank if bill created successfully
 
   handleSubmit(e) {
     e.preventDefault();
