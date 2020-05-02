@@ -70,7 +70,7 @@ class BillsIndex extends React.Component {
         bills
       });
     }
-    this.props.updatePieChart(pieData);    
+    this.props.updatePieChart(pieData);
   }
 
   pieChart() {
